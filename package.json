@@ -24,13 +24,15 @@
   "dependencies": {
     "@medusajs/admin-sdk": "2.7.0",
     "@medusajs/cli": "2.7.0",
-    "@medusajs/framework": "2.7.0",
-    "@medusajs/medusa": "2.7.0",
+    "@medusajs/framework": "^2.7.1",
+    "@medusajs/medusa": "^2.7.0",
+    "@medusajs/utils": "^2.7.1",
     "@mikro-orm/core": "6.4.3",
     "@mikro-orm/knex": "6.4.3",
     "@mikro-orm/migrations": "6.4.3",
     "@mikro-orm/postgresql": "6.4.3",
     "awilix": "^8.0.1",
+    "medusa-plugin-category-images": "^1.0.18",
     "medusa-storage-supabase": "^0.1.7",
     "pg": "^8.13.0"
   },

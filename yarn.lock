@@ -3095,18 +3095,18 @@
   resolved "https://registry.npmjs.org/@medusajs/file/-/file-2.7.0.tgz"
   integrity sha512-6LBSuCB03BDk4YqXx5KRIILQewII2SmXZ9Me0PHfAB9yixrpjJqZb3rIZbHoq+Ho6q2NvOLjlhZwroZK7fQPBQ==
 
-"@medusajs/framework@2.7.0":
-  version "2.7.0"
-  resolved "https://registry.npmjs.org/@medusajs/framework/-/framework-2.7.0.tgz"
-  integrity sha512-W2E8EyG+LYRUnchwrh8EFHWyg2VGsF5x24Xs8gjoUnSIrPZz9bzfdCe2XG2Is6G3oMOZpr1MVDWOaeFVOcwHbw==
+"@medusajs/framework@^2.7.1":
+  version "2.7.1"
+  resolved "https://registry.npmjs.org/@medusajs/framework/-/framework-2.7.1.tgz"
+  integrity sha512-0bkJvGKGvl+RMJfvTFMYAi5L2fk5o85ndPgZuNa1PU5VDJu7gLDWqyCjg+Sy3noOg8hiexVRQ1xFLfGeF0yVig==
   dependencies:
     "@jercle/yargonaut" "^1.1.5"
-    "@medusajs/modules-sdk" "2.7.0"
-    "@medusajs/orchestration" "2.7.0"
-    "@medusajs/telemetry" "2.7.0"
-    "@medusajs/types" "2.7.0"
-    "@medusajs/utils" "2.7.0"
-    "@medusajs/workflows-sdk" "2.7.0"
+    "@medusajs/modules-sdk" "2.7.1"
+    "@medusajs/orchestration" "2.7.1"
+    "@medusajs/telemetry" "2.7.1"
+    "@medusajs/types" "2.7.1"
+    "@medusajs/utils" "2.7.1"
+    "@medusajs/workflows-sdk" "2.7.1"
     "@opentelemetry/api" "^1.9.0"
     "@types/express" "^4.17.17"
     chokidar "^3.4.2"
@@ -3196,7 +3196,7 @@
     retry-axios "^2.6.0"
     uuid "^9.0.0"
 
-"@medusajs/medusa@2.7.0":
+"@medusajs/medusa@^2.7.0":
   version "2.7.0"
   resolved "https://registry.npmjs.org/@medusajs/medusa/-/medusa-2.7.0.tgz"
   integrity sha512-fiR+16QNEIX4YRWLdygMws+W3PrpENPRasQmdx0kT/kE8iCJUC71nOtVQMTmTfGexxUJA9oo8iXG3EOIt3S7Qg==
@@ -3262,14 +3262,14 @@
     uuid "^9.0.0"
     zod "3.22.4"
 
-"@medusajs/modules-sdk@2.7.0":
-  version "2.7.0"
-  resolved "https://registry.npmjs.org/@medusajs/modules-sdk/-/modules-sdk-2.7.0.tgz"
-  integrity sha512-zQMH3KeTzhH9d/1/G7Gbx1tdpnHuwLZTQkKy2R0aikummJwdRDnXRflfSRUr4aY4/fbG+VDz7NeBFjmhX9JJDQ==
+"@medusajs/modules-sdk@2.7.1":
+  version "2.7.1"
+  resolved "https://registry.npmjs.org/@medusajs/modules-sdk/-/modules-sdk-2.7.1.tgz"
+  integrity sha512-4FHzYvQNm7Ul/iQM1Fth2SU3LWz4aRh0HTEaVnD6t0gB6zQwGzVpGW2IPJy3pncQx6Aj2beQtov8QGVHKx2E4w==
   dependencies:
-    "@medusajs/orchestration" "2.7.0"
-    "@medusajs/types" "2.7.0"
-    "@medusajs/utils" "2.7.0"
+    "@medusajs/orchestration" "2.7.1"
+    "@medusajs/types" "2.7.1"
+    "@medusajs/utils" "2.7.1"
 
 "@medusajs/notification-local@2.7.0":
   version "2.7.0"
@@ -3288,13 +3288,13 @@
   resolved "https://registry.npmjs.org/@medusajs/notification/-/notification-2.7.0.tgz"
   integrity sha512-6OB5Wjb93cqWzb8Goh6B3uCJ21UvVVu1j2IE6ls6WkXjUPsKoqmXBgg7l6k/Fx4WVk9dxSJrUlIUvVc10BcUYg==
 
-"@medusajs/orchestration@2.7.0":
-  version "2.7.0"
-  resolved "https://registry.npmjs.org/@medusajs/orchestration/-/orchestration-2.7.0.tgz"
-  integrity sha512-ozjHnCoHDn/zMc4aQIRIrRP85n/5/yHet0wT0uQMEkrdtJM9Q5+51roy/1szc5v6MlZsEMXRI9tm+UOHMYjIFA==
+"@medusajs/orchestration@2.7.1":
+  version "2.7.1"
+  resolved "https://registry.npmjs.org/@medusajs/orchestration/-/orchestration-2.7.1.tgz"
+  integrity sha512-Lm2XaSjDGaXGQnjJpiqUzncgn1JKfjITseOjNHy+3pqL6m6VamJASYn9ZZdI49ZGWw6tBnKYDd0qkQ3UY2NiwQ==
   dependencies:
-    "@medusajs/types" "2.7.0"
-    "@medusajs/utils" "2.7.0"
+    "@medusajs/types" "2.7.1"
+    "@medusajs/utils" "2.7.1"
 
 "@medusajs/order@2.7.0":
   version "2.7.0"
@@ -3369,6 +3369,22 @@
     remove-trailing-slash "^0.1.1"
     uuid "^8.3.2"
 
+"@medusajs/telemetry@2.7.1":
+  version "2.7.1"
+  resolved "https://registry.npmjs.org/@medusajs/telemetry/-/telemetry-2.7.1.tgz"
+  integrity sha512-peDj0hpBIOxWfupiUo/+CQoJ0aB0jpxR46BwoO0NwvUZPF2v/HwjX8iKmYuNvY+4jRe8MQjGA1SFIOfuhRXK+A==
+  dependencies:
+    "@babel/runtime" "^7.22.10"
+    axios "^0.21.4"
+    axios-retry "^3.1.9"
+    boxen "^5.0.1"
+    ci-info "^3.2.0"
+    configstore "5.0.1"
+    global "^4.4.0"
+    is-docker "^2.2.1"
+    remove-trailing-slash "^0.1.1"
+    uuid "^8.3.2"
+
 "@medusajs/test-utils@2.7.0":
   version "2.7.0"
   resolved "https://registry.npmjs.org/@medusajs/test-utils/-/test-utils-2.7.0.tgz"
@@ -3384,6 +3400,13 @@
   version "2.7.0"
   resolved "https://registry.npmjs.org/@medusajs/types/-/types-2.7.0.tgz"
   integrity sha512-2RRTRIDfwjmUy2MXjNmeKMnHPtu1bD7p7X+sR9Og9Ec+sNSvJczhXjA8PAX/AKXNdPLZqtO1++fdAxysc+eNRA==
+  dependencies:
+    bignumber.js "^9.1.2"
+
+"@medusajs/types@2.7.1":
+  version "2.7.1"
+  resolved "https://registry.npmjs.org/@medusajs/types/-/types-2.7.1.tgz"
+  integrity sha512-N1CXDwNRH2XnQBcMvtPgl9dWdCPaMGFZKT+Yduro9rhTrmuFDOJUtJpSM/fZIU5yA7RwJbrnnCWxBtJ0lQsEdA==
   dependencies:
     bignumber.js "^9.1.2"
 
@@ -3456,6 +3479,26 @@
   dependencies:
     jsonwebtoken "^9.0.2"
 
+"@medusajs/utils@^2.7.1", "@medusajs/utils@2.7.1":
+  version "2.7.1"
+  resolved "https://registry.npmjs.org/@medusajs/utils/-/utils-2.7.1.tgz"
+  integrity sha512-YIK1DrwfMp5ZyQCaVxN0LjC1qPvA99Cz9Nj+aTbdFDOA4LA+CYx4WJsT/NZCkC/6ff3EaRCL7U9JPDWVw5AlUQ==
+  dependencies:
+    "@graphql-codegen/core" "^4.0.2"
+    "@graphql-codegen/typescript" "^4.0.9"
+    "@graphql-tools/merge" "^9.0.7"
+    "@graphql-tools/schema" "^10.0.6"
+    "@medusajs/types" "2.7.1"
+    "@types/pluralize" "^0.0.33"
+    bignumber.js "^9.1.2"
+    dotenv "^16.4.5"
+    dotenv-expand "^11.0.6"
+    graphql "^16.9.0"
+    jsonwebtoken "^9.0.2"
+    pg-connection-string "^2.7.0"
+    pluralize "^8.0.0"
+    ulid "^2.3.0"
+
 "@medusajs/utils@2.7.0":
   version "2.7.0"
   resolved "https://registry.npmjs.org/@medusajs/utils/-/utils-2.7.0.tgz"
@@ -3493,15 +3536,15 @@
     ioredis "^5.4.1"
     ulid "^2.3.0"
 
-"@medusajs/workflows-sdk@2.7.0":
-  version "2.7.0"
-  resolved "https://registry.npmjs.org/@medusajs/workflows-sdk/-/workflows-sdk-2.7.0.tgz"
-  integrity sha512-TdnRjwgk0NSj8436gJLJenfSToB6+eLtozA33DYtcy0C+IKB1P9lFc45VrwjOGc8l2rGgzY0icJ9lVy6qFeAiQ==
+"@medusajs/workflows-sdk@2.7.1":
+  version "2.7.1"
+  resolved "https://registry.npmjs.org/@medusajs/workflows-sdk/-/workflows-sdk-2.7.1.tgz"
+  integrity sha512-P3W4s7uxM7AZCpOnZlpkZ9OqAKeNi5q1KJ79VEfWgNVuj04B1/tNk6YTtQTyNmgtOVLwV1+jXH3/1se2erBK8A==
   dependencies:
-    "@medusajs/modules-sdk" "2.7.0"
-    "@medusajs/orchestration" "2.7.0"
-    "@medusajs/types" "2.7.0"
-    "@medusajs/utils" "2.7.0"
+    "@medusajs/modules-sdk" "2.7.1"
+    "@medusajs/orchestration" "2.7.1"
+    "@medusajs/types" "2.7.1"
+    "@medusajs/utils" "2.7.1"
     ulid "^2.3.0"
 
 "@mikro-orm/cli@6.4.3":
@@ -8334,6 +8377,24 @@ bl@^4.1.0:
     inherits "^2.0.4"
     readable-stream "^3.4.0"
 
+body-parser@^1.19.0, body-parser@1.20.3:
+  version "1.20.3"
+  resolved "https://registry.npmjs.org/body-parser/-/body-parser-1.20.3.tgz"
+  integrity sha512-7rAxByjUMqQ3/bHJy7D6OGXvx/MMc4IqBn/X0fcM1QUcAItpZrBEYhWGem+tzXH90c+G01ypMcYJBO9Y30203g==
+  dependencies:
+    bytes "3.1.2"
+    content-type "~1.0.5"
+    debug "2.6.9"
+    depd "2.0.0"
+    destroy "1.2.0"
+    http-errors "2.0.0"
+    iconv-lite "0.4.24"
+    on-finished "2.4.1"
+    qs "6.13.0"
+    raw-body "2.5.2"
+    type-is "~1.6.18"
+    unpipe "1.0.0"
+
 body-parser@1.20.1:
   version "1.20.1"
   resolved "https://registry.npmjs.org/body-parser/-/body-parser-1.20.1.tgz"
@@ -8349,24 +8410,6 @@ body-parser@1.20.1:
     on-finished "2.4.1"
     qs "6.11.0"
     raw-body "2.5.1"
-    type-is "~1.6.18"
-    unpipe "1.0.0"
-
-body-parser@1.20.3:
-  version "1.20.3"
-  resolved "https://registry.npmjs.org/body-parser/-/body-parser-1.20.3.tgz"
-  integrity sha512-7rAxByjUMqQ3/bHJy7D6OGXvx/MMc4IqBn/X0fcM1QUcAItpZrBEYhWGem+tzXH90c+G01ypMcYJBO9Y30203g==
-  dependencies:
-    bytes "3.1.2"
-    content-type "~1.0.5"
-    debug "2.6.9"
-    depd "2.0.0"
-    destroy "1.2.0"
-    http-errors "2.0.0"
-    iconv-lite "0.4.24"
-    on-finished "2.4.1"
-    qs "6.13.0"
-    raw-body "2.5.2"
     type-is "~1.6.18"
     unpipe "1.0.0"
 
@@ -9983,7 +10026,7 @@ express-session@^1.17.3:
     safe-buffer "5.2.1"
     uid-safe "~2.1.5"
 
-express@^4.17.3, express@^4.21.0:
+express@^4.17.1, express@^4.17.3, express@^4.21.0:
   version "4.21.2"
   resolved "https://registry.npmjs.org/express/-/express-4.21.2.tgz"
   integrity sha512-28HqgMZAmih1Czt9ny7qr6ek2qddF4FclbMzwhCREB6OFfH+rXAnuNCwo1/wFvrtbgsQDb4kSbX9de9lFbrXnA==
@@ -12150,10 +12193,20 @@ media-typer@0.3.0:
   resolved "https://registry.npmjs.org/media-typer/-/media-typer-0.3.0.tgz"
   integrity sha512-dq+qelQ9akHpcOl/gUVRTxVIOkAJ1wR3QAvb4RsVjS8oVoFjDGTc679wJYmUmknUF5HwMLOgb5O+a3KxfWapPQ==
 
-medusa-core-utils@1.2.1:
+medusa-core-utils@^1.2.0, medusa-core-utils@1.2.1:
   version "1.2.1"
   resolved "https://registry.npmjs.org/medusa-core-utils/-/medusa-core-utils-1.2.1.tgz"
   integrity sha512-PBAm+5ODVcS9HREz7SH9LtiDY6/Fkwax+tqB5cTjujOiWSPuuj13ImH8eb9p6aVoOEvFtpDP4HL8TIijpJ6juw==
+
+medusa-plugin-category-images@^1.0.12, medusa-plugin-category-images@^1.0.18:
+  version "1.0.18"
+  resolved "https://registry.npmjs.org/medusa-plugin-category-images/-/medusa-plugin-category-images-1.0.18.tgz"
+  integrity sha512-y8MBPcfVkLzVzkhSyX6sTYlweTDYRE1YibQhikUBVFjQa06aOgpTwu5PJhhJh8zrjHQev7/EBIVfG6vofEtBSw==
+  dependencies:
+    body-parser "^1.19.0"
+    express "^4.17.1"
+    medusa-core-utils "^1.2.0"
+    medusa-plugin-category-images "^1.0.12"
 
 medusa-react@^9.0.18:
   version "9.0.18"
