@@ -1,5 +1,6 @@
 import { notFound } from "next/navigation"
 import { Suspense } from "react"
+import Image from "next/image"
 
 import InteractiveLink from "@modules/common/components/interactive-link"
 import SkeletonProductGrid from "@modules/skeletons/templates/skeleton-product-grid"
@@ -66,12 +67,22 @@ export default function CategoryTemplate({
         )}
         {category.category_children && (
           <div className="mb-8 text-base-large">
-            <ul className="grid grid-cols-1 gap-2">
+            <ul className="grid grid-cols-2 small:grid-cols-3 medium:grid-cols-4 gap-4">
               {category.category_children?.map((c) => (
-                <li key={c.id}>
+                <li key={c.id} className="relative">
+                  <div className="group">
                   <InteractiveLink href={`/categories/${c.handle}`}>
+                  {c.images?.[0]?.url && (
+                    <div className="aspect-[1/1] w-full overflow-hidden rounded-md bg-ui-bg-subtle">
+                      <Image src={c.images[0].url} alt={c.name} className="h-full w-full object-cover transition-transform group-hover: scale-105" width={300} height={300}/>
+                    </div>
+                  )}
+                  <span className="mt-2 block text-base-regular">
                     {c.name}
+                  </span>
+                    
                   </InteractiveLink>
+                  </div>
                 </li>
               ))}
             </ul>

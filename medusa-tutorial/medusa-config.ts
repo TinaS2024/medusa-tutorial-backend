@@ -14,15 +14,11 @@ module.exports = defineConfig({
     cookieSecret: process.env.COOKIE_SECRET || "supersecret",
     }
   },
-  plugins: [
-  {
-    resolve: "medusa-storage-supabase",
-    options: {
-      referenceID: process.env.STORAGE_BUCKET_REF,
-      serviceKey: process.env.STORAGE_SERVICE_KEY,
-      bucketName: process.env.STORAGE_BUCKET_NAME,
+  
+  modules: [
+    {
+      resolve: "./src/modules/bundled-product",
     },
-  },
-]
+  ],
 })
 

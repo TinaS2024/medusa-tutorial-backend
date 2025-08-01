@@ -295,7 +295,7 @@ const Shipping: React.FC<ShippingProps> = ({
             <div className="grid">
               <div className="flex flex-col">
                 <span className="font-medium txt-medium text-ui-fg-base">
-                  Store
+                  Shop
                 </span>
                 <span className="mb-4 text-ui-fg-muted txt-medium">
                   Choose a store near you

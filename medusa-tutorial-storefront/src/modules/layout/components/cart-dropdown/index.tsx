@@ -82,10 +82,10 @@ const CartDropdown = ({
       <Popover className="relative h-full">
         <PopoverButton className="h-full">
           <LocalizedClientLink
-            className="hover:text-ui-fg-base"
+            className=" text-white/70 hover:text-white"
             href="/cart"
             data-testid="nav-cart-link"
-          >{`Cart (${totalItems})`}</LocalizedClientLink>
+          >{`Warenkorb (${totalItems})`}</LocalizedClientLink>
         </PopoverButton>
         <Transition
           show={cartDropdownOpen}
@@ -103,7 +103,7 @@ const CartDropdown = ({
             data-testid="nav-cart-dropdown"
           >
             <div className="p-4 flex items-center justify-center">
-              <h3 className="text-large-semi">Cart</h3>
+              <h3 className="text-large-semi">Warenkorb</h3>
             </div>
             {cartState && cartState.items?.length ? (
               <>
@@ -151,7 +151,7 @@ const CartDropdown = ({
                                   data-testid="cart-item-quantity"
                                   data-value={item.quantity}
                                 >
-                                  Quantity: {item.quantity}
+                                  Anzahl: {item.quantity}
                                 </span>
                               </div>
                               <div className="flex justify-end">
@@ -168,7 +168,7 @@ const CartDropdown = ({
                             className="mt-1"
                             data-testid="cart-item-remove-button"
                           >
-                            Remove
+                            Artikel entfernen
                           </DeleteButton>
                         </div>
                       </div>
@@ -193,11 +193,11 @@ const CartDropdown = ({
                   </div>
                   <LocalizedClientLink href="/cart" passHref>
                     <Button
-                      className="w-full"
+                      className="w-full bg-orange-950 hover:bg-orange-900"
                       size="large"
                       data-testid="go-to-cart-button"
                     >
-                      Go to cart
+                      Zum Warenkorb
                     </Button>
                   </LocalizedClientLink>
                 </div>
@@ -208,7 +208,7 @@ const CartDropdown = ({
                   <div className="bg-gray-900 text-small-regular flex items-center justify-center w-6 h-6 rounded-full text-white">
                     <span>0</span>
                   </div>
-                  <span>Your shopping bag is empty.</span>
+                  <span>Ihr Warenkorb ist leer.</span>
                   <div>
                     <LocalizedClientLink href="/store">
                       <>

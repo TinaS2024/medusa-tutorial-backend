@@ -21,11 +21,10 @@ const Register = ({ setCurrentView }: Props) => {
       data-testid="register-page"
     >
       <h1 className="text-large-semi uppercase mb-6">
-        Become a Medusa Store Member
+        Konto-Registrierung
       </h1>
       <p className="text-center text-base-regular text-ui-fg-base mb-4">
-        Create your Medusa Store Member profile, and get access to an enhanced
-        shopping experience.
+        Registrieren Sie hier ein neues Konto um immer auf dem neusten Stand über neue Produkte sein zu können.
       </p>
       <form className="w-full flex flex-col" action={formAction}>
         <div className="flex flex-col w-full gap-y-2">
@@ -69,33 +68,33 @@ const Register = ({ setCurrentView }: Props) => {
         </div>
         <ErrorMessage error={message} data-testid="register-error" />
         <span className="text-center text-ui-fg-base text-small-regular mt-6">
-          By creating an account, you agree to Medusa Store&apos;s{" "}
+          Beim Erstellen eines neuen Kontos, müssen Sie unseren Geschäftsbedingungen und Nutzungsbedingungen zustimmen.
           <LocalizedClientLink
             href="/content/privacy-policy"
             className="underline"
           >
-            Privacy Policy
+            Geschäftsbedingungen,
           </LocalizedClientLink>{" "}
-          and{" "}
+       
           <LocalizedClientLink
             href="/content/terms-of-use"
             className="underline"
           >
-            Terms of Use
+            Nutzungsbedingungen
           </LocalizedClientLink>
           .
         </span>
-        <SubmitButton className="w-full mt-6" data-testid="register-button">
-          Join
+        <SubmitButton className="w-full mt-6 bg-orange-950 hover:bg-orange-900" data-testid="register-button">
+          jetzt registrieren
         </SubmitButton>
       </form>
       <span className="text-center text-ui-fg-base text-small-regular mt-6">
-        Already a member?{" "}
+        Haben Sie schon ein Konto?{" "}
         <button
           onClick={() => setCurrentView(LOGIN_VIEW.SIGN_IN)}
           className="underline"
         >
-          Sign in
+          Anmeldung
         </button>
         .
       </span>

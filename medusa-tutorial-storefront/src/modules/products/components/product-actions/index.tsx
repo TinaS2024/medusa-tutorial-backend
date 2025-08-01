@@ -150,15 +150,15 @@ export default function ProductActions({
             !isValidVariant
           }
           variant="primary"
-          className="w-full h-10"
+          className="w-full h-10 bg-orange-950 hover:bg-orange-900"
           isLoading={isAdding}
           data-testid="add-product-button"
         >
           {!selectedVariant && !options
-            ? "Select variant"
+            ? "Ausgewählte Variante"
             : !inStock || !isValidVariant
-            ? "Out of stock"
-            : "Add to cart"}
+            ? "Ausverkauft"
+            : "Zum Warenkorb hinzufügen"}
         </Button>
         <MobileActions
           product={product}

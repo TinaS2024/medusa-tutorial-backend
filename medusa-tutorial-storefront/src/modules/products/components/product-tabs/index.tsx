@@ -14,11 +14,11 @@ type ProductTabsProps = {
 const ProductTabs = ({ product }: ProductTabsProps) => {
   const tabs = [
     {
-      label: "Product Information",
+      label: "Produkt Information",
       component: <ProductInfoTab product={product} />,
     },
     {
-      label: "Shipping & Returns",
+      label: "Versand & Rücksendungen",
       component: <ShippingInfoTab />,
     },
   ]
@@ -61,11 +61,11 @@ const ProductInfoTab = ({ product }: ProductTabsProps) => {
         </div>
         <div className="flex flex-col gap-y-4">
           <div>
-            <span className="font-semibold">Weight</span>
+            <span className="font-semibold">Gewicht</span>
             <p>{product.weight ? `${product.weight} g` : "-"}</p>
           </div>
           <div>
-            <span className="font-semibold">Dimensions</span>
+            <span className="font-semibold">Größe</span>
             <p>
               {product.length && product.width && product.height
                 ? `${product.length}L x ${product.width}W x ${product.height}H`
@@ -85,31 +85,27 @@ const ShippingInfoTab = () => {
         <div className="flex items-start gap-x-2">
           <FastDelivery />
           <div>
-            <span className="font-semibold">Fast delivery</span>
+            <span className="font-semibold">Schnelle Lieferung</span>
             <p className="max-w-sm">
-              Your package will arrive in 3-5 business days at your pick up
-              location or in the comfort of your home.
+            Ihr Paket wird innerhalb von 3–5 Werktagen an Ihrem Abholort oder bequem bei Ihnen zu Hause eintreffen.
             </p>
           </div>
         </div>
         <div className="flex items-start gap-x-2">
           <Refresh />
           <div>
-            <span className="font-semibold">Simple exchanges</span>
+            <span className="font-semibold">Einfacher Austausch</span>
             <p className="max-w-sm">
-              Is the fit not quite right? No worries - we&apos;ll exchange your
-              product for a new one.
+            Passt es nicht ganz? Kein Problem – wir tauschen Ihr Produkt gegen ein neues um.
             </p>
           </div>
         </div>
         <div className="flex items-start gap-x-2">
           <Back />
           <div>
-            <span className="font-semibold">Easy returns</span>
+            <span className="font-semibold">Einfache Rücksendungen</span>
             <p className="max-w-sm">
-              Just return your product and we&apos;ll refund your money. No
-              questions asked – we&apos;ll do our best to make sure your return
-              is hassle-free.
+            Senden Sie Ihr Produkt einfach zurück und wir erstatten Ihnen Ihr Geld. Wir stellen keine Fragen – wir tun unser Bestes, um sicherzustellen, dass Ihre Rücksendung reibungslos verläuft.
             </p>
           </div>
         </div>

@@ -104,9 +104,36 @@ async function getCountryCode(
  * Middleware to handle region selection and onboarding status.
  */
 export async function middleware(request: NextRequest) {
+
   let redirectUrl = request.nextUrl.href
 
   let response = NextResponse.redirect(redirectUrl, 307)
+
+  //Umlaut handling
+  if (request.nextUrl.pathname.includes("/store/categories/")) 
+    {
+    const urlParts = request.nextUrl.pathname.split("/");
+    const handleIndex = urlParts.findIndex(part => part === "categories") + 1;
+
+    if (urlParts[handleIndex]) {
+      const convertedHandle = decodeURIComponent(urlParts[handleIndex])
+        .toLowerCase()
+        .replace(/ä/g, "ae")
+        .replace(/ö/g, "oe")
+        .replace(/ü/g, "ue")
+        .replace(/ß/g, "ss")
+        .replace(/[^a-z0-9]+/g, '-')
+        .replace(/(^-|-$)/g, '');
+
+      urlParts[handleIndex] = convertedHandle;
+      const newPathname = urlParts.join("/");
+
+      //Erstelle neue URL mit dem konvertierten Pfad
+      redirectUrl = `${request.nextUrl.origin}${newPathname}${request.nextUrl.search}`;
+      response = NextResponse.redirect(redirectUrl, 307);
+      return response;
+    }
+  }
 
   let cacheIdCookie = request.cookies.get("_medusa_cache_id")
 

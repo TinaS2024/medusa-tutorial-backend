@@ -18,7 +18,9 @@ export const listProducts = async ({
   countryCode?: string
   regionId?: string
 }): Promise<{
-  response: { products: HttpTypes.StoreProduct[]; count: number }
+  response: { products: (HttpTypes.StoreProduct & {
+  bundle?: Omit<BundleProduct, "items">
+  })[]; count: number }
   nextPage: number | null
   queryParams?: HttpTypes.FindParams & HttpTypes.StoreProductParams
 }> => {
@@ -54,7 +56,7 @@ export const listProducts = async ({
   }
 
   return sdk.client
-    .fetch<{ products: HttpTypes.StoreProduct[]; count: number }>(
+    .fetch<{ products: (HttpTypes.StoreProduct & { bundle?: Omit<BundleProduct, "items" >})[]; count: number }>(
       `/store/products`,
       {
         method: "GET",
@@ -133,4 +135,44 @@ export const listProductsWithSort = async ({
     nextPage,
     queryParams,
   }
+}
+
+export type BundleProduct = {
+  id: string
+  title: string
+  product: {
+    id: string
+    thumbnail: string
+    title: string
+    handle: string
+  }
+
+  items: {
+    id: string
+    title: string
+    product: HttpTypes.StoreProduct
+  }[]
+}
+
+
+export const getBundleProduct = async (id: string, {
+  currency_code,
+  region_id,
+}: {
+    currency_code?: string
+    region_id?: string
+}) => {
+
+  const headers = {...(await getAuthHeaders()),}
+
+
+  return sdk.client.fetch<{bundle_product: BundleProduct}>(`/store/bundle-products/${id}`, {
+
+    method: "GET",
+    headers,
+    query: {
+      currency_code,
+      region_id,
+    },
+  })
 }
