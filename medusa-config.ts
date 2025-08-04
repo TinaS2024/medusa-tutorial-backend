@@ -14,5 +14,11 @@ module.exports = defineConfig({
     cookieSecret: process.env.COOKIE_SECRET || "supersecret",
     }
   },
+  
+  modules: [
+    {
+      resolve: "./src/modules/bundled-product",
+    },
+  ],
 })
 
