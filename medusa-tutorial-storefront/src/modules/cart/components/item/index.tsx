@@ -13,6 +13,7 @@ import LocalizedClientLink from "@modules/common/components/localized-client-lin
 import Spinner from "@modules/common/icons/spinner"
 import Thumbnail from "@modules/products/components/thumbnail"
 import { useState } from "react"
+import { metadata } from "app/layout"
 
 type ItemProps = {
   item: HttpTypes.StoreCartLineItem
@@ -75,7 +76,9 @@ const Item = ({ item, type = "full", currencyCode }: ItemProps) => {
       {type === "full" && (
         <Table.Cell>
           <div className="flex gap-2 items-center w-28">
-            <DeleteButton id={item.id} data-testid="product-delete-button" />
+            <DeleteButton id={item.id} data-testid="product-delete-button" bundle_id={item.metadata?.bundle_id as string}>
+              {item.metadata?.bundle_id !== undefined ? "Entferne Bundle" : "Entfernen"}
+            </DeleteButton>
             <CartItemSelect
               value={item.quantity}
               onChange={(value) => changeQuantity(parseInt(value.target.value))}

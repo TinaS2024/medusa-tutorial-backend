@@ -521,3 +521,27 @@ export async function addBundleToCart({
     }).catch(medusaError)
 
 }
+
+export async function removeBundleFromCart(bundleId: string) 
+{
+  const cartId = await getCartId();
+  const headers = {...(await getAuthHeaders()),}
+
+  await sdk.client.fetch<HttpTypes.StoreCartResponse>(`/store/carts/${cartId}/line-item-bundles/${bundleId}`, 
+    {
+      method: "DELETE",
+      headers,
+    }
+  ).then(async () => {
+
+  const cartCacheTag = await getCacheTag("carts");
+
+  revalidateTag(cartCacheTag);
+
+  const fulfillmentCacheTag = await getCacheTag("fulfillment");
+
+  revalidateTag(fulfillmentCacheTag);
+
+  }).catch(medusaError)
+
+}
