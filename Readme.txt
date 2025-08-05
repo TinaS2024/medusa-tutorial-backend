@@ -14,4 +14,8 @@ CTRL+F5 im Browser verwenden für Frontend-Aktualisierung
 Erweiterungen: https://docs.medusajs.com/resources/recipes
 
 BundleProducts ->https://docs.medusajs.com/resources/recipes/bundled-products/examples/standard
-Bei 12. Punkt Stehen geblieben.
+
+Wichtig: 
+- Nach Erstellen oder Löschen eines Bundles muss der .next Ordner im Frontend gelöscht werden für das Leeren des Cache
+- Das Frontend und Backend kann man nun im Ordner Medusa gemeinsam starten mit npm run dev
+

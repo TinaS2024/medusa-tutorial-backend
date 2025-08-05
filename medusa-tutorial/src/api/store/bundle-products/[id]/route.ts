@@ -1,5 +1,7 @@
-import { MedusaRequest, MedusaResponse } from "@medusajs/framework/http";
+import { AuthenticatedMedusaRequest, MedusaRequest, MedusaResponse } from "@medusajs/framework/http";
 import { QueryContext } from "@medusajs/framework/utils";
+import BundledProductModuleService from "../../../../modules/bundled-product/service";
+import { ICacheService } from "@medusajs/framework/types";
 
 
 export async function GET(req: MedusaRequest,res: MedusaResponse) 
@@ -40,4 +42,21 @@ export async function GET(req: MedusaRequest,res: MedusaResponse)
 
   res.json({ bundle_product: data[0],})
 
+}
+
+export async function DELETE(req: AuthenticatedMedusaRequest,res: MedusaResponse)
+{
+    try{
+        const {id} = req.params;
+        const bundleService: BundledProductModuleService = req.scope.resolve("bundleService");
+        const cacheService: ICacheService = req.scope.resolve("cacheService");
+
+        await bundleService.deleteBundleItems(id);
+        await cacheService.invalidate("bundled-products");
+
+        res.json({id, deleted: true});
+    }catch (error){
+        console.error("Backend Error during bundle deletion:", error);
+        return res.status(500).json({message:`Failed to delete bundled product: ${error.message}`});
+    }
 }
