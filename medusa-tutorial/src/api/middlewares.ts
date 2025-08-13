@@ -3,6 +3,8 @@ import { PostBundledProductsSchema } from "./admin/bundled-products/route";
 import { validateAndTransformQuery } from "@medusajs/framework/http";
 import { createFindParams } from "@medusajs/medusa/api/utils/validators";
 import { PostCartsBundledLineItemsSchema} from "./store/carts/[id]/line-item-bundles/route";
+import { PostCustomPriceSchema } from "./store/variants/[id]/price/route";
+import { PostAddCustomLineItemSchema } from "./store/carts/[id]/line-items-custom/route";
 
 
 export default defineMiddlewares({
@@ -37,7 +39,20 @@ export default defineMiddlewares({
       middlewares: [
         validateAndTransformBody(PostCartsBundledLineItemsSchema),
       ],
-
-    }
+    },
+    {
+      matcher: "/store/variants/:id/price",
+      methods: ["POST"],
+      middlewares: [
+        validateAndTransformBody(PostCustomPriceSchema),
+      ]
+    },
+    {
+      matcher: "/store/carts/:id/line-items-custom",
+      methods: ["POST"],
+      middlewares: [
+        validateAndTransformBody(PostAddCustomLineItemSchema),
+      ],
+    },
   ],
 })

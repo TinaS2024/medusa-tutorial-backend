@@ -7,6 +7,7 @@ import { SortOptions } from "@modules/store/components/refinement-list/sort-prod
 import { getAuthHeaders, getCacheOptions } from "./cookies"
 import { getRegion, retrieveRegion } from "./regions"
 
+
 export const listProducts = async ({
   pageParam = 1,
   queryParams,
@@ -252,3 +253,30 @@ export const getBundleProduct = async (id: string, {
     },
   })
 }
+
+export const getCustomVariantPrice = async ({ 
+  variant_id,
+   region_id, 
+   metadata,
+  }: {
+    variant_id: string,
+    region_id: string,
+    metadata?: Record<string, any>
+  }) =>
+  {
+    const headers = {...(await getAuthHeaders()),}
+
+    return sdk.client.fetch<{price: number}>(`/store/variants/${variant_id}/price`,
+      {
+        method: "POST",
+        body: {
+          region_id,
+          metadata,
+        },
+        headers,
+        cache: "no-cache",
+      }
+    ).then(({price}) => price)
+  }
+
+  

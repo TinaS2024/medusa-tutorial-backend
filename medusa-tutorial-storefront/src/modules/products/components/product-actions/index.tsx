@@ -1,16 +1,18 @@
 "use client"
 
-import { addToCart } from "@lib/data/cart"
-import { useIntersection } from "@lib/hooks/use-in-view"
-import { HttpTypes } from "@medusajs/types"
-import { Button } from "@medusajs/ui"
-import Divider from "@modules/common/components/divider"
-import OptionSelect from "@modules/products/components/product-actions/option-select"
-import { isEqual } from "lodash"
-import { useParams } from "next/navigation"
-import { useEffect, useMemo, useRef, useState } from "react"
-import ProductPrice from "../product-price"
-import MobileActions from "./mobile-actions"
+import { addToCart } from "@lib/data/cart";
+import { useIntersection } from "@lib/hooks/use-in-view";
+import { HttpTypes } from "@medusajs/types";
+import { Button } from "@medusajs/ui";
+import Divider from "@modules/common/components/divider";
+import OptionSelect from "@modules/products/components/product-actions/option-select";
+import { isEqual } from "lodash";
+import { useParams } from "next/navigation";
+import { ChangeEvent, useEffect, useMemo, useRef, useState } from "react";
+import ProductPrice from "../product-price";
+import MobileActions from "./mobile-actions";
+import Input from "../../../common/components/input";
+
 
 type ProductActionsProps = {
   product: HttpTypes.StoreProduct
@@ -30,10 +32,30 @@ const optionsAsKeymap = (
 export default function ProductActions({
   product,
   disabled,
+  region,
 }: ProductActionsProps) {
-  const [options, setOptions] = useState<Record<string, string | undefined>>({})
-  const [isAdding, setIsAdding] = useState(false)
-  const countryCode = useParams().countryCode as string
+  const [options, setOptions] = useState<Record<string, string | undefined>>({});
+  const [isAdding, setIsAdding] = useState(false);
+  const countryCode = useParams().countryCode as string;
+
+  const canvasRef = useRef<HTMLCanvasElement>(null);
+  const fileInputRef = useRef<HTMLInputElement>(null);
+  const handleUploadClick = () =>{
+    fileInputRef.current?.click();
+  };
+  const [uploadedImageData, setUploadedImageData] = useState<string | null>(null);
+
+  const loadImage =(src: string): Promise<HTMLImageElement> => {
+    return new Promise((resolve, reject)=>{
+      const img = new Image();
+      img.onload = () => resolve(img);
+      img.onerror = (e) => reject(e);
+      img.src = src;
+    })
+  }
+
+  const [height,setHeight] = useState(0);
+  const [width,setWidth] = useState(0);
 
   // If there is only 1 variant, preselect the options
   useEffect(() => {
@@ -108,10 +130,85 @@ export default function ProductActions({
       variantId: selectedVariant.id,
       quantity: 1,
       countryCode,
+      metadata: {
+        width,
+        height,
+      },
     })
 
     setIsAdding(false)
   }
+
+  const drawImageOnCanvas = async (imageSrc: string) =>
+   {
+    const preview = canvasRef.current;
+    if(!preview) return;
+
+    const context = preview.getContext("2d");
+    if(!context) return;
+
+    try{
+      
+      const img = await loadImage(imageSrc);
+      context.clearRect(0,0, preview.width, preview.height);
+      context.drawImage(img, 0,0,preview.width, preview.height);
+      console.log("Bild erfolgreich auf Cancas gezeichnet.");
+    }catch(e){
+      console.error("Fehler beim Laden oder Zeichnen des Bildes.", e);
+
+    }
+  };
+
+  const handleChange = (e: ChangeEvent<HTMLInputElement>) =>
+  {
+    if(e.target.files && e.target.files[0])
+    {
+      const file = e.target.files[0];   
+      const reader = new FileReader();
+      reader.onload = (e) =>
+      {
+        const result = e.target?.result as string;
+        if(result)
+        {
+          setUploadedImageData(result);
+          drawImageOnCanvas(e.target?.result as string);
+        }
+      };
+      reader.readAsDataURL(file);
+    }
+  }
+
+  useEffect(()=>{
+    if(uploadedImageData)
+    {
+      const apiEndpoint = "/store/upload";
+
+      fetch(apiEndpoint, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          data: uploadedImageData,
+          product_id: product.id,
+        }),
+      })
+      .then(response =>{
+        if(!response.ok)
+        {
+          throw new Error(`Fehler beim Hochladen des Bildes: ${response.status}`);
+        }
+        return response.json();
+      })
+      .then(data =>{
+        console.log("Upload erfolgreich:", data);
+      })
+      .catch(error =>{
+        console.error("Fehler:", error);
+      });
+    }
+  }, [uploadedImageData, product.id]);
+
 
   return (
     <>
@@ -138,7 +235,47 @@ export default function ProductActions({
           )}
         </div>
 
-        <ProductPrice product={product} variant={selectedVariant} />
+        <div className="flex flex-col gap-y-2">
+        {!!product.metadata?.is_personalized && (
+          <div className="flex flex-col gap-y-3">
+            <span className="text-sm">Enter Dimensions</span>
+            <div className="flex gap-3">
+              <Input
+                name="width"
+                value={width}
+                onChange={(e) => setWidth(Number(e.target.value))}
+                label="Width (cm)"
+                type="number"
+                min={0}
+              />
+              <Input
+                name="height"
+                value={height}
+                onChange={(e) => setHeight(Number(e.target.value))}
+                label="Height (cm)"
+                type="number"
+                min={0}
+              />
+
+            </div>
+
+          </div>
+
+        )}
+
+      </div>
+
+        <ProductPrice product={product} variant={selectedVariant} region={region} metadata={{width,height}}/>
+
+        {product.metadata?.is_printOnDemand === true && (
+          <>
+          <canvas ref={canvasRef} width="50" height="50" className="border border-gray-300 mt-4 mb-2"/>
+          <input type="file" id="upload-image" accept="image/*" className="hidden" onChange={handleChange} ref={fileInputRef}/>
+          <label htmlFor="upload-image" className="w-full">
+            <Button className="w-full" onClick={handleUploadClick}>Upload Graphic</Button>
+          </label>
+          </>
+        )}
 
         <Button
           onClick={handleAddToCart}
@@ -147,7 +284,8 @@ export default function ProductActions({
             !selectedVariant ||
             !!disabled ||
             isAdding ||
-            !isValidVariant
+            !isValidVariant ||
+            (!!product.metadata?.is_personalized && (!width || !height))
           }
           variant="primary"
           className="w-full h-10 bg-orange-950 hover:bg-orange-900"

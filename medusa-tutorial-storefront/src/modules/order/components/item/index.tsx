@@ -28,6 +28,10 @@ const Item = ({ item, currencyCode }: ItemProps) => {
           {item.title}
         </Text>
         <LineItemOptions variant={item.variant} data-testid="product-variant" />
+         <div className="text-sm text-ui-fg-muted">
+          {!!item.metadata?.width && <div>Width: {item.metadata.width as number}cm</div>}
+          {!!item.metadata?.height && <div>Height: {item.metadata.height as number}cm</div>}
+        </div>
       </Table.Cell>
 
       <Table.Cell className="!pr-0">
