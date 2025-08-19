@@ -152,7 +152,7 @@ export default function ProductActions({
       const img = await loadImage(imageSrc);
       context.clearRect(0,0, preview.width, preview.height);
       context.drawImage(img, 0,0,preview.width, preview.height);
-      console.log("Bild erfolgreich auf Cancas gezeichnet.");
+      console.log("Bild erfolgreich auf Canvas gezeichnet.");
     }catch(e){
       console.error("Fehler beim Laden oder Zeichnen des Bildes.", e);
 

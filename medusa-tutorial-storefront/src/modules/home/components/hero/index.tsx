@@ -1,5 +1,7 @@
-import { Github } from "@medusajs/icons"
-import { Button, Heading } from "@medusajs/ui"
+import { Github } from "@medusajs/icons";
+import { Heading } from "@medusajs/ui";
+import Image from "next/image";
+
 
 const Hero = () => {
   return (
@@ -10,21 +12,20 @@ const Hero = () => {
             level="h1"
             className="text-3xl leading-10 text-ui-fg-base font-normal"
           >
-            Landingpage
+
           </Heading>
           <Heading
             level="h2"
             className="text-xsleading-10 text-ui-fg-subtle font-normal"
           >
-            Powered by Medusa and Next.js
+            <div className="mb-5">
+              <Image src="/coverimage.png" alt="" width={1000} height={500}></Image>
+            </div>
+            
+            <a href="/store" className="bg-orange-950 rounded-xl text-base-regular text-white p-2">Explore Products</a>
           </Heading>
         </span>
-        <a
-          href="https://github.com/medusajs/nextjs-starter-medusa"
-          target="_blank"
-        >
        
-        </a>
       </div>
     </div>
   )
