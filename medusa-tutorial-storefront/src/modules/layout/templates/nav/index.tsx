@@ -24,8 +24,7 @@ export default async function Nav() {
               href="/"
               className="txt-compact-xlarge-plus text-white/70 hover:text-white uppercase"
               data-testid="nav-store-link"
-            >
-              Mittelalter-Shop
+            >Bolasys-Shop
             </LocalizedClientLink>
           </div>
 

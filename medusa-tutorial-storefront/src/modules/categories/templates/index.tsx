@@ -60,6 +60,17 @@ export default function CategoryTemplate({
             ))}
           <h1 data-testid="category-page-title">{category.name}</h1>
         </div>
+        {category.metadata?.thumbnail && typeof category.metadata.thumbnail === "string" && (
+          <div className="mb-8">
+            <Image
+              src={category.metadata.thumbnail}
+              alt={category.name}
+              width={400}
+              height={400}
+              className="rounded-md object-cover"
+            />
+          </div>
+        )}
         {category.description && (
           <div className="mb-8 text-base-regular">
             <p>{category.description}</p>
