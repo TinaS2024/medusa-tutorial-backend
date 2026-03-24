@@ -43,11 +43,11 @@ const PersonalizedOrderItemsWidget = ({ data: order}: DetailWidgetProps<AdminOrd
               </Text>
 
               <Text size="small" className="text-ui-fg-subtle">
-                Width (cm): {item.metadata?.width as number || "N/A"}
+                Width (mm): {item.metadata?.width as number || "N/A"}
               </Text>
 
               <Text size="small" className="text-ui-fg-subtle">
-                Height (cm): {item.metadata?.height as number || "N/A"}
+                Height (mm): {item.metadata?.height as number || "N/A"}
               </Text>
 
             </div>
