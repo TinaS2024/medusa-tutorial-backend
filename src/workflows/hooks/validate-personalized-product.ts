@@ -18,9 +18,21 @@ addToCartWorkflow.hooks.validate(
             {
                 continue
             }
-            if(!item.metadata?.height || !item.metadata.width || isNaN(Number(item.metadata.height)) || isNaN(Number(item.metadata.width))) 
+            const heightValue = Number(item.metadata?.height);
+            const widthValue = Number(item.metadata?.width);
+            if(!item.metadata?.height || !item.metadata.width || isNaN(Number(heightValue)) || isNaN(Number(widthValue))) 
             {
                 throw new MedusaError(MedusaError.Types.INVALID_DATA, "Please set height and width metadata for each item.")
+            }
+            const maxHeightValue = Number(variant.product?.metadata?.max_height)
+            const maxWidthValue = Number(variant.product?.metadata?.max_width)
+            if (!isNaN(maxHeightValue) && heightValue > maxHeightValue)
+            {
+                throw new MedusaError(MedusaError.Types.INVALID_DATA, "Height exceeds the maximum allowed height for this product.")
+            }
+            if (!isNaN(maxWidthValue) && widthValue > maxWidthValue)
+            {
+                throw new MedusaError(MedusaError.Types.INVALID_DATA, "Width exceeds the maximum allowed width for this product.")
             }
         }
     }
