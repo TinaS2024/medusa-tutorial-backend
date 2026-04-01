@@ -12,7 +12,7 @@ export type GetCustomPriceStepInput = {
   metadata?: Record<string, unknown>
 }
 
-const DIMENSION_PRICE_FACTOR = 0.01
+const DEFAULT_DIMENSION_PRICE_FACTOR = 0.01;
 
 export const getCustomPriceStep = createStep("get-custom-price",
 
@@ -45,8 +45,16 @@ export const getCustomPriceStep = createStep("get-custom-price",
       throw new MedusaError(MedusaError.Types.INVALID_DATA,"Width exceeds the maximum allowed width for this product.")
     }
 
+    const rawFactor = (variant.product?.metadata as any)?.dimension_price_factor;
+    const factorFromMetadata = typeof rawFactor === "number" ? rawFactor : Number(rawFactor);
+    const dimensionPriceFactor = Number.isFinite(factorFromMetadata) ? factorFromMetadata : DEFAULT_DIMENSION_PRICE_FACTOR;
+
+    const areaInMm2 = height * width;
+    const areaInCm2 = areaInMm2 / 100;
+    const priceFromArea = areaInCm2 * dimensionPriceFactor;
+
     const originalPrice = variant.calculated_price?.calculated_amount || 0;
-    const customPrice = originalPrice + (height * width * DIMENSION_PRICE_FACTOR);
+    const customPrice = originalPrice + priceFromArea;
 
     return new StepResponse(customPrice);
 
