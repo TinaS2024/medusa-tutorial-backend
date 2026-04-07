@@ -1,12 +1,17 @@
 import { MedusaRequest, MedusaResponse } from "@medusajs/framework/http";
 
 type DesignerFormType = {
-  name: string
-  kind: string
-  width: number
-  height: number
-  medusa_product_id: string
-  medusa_variant_id: string
+  name: string,
+  kind: string,
+  width: number,
+  height: number,
+  medusa_product_id: string,
+  medusa_variant_id: string,
+  product_title: string,
+  variant_title: string,
+  material: string,
+  has_cushion: boolean,
+  has_emboss: boolean,
 }
 
 export async function GET(req: MedusaRequest, res: MedusaResponse<DesignerFormType[]>) 
@@ -27,6 +32,7 @@ export async function GET(req: MedusaRequest, res: MedusaResponse<DesignerFormTy
       "variants.options.*",
     ]
   });
+
 
   const formTypes: DesignerFormType[] = [];
 
@@ -61,6 +67,19 @@ export async function GET(req: MedusaRequest, res: MedusaResponse<DesignerFormTy
     const options: any[] = Array.isArray(product.options) ? product.options : [];
     const widthOption = options.find((opt) => opt.title === "Breite");
     const heightOption = options.find((opt) => opt.title === "Höhe");
+
+    const hasCushion = options.some((opt) => opt.title === "Kissenfarbe");
+    const hasEmboss = options.some((opt) => opt.title === "Prägeposition");
+
+    let baseMaterial = "";
+
+    if (typeof (product as any).material === "string") 
+    {
+      baseMaterial = (product as any).material;
+    } else if (typeof metadata.material === "string") 
+    {
+      baseMaterial = metadata.material;
+    }
 
     const variants: any[] = Array.isArray(product.variants) ? product.variants : [];
 
@@ -105,6 +124,17 @@ export async function GET(req: MedusaRequest, res: MedusaResponse<DesignerFormTy
 
       const name = nameParts.join(" - ");
 
+      let material = baseMaterial;
+      if (!material) 
+      {
+        if (kind === "shield") 
+        {
+          material = "Alu";
+        } else {
+          material = "Gummi";
+        }
+      }
+
       formTypes.push({
         name,
         kind,
@@ -112,6 +142,11 @@ export async function GET(req: MedusaRequest, res: MedusaResponse<DesignerFormTy
         height,
         medusa_product_id: product.id,
         medusa_variant_id: variant.id,
+        product_title: title,
+        variant_title: variant.title || "",
+        material, 
+        has_cushion: hasCushion,
+        has_emboss: hasEmboss, 
       });
     }
   }

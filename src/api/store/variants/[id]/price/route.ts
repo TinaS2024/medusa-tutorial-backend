@@ -8,7 +8,7 @@ export const PostCustomPriceSchema = z.object({
     metadata: z.object({
         height: z.number(),
         width: z.number(),
-    }),
+    }).optional(),
 })
 
 
