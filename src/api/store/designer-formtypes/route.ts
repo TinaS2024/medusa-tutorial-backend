@@ -12,6 +12,7 @@ type DesignerFormType = {
   material: string,
   has_cushion: boolean,
   has_emboss: boolean,
+  cushion_color_option: string,
 }
 
 export async function GET(req: MedusaRequest, res: MedusaResponse<DesignerFormType[]>) 
@@ -68,7 +69,8 @@ export async function GET(req: MedusaRequest, res: MedusaResponse<DesignerFormTy
     const widthOption = options.find((opt) => opt.title === "Breite");
     const heightOption = options.find((opt) => opt.title === "Höhe");
 
-    const hasCushion = options.some((opt) => opt.title === "Kissenfarbe");
+    const cushionOption = options.find((opt) => opt.title === "Kissenfarbe");
+    const hasCushion = Boolean(cushionOption);;
     const hasEmboss = options.some((opt) => opt.title === "Prägeposition");
 
     let baseMaterial = "";
@@ -122,6 +124,19 @@ export async function GET(req: MedusaRequest, res: MedusaResponse<DesignerFormTy
       }
       nameParts.push(`${width}x${height}`);
 
+      let cushionColorOption = "";
+      if (hasCushion && cushionOption) 
+      {
+        const variantOptions: any[] = Array.isArray(variant.options) ? variant.options : [];
+        const vCushionOpt = variantOptions.find(
+          (vo) => vo.option_id === cushionOption.id
+        );
+        if (vCushionOpt && vCushionOpt.value != null) 
+        {
+          cushionColorOption = String(vCushionOpt.value);
+        }
+      }
+
       const name = nameParts.join(" - ");
 
       let material = baseMaterial;
@@ -147,6 +162,7 @@ export async function GET(req: MedusaRequest, res: MedusaResponse<DesignerFormTy
         material, 
         has_cushion: hasCushion,
         has_emboss: hasEmboss, 
+        cushion_color_option: cushionColorOption,
       });
     }
   }
