@@ -1,6 +1,6 @@
-import { defineWidgetConfig } from "@medusajs/admin-sdk"
-import { Container, Heading, Text } from "@medusajs/ui"
-import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query"
+import { defineWidgetConfig } from "@medusajs/admin-sdk";
+import { Container, Heading, Text } from "@medusajs/ui";
+import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { sdk } from "../lib/sdk"
 
 type DefaultProductResponse = {
