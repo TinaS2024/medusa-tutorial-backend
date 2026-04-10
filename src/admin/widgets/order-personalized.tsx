@@ -33,7 +33,7 @@ const PersonalizedOrderItemsWidget = ({ data: order}: DetailWidgetProps<AdminOrd
           <div key={item.id} className="flex gap-4 px-6 py-4">
             {item.variant?.product?.thumbnail && <img
               src={item.variant.product.thumbnail}
-              alt={item.variant.title || "Personalized Product"}
+              alt={item.variant.title || "Personalisierte Produkte"}
               className="h-8 w-6 object-cover rounded border border-ui-border"
             />}
             <div className="flex flex-col">

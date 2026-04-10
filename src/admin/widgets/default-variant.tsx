@@ -118,4 +118,4 @@ export const config = defineWidgetConfig({
   zone: "product.details.before",
 })
 
-export default DefaultVariantWidget
+export default DefaultVariantWidget;

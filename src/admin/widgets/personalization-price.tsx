@@ -92,7 +92,7 @@ const PersonalizationPriceWidget = ({
           Personalisierungs-Preisfaktor
         </Heading>
         <Text size="small" className="text-ui-fg-subtle">
-           Lege fest, welcher Preis in Euro pro cm² bei personalisierten
+          Lege fest, welcher Preis in Euro pro cm² bei personalisierten
           Produkten verwendet wird. Höhe und Breite werden in Millimetern
           angegeben; intern wird die Fläche in cm² umgerechnet und mit
           diesem Faktor multipliziert und zum Basispreis addiert.

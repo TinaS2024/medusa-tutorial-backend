@@ -53,7 +53,7 @@ const columns = [columnHelper.accessor("id", { header: "ID", }),
 
       return (
         <Link to={`/products/${row.original.product?.id}`}>
-          View Product
+          Produkt ansehen
         </Link>
       )
     },
@@ -103,7 +103,7 @@ const BundledProductsPage = () => {
   <Container className="divide-y p-0">
       <DataTable instance={table}>
         <DataTable.Toolbar className="flex items-start justify-between gap-2 md:flex-row md:items-center">
-          <Heading>Bundled Products</Heading>
+          <Heading>Gebündelte Produkte</Heading>
             <CreateBundledProduct />
         </DataTable.Toolbar>
         <DataTable.Table />
@@ -118,4 +118,4 @@ export const config = defineRouteConfig({
     icon: CubeSolid,
     })
 
-export default BundledProductsPage
+export default BundledProductsPage;

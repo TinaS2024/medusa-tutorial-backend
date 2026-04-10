@@ -123,24 +123,24 @@ const CreateBundledProduct = () =>
 return(
     <FocusModal open={open} onOpenChange={setOpen}>
         <FocusModal.Trigger asChild>
-            <Button variant="primary">Create</Button>
+            <Button variant="primary">Erstellen</Button>
         </FocusModal.Trigger>
         <FocusModal.Content>
             <FocusModal.Header>
                 <div className="flex items-center justify-end gap-x-2">
-                    <Heading level={"h1"}>Create Bundled Product</Heading>
+                    <Heading level={"h1"}>Gebündeltes Produkt erstellen</Heading>
                 </div>
             </FocusModal.Header>
             <FocusModal.Body>
                 <div className="flex flex-1 flex-col items-center overflow-y-auto">
                     <div className="mx-auto flex w-full max-w-[720px] flex-col gap-y-8 px-2 py-16">
                         <div>
-                            <Label>Bundle Title</Label>
+                            <Label>Bundle-Titel</Label>
                             <Input value={title} onChange={(e)=>setTitle(e.target.value)}/>
 
                         </div>
                         <div>
-                            <Heading level={"h2"}>Bundle Items</Heading>
+                            <Heading level={"h2"}>Bundle-Artikel</Heading>
                             {items.map((item,index) =>
                             (
                                 <BundledProductItem key={index} item={item} index={index} setItems={setItems} products={products} fetchMoreProducts={fetchMoreProducts} hasNextPage={hasNextPage}/>
@@ -152,15 +152,15 @@ return(
                                     product_id: undefined, 
                                     quantity:1
                                 },
-                            ])}>Add Item</Button>
+                            ])}>Artikel hinnzufügen</Button>
                         </div>
                     </div>
                 </div>
             </FocusModal.Body>
             <FocusModal.Footer>
                 <div className="flex items-center justify-end gap-x-2">
-                    <Button variant="secondary" onClick={() =>setOpen(false)}>Cancel</Button>
-                    <Button variant="primary" onClick={handleCreate} isLoading={isCreating}>Create Bundle</Button>
+                    <Button variant="secondary" onClick={() =>setOpen(false)}>Abbrechen</Button>
+                    <Button variant="primary" onClick={handleCreate} isLoading={isCreating}>Bundle erstellen</Button>
                 </div>
             </FocusModal.Footer>
         </FocusModal.Content>
@@ -251,7 +251,7 @@ const lastOptionRef = useCallback((node: HTMLDivElement) => {
           </Select.Content>
         </Select>
         <div className="flex items-center gap-x-2 [&_div]:flex-1">
-          <Label>Quantity</Label>
+          <Label>Anzahl</Label>
           <Input type="number" placeholder="Quantity"className="w-full mt-1 rounded-md border border-gray-200 p-2" value={item.quantity} onChange={(e) => 
             setItems((items) => 
                 items.map((item, i) => {
