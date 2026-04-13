@@ -19,6 +19,12 @@ module.exports = defineConfig({
     {
       resolve: "./src/modules/bundled-product",
     },
+    {
+      resolve: "@medusajs/translation",
+    }
   ],
+  featureFlags: {
+    translation: true,
+  },
 })
 

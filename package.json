@@ -22,23 +22,24 @@
     "test:unit": "TEST_TYPE=unit NODE_OPTIONS=--experimental-vm-modules jest --silent --runInBand --forceExit"
   },
   "dependencies": {
-    "@medusajs/admin-sdk": "2.7.0",
-    "@medusajs/cli": "2.7.0",
-    "@medusajs/framework": "^2.7.1",
-    "@medusajs/medusa": "^2.7.0",
-    "@medusajs/utils": "^2.7.1",
-    "@mikro-orm/core": "6.4.3",
-    "@mikro-orm/knex": "6.4.3",
-    "@mikro-orm/migrations": "6.4.3",
-    "@mikro-orm/postgresql": "6.4.3",
+    "@medusajs/admin-sdk": "2.13.6",
+    "@medusajs/cli": "2.13.6",
+    "@medusajs/framework": "^2.13.6",
+    "@medusajs/medusa": "^2.13.6",
+    "@medusajs/translation": "^2.13.6",
+    "@medusajs/utils": "^2.13.6",
+    "@mikro-orm/core": "6.6.12",
+    "@mikro-orm/knex": "6.6.12",
+    "@mikro-orm/migrations": "6.6.12",
+    "@mikro-orm/postgresql": "6.6.12",
     "awilix": "^8.0.1",
     "medusa-plugin-category-images": "^1.0.18",
     "medusa-storage-supabase": "^0.1.7",
     "pg": "^8.13.0"
   },
   "devDependencies": {
-    "@medusajs/test-utils": "2.7.0",
-    "@mikro-orm/cli": "6.4.3",
+    "@medusajs/test-utils": "2.13.6",
+    "@mikro-orm/cli": "6.6.12",
     "@swc/core": "1.5.7",
     "@swc/jest": "^0.2.36",
     "@types/jest": "^29.5.13",
@@ -49,11 +50,11 @@
     "prop-types": "^15.8.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
+    "react-router-dom": "^6.3.0",
     "ts-node": "^10.9.2",
     "typescript": "^5.6.2",
     "vite": "^5.2.11",
-    "yalc": "^1.0.0-pre.53",
-    "react-router-dom": "^6.3.0"
+    "yalc": "^1.0.0-pre.53"
   },
   "engines": {
     "node": ">=20"
