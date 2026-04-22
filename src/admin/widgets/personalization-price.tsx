@@ -67,10 +67,10 @@ const PersonalizationPriceWidget = ({
       queryClient.invalidateQueries({
         queryKey: ["personalization-price", product.id],
       })
-      toast.success("Preisfaktor gespeichert")
+      toast.success("Price factor saved")
     },
     onError: () => {
-      toast.error("Preisfaktor konnte nicht gespeichert werden")
+      toast.error("Price factor could not be saved.")
     },
   })
 
@@ -79,7 +79,7 @@ const PersonalizationPriceWidget = ({
   const handleSave = () => {
     const numeric = Number(value.replace(",", "."))
     if (!Number.isFinite(numeric) || numeric < 0) {
-      toast.error("Bitte einen gültigen, nicht-negativen Faktor eingeben")
+      toast.error("Please enter a valid, non-negative factor.")
       return;
     }
     mutation.mutate(numeric);

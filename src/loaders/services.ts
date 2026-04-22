@@ -8,7 +8,7 @@ export default async (container: MedusaContainer): Promise<void> => {
 
     }catch(error)
     {
-        console.error("Fehler beim Registrieren von MeinPluginService:", error)
+        console.error("Error registering MyPluginService:", error)
 
     }
 } 

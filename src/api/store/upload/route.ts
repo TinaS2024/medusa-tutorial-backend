@@ -36,13 +36,14 @@ export default async (req: MedusaRequest, res: MedusaResponse) => {
     });
 
 
+
     res.status(200).json({
-      message: "Bild erfolgreich hochgeladen und gespeichert.",
+      message: "Image successfully uploaded and stored.",
       url: uploadedFile.url,
     });
 
   } catch (error) {
-    console.error("Fehler beim Upload der Grafik:", error);
-    res.status(500).json({ message: "Ein interner Serverfehler ist aufgetreten." });
+    console.error("Error uploading image:", error);
+    res.status(500).json({ message: "Internal server error." });
   }
 };
