@@ -1,9 +1,13 @@
+
+
+import {useState, useEffect } from "react";
+
 import { defineWidgetConfig } from "@medusajs/admin-sdk";
 import { Container, Heading, Text, Input, Button, toast } from "@medusajs/ui";
 import { DetailWidgetProps, AdminProduct } from "@medusajs/framework/types";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
-import { useEffect, useState } from "react";
 import { sdk } from "../lib/sdk";
+
 
 type PersonalizationPriceResponse = {
   dimension_price_factor: number | null
@@ -12,6 +16,7 @@ type PersonalizationPriceResponse = {
 const PersonalizationPriceWidget = ({
   data: product,
 }: DetailWidgetProps<AdminProduct>) => {
+  
   const isPersonalized = Boolean(
     (product.metadata as any)?.is_personalized
   )
