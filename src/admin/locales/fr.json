@@ -1,0 +1,10 @@
+{
+  "default_variant": {
+    "heading": "Variante standard",
+    "description": "Choisissez la variante qui doit être utilisée par défaut pour ce produit (par exemple, pour votre interface utilisateur).",
+    "select_title": "Choisissez une option standard",
+    "loading": "Chargement de la version standard en cours...",
+    "select": "Sélectionnez une variante",
+    "saving": "Mémoire..."
+  }
+}

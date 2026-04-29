@@ -1,9 +1,14 @@
+
+import { useState, useEffect, type ChangeEvent } from "react";
 import { defineWidgetConfig } from "@medusajs/admin-sdk";
 import { Container, Heading, Text } from "@medusajs/ui";
 import { DetailWidgetProps, AdminProduct } from "@medusajs/framework/types";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
-import type { ChangeEvent } from "react";
 import { sdk } from "../lib/sdk";
+
+
+import { getClientLanguage } from "../lib/i18n";
+import { getMessages, type Lang } from "../lib/messages";
 
 type DefaultVariantResponse = {
   default_variant_id: string | null
@@ -13,10 +18,16 @@ type AdminProductWithVariantsResponse = {
   product: AdminProduct
 }
 
-const DefaultVariantWidget = ({
-  data: product,
-}: DetailWidgetProps<AdminProduct>) => {
-  const queryClient = useQueryClient()
+const DefaultVariantWidget = ({ data: product}: DetailWidgetProps<AdminProduct>) => {
+
+  const [lang, setLang] = useState<Lang>("de");
+  const t = getMessages(lang);
+
+  useEffect(() => {
+    setLang(getClientLanguage())
+  }, []);
+
+  const queryClient = useQueryClient();
 
   const { data: defaultData, isLoading: isLoadingDefault } = useQuery({
     queryKey: ["default-variant", product.id],
@@ -51,7 +62,7 @@ const DefaultVariantWidget = ({
     },
   })
 
-   const variants = fullProductData?.product.variants ?? [];
+  const variants = fullProductData?.product.variants ?? [];
 
   
   if (!variants.length) {
@@ -74,15 +85,14 @@ const DefaultVariantWidget = ({
   return (
     <Container className="divide-y p-0">
       <div className="flex flex-col gap-y-2 px-6 py-4">
-        <Heading level="h2">Standard-Variante</Heading>
+        <Heading level="h2">{t.default_variant.heading}</Heading>
         <Text size="small" className="text-ui-fg-subtle">
-          Wähle die Variante, die als Standard für dieses Produkt verwendet
-          werden soll (z.B. für dein Frontend).
+       {t.default_variant.description}
         </Text>
 
         <div className="flex items-center gap-x-4">
           <select
-            title="Wähle eine Standard-Variante"
+            title={t.default_variant.select_title}
             className="border border-ui-border-subtle rounded px-2 py-1 text-sm min-w-[240px]"
             value={selectedId}
             onChange={handleChange}
@@ -90,8 +100,8 @@ const DefaultVariantWidget = ({
           >
             <option value="">
               {isLoadingDefault
-                ? "Standard-Variante wird geladen..."
-                : "Variante auswählen"}
+                ? t.default_variant.loading
+                : t.default_variant.select}
             </option>
             {variants.map((v) => {
               const label = v.title || v.sku || v.id
@@ -105,7 +115,7 @@ const DefaultVariantWidget = ({
 
           {mutation.isPending && (
             <Text size="small" className="text-ui-fg-subtle">
-              Speichere...
+              {t.default_variant.saving}
             </Text>
           )}
         </div>

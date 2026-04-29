@@ -1,0 +1,10 @@
+{
+  "default_variant": {
+    "heading": "Default variant",
+    "description": "Choose the variant that should be used as the default for this product (e.g. for your storefront).",
+    "select_title": "Choose a default variant",
+    "loading": "Loading default variant...",
+    "select": "Select variant",
+    "saving": "Saving..."
+  }
+}
