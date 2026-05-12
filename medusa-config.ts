@@ -1,7 +1,12 @@
-import { loadEnv, defineConfig } from '@medusajs/framework/utils'
-import { resolve } from 'path'
+import { loadEnv, defineConfig } from '@medusajs/framework/utils';
+import path from 'path';
 
-loadEnv(process.env.NODE_ENV || 'development', process.cwd())
+const cwd = process.cwd()
+const isCompiledServerDir = path.basename(cwd) === 'server' && path.basename(path.dirname(cwd)) === '.medusa';
+
+const envDir = isCompiledServerDir ? path.resolve(cwd, '..', '..') : cwd;
+
+loadEnv(process.env.NODE_ENV || 'development', envDir);
 
 module.exports = defineConfig({
   projectConfig: {
