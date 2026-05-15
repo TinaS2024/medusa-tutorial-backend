@@ -51,6 +51,18 @@ const includesAny = (haystack: string, needles: string[]): boolean => {
   return needles.some((n) => haystack.includes(n));
 };
 
+const parseBoolean = (value: unknown): boolean => {
+  if (typeof value === "boolean") return value;
+  if (typeof value === "number") return value === 1;
+  const s = String(value ?? "").toLowerCase().trim();
+  return s === "true" || s === "1" || s === "yes";
+};
+
+const parseNumber = (value: unknown): number | undefined => {
+  const n = typeof value === "number" ? value : Number(value);
+  return Number.isFinite(n) ? n : undefined;
+};
+
 export async function GET(req: MedusaRequest, res: MedusaResponse<DesignerFormType[]>) 
 {
   const query = req.scope.resolve("query");
@@ -160,6 +172,14 @@ export async function GET(req: MedusaRequest, res: MedusaResponse<DesignerFormTy
 
     const baseMetadata = (baseProduct?.metadata as any) || {};
 
+    if (parseBoolean(baseMetadata.is_shieldProduct))
+    {
+      kind = "shield";
+    } else if (parseBoolean(baseMetadata.is_stampProduct))
+    {
+      kind = "stamp";
+    }
+
     let baseMaterial = "";
     if (typeof (baseProduct as any)?.material === "string")
     {
@@ -192,10 +212,9 @@ export async function GET(req: MedusaRequest, res: MedusaResponse<DesignerFormTy
   for (const product of localizedProducts as any[]) 
     {
     const title: string = product.title || "";
-    const subtitle: string = product.subtitle || "";
     const metadata = (product.metadata as any) || {};
     
-    if (!metadata.is_designable) 
+    if (!parseBoolean(metadata.is_designable)) 
     {
       continue;
     }
@@ -204,8 +223,18 @@ export async function GET(req: MedusaRequest, res: MedusaResponse<DesignerFormTy
 
     const kind = baseInfo?.kind || "other";
 
-    const productWidth = baseInfo?.productWidth ?? (Number(product.width) || 0);
-    const productHeight = baseInfo?.productHeight ?? (Number(product.height) || 0);
+    const metaWidth = parseNumber((metadata as any)?.width ?? (metadata as any)?.default_width);
+    const metaHeight = parseNumber((metadata as any)?.height ?? (metadata as any)?.default_height);
+
+    const productWidth =
+      (baseInfo?.productWidth && baseInfo.productWidth > 0)
+        ? baseInfo.productWidth
+        : (Number(product.width) || metaWidth || 0);
+
+    const productHeight =
+      (baseInfo?.productHeight && baseInfo.productHeight > 0)
+        ? baseInfo.productHeight
+        : (Number(product.height) || metaHeight || 0);
 
     const widthOptionId = baseInfo?.widthOptionId;
     const heightOptionId = baseInfo?.heightOptionId;
@@ -224,6 +253,16 @@ export async function GET(req: MedusaRequest, res: MedusaResponse<DesignerFormTy
       let height = productHeight;
 
       const variantOptions: any[] = Array.isArray(variant.options) ? variant.options : [];
+
+      const variantMeta = (variant?.metadata as any) || {};
+      const variantWidthFallback = parseNumber((variant as any)?.width ?? variantMeta.width ?? variantMeta.default_width);
+      const variantHeightFallback = parseNumber((variant as any)?.height ?? variantMeta.height ?? variantMeta.default_height);
+
+      if ((!width || !height) && (variantWidthFallback || variantHeightFallback))
+      {
+        width = width || variantWidthFallback || 0;
+        height = height || variantHeightFallback || 0;
+      }
 
     if (widthOptionId) 
     {
