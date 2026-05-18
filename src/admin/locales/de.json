@@ -6,5 +6,15 @@
     "loading": "Standard-Variante wird geladen...",
     "select": "Variante auswählen",
     "saving": "Speichere..."
+  },
+   "variant_thickness": {
+    "heading": "Dicke",
+    "description": "Hinterlege die Materialdicke dieser Variante in Millimetern (wird als metadata.thickness gespeichert).",
+    "label": "Dicke (mm)",
+    "placeholder": "z.B. 1.5",
+    "save": "Speichern",
+    "saved": "Gespeichert.",
+    "invalid": "Bitte eine gültige, nicht-negative Zahl eingeben.",
+    "save_failed": "Speichern fehlgeschlagen."
   }
 }

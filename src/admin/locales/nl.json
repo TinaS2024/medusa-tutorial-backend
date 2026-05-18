@@ -6,5 +6,15 @@
     "loading": "De standaardversie wordt geladen...",
     "select": "Variant selecteren",
     "saving": "Bespar..."
+  },
+  "variant_thickness": {
+    "heading": "Dikte",
+    "description": "Stel de materiaaldikte van deze variant in millimeters in (opgeslagen als metadata.thickness).",
+    "label": "Dikte (mm)",
+    "placeholder": "bijv. 1.5",
+    "save": "Opslaan",
+    "saved": "Opgeslagen.",
+    "invalid": "Voer een geldig, niet-negatief getal in.",
+    "save_failed": "Opslaan mislukt."
   }
 }

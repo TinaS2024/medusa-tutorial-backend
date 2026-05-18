@@ -6,5 +6,16 @@
     "loading": "Loading default variant...",
     "select": "Select variant",
     "saving": "Saving..."
+  },
+  "variant_thickness": {
+    "heading": "Thickness",
+    "description": "Set this variant's material thickness in millimeters (stored as metadata.thickness).",
+    "label": "Thickness (mm)",
+    "placeholder": "e.g. 1.5",
+    "save": "Save",
+    "saved": "Saved.",
+    "invalid": "Please enter a valid, non-negative number.",
+    "save_failed": "Save failed."
   }
+
 }

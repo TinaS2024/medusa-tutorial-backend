@@ -6,5 +6,15 @@
     "loading": "Chargement de la version standard en cours...",
     "select": "Sélectionnez une variante",
     "saving": "Mémoire..."
+  },
+  "variant_thickness": {
+    "heading": "Épaisseur",
+    "description": "Définissez l’épaisseur de cette variante en millimètres (enregistrée dans metadata.thickness).",
+    "label": "Épaisseur (mm)",
+    "placeholder": "ex. 1.5",
+    "save": "Enregistrer",
+    "saved": "Enregistré.",
+    "invalid": "Veuillez saisir un nombre valide et positif ou nul.",
+    "save_failed": "Échec de l’enregistrement."
   }
 }
