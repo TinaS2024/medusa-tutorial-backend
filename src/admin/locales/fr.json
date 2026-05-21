@@ -16,5 +16,12 @@
     "saved": "Enregistré.",
     "invalid": "Veuillez saisir un nombre valide et positif ou nul.",
     "save_failed": "Échec de l’enregistrement."
+  },
+  "email_templates": {
+    "password_reset": {
+      "subject": "Réinitialiser votre mot de passe – votre code de vérification",
+      "default_from_name": "L'équipe de la boutique",
+      "text": "Bonjour,\n\nNous avons reçu une demande de réinitialisation du mot de passe pour votre compte ({email}).\n\nVotre code de vérification est :\n{code}\n\nSaisissez ce code dans la boutique dans le champ « Code » puis définissez votre nouveau mot de passe.\n\nSi vous n’êtes pas à l’origine de cette demande, vous pouvez ignorer cet e-mail.\n\nCordialement\n{from_name}"
+    }
   }
 }

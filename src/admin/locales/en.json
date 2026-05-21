@@ -16,6 +16,12 @@
     "saved": "Saved.",
     "invalid": "Please enter a valid, non-negative number.",
     "save_failed": "Save failed."
+  },
+  "email_templates": {
+    "password_reset": {
+      "subject": "Reset your password – your verification code",
+      "default_from_name": "Your shop team",
+      "text": "Hello,\n\nWe received a request to reset the password for your account ({email}).\n\nYour verification code is:\n{code}\n\nEnter this code in the shop in the “Code” field and set your new password.\n\nIf you didn’t request a password reset, you can ignore this email.\n\nKind regards\n{from_name}"
+    }
   }
-
 }
