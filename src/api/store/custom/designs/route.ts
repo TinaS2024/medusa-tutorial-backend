@@ -52,16 +52,18 @@ export const POST = async(req: MedusaRequest, res: MedusaResponse) =>
           : designData;
         const fileBuffer = Buffer.from(base64Data, "base64");
 
-        const fileUpload = await (fileService as any).upload({
+        const fileUpload = await (fileService as any).createFiles({
         filename: `${safeTitle.toLowerCase().replace(/\s+/g, "-")}-${Date.now()}.png`,
         file: fileBuffer,
         mimeType: "image/png"
         })
+
+        const fileUrl = Array.isArray(fileUpload) ? fileUpload[0].url : fileUpload.url;
     
         return res.status(201).json({
         message: "Design erfolgreich gespeichert und hochgeladen",
         customer_id: customerId,
-        file_url: fileUpload.url 
+        file_url: fileUrl 
         })
     
 
