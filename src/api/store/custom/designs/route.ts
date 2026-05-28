@@ -1,28 +1,12 @@
 import type { MedusaRequest, MedusaResponse } from "@medusajs/framework/http";
+import { CustomerDesign } from "../../../../models/customer-design";
+import { promises as fs } from "fs";
+import { join } from "path";
 
-export const GET = async(req: MedusaRequest, res: MedusaResponse) =>
-{
-
-    const auth = req.scope.resolve("auth") as { actor_id?: string };
-    const customerId = auth.actor_id;
-
-    if (!customerId) 
-    {
-    return res.status(401).json({ message: "Nicht autorisiert" });
-    }
-
-    try{
-
-    return res.json({
-      customer_id: customerId,
-      designs: [] 
-    })
-
-    }catch (error)
-    {
-        const message = error instanceof Error ? error.message : String(error);
-        return res.status(500).json({ message: "Fehler beim Laden", error: message });
-    }
+interface DesignRequestBody {
+  title: string
+  pngData: string
+  svgData: string
 }
 
 export const POST = async(req: MedusaRequest, res: MedusaResponse) =>
@@ -30,49 +14,71 @@ export const POST = async(req: MedusaRequest, res: MedusaResponse) =>
     const auth = req.scope.resolve("auth") as { actor_id?: string };
     const customerId = auth.actor_id;
 
-    const { title, designData } = req.body as { title?: string; designData?: string };
-
     if (!customerId) 
     {
         return res.status(401).json({ message: "Nicht autorisiert" });
     }
 
-    if (typeof designData !== "string" || designData.trim().length === 0)
-    {
-        return res.status(400).json({ message: "Keine gültigen Designdaten übergeben." });
-    }
+    const { title, pngData, svgData } = req.body as DesignRequestBody;
 
-    const safeTitle = typeof title === "string" && title.trim().length > 0 ? title.trim() : "design";
+    if (!pngData || !svgData) 
+    {
+    return res.status(400).json({ message: "PNG und SVG sind erforderlich." })
+  }
+
+    
+    const safeTitle = typeof title === "string" && title.trim().length > 0 ? title.trim() : "design"
+    const timestamp = Date.now()
+    const sanitizedTitle = safeTitle.toLowerCase().replace(/\s+/g, "-")
 
     try{
-    
-        const fileService = req.scope.resolve("fileService");
-        const base64Data = designData.startsWith("data:")
-          ? designData.replace(/^data:image\/\w+;base64,/, "")
-          : designData;
-        const fileBuffer = Buffer.from(base64Data, "base64");
+        const uploadDir = join(process.cwd(), "public", "uploads", "customer_designs");
 
-        const fileUpload = await (fileService as any).createFiles({
-        filename: `${safeTitle.toLowerCase().replace(/\s+/g, "-")}-${Date.now()}.png`,
-        file: fileBuffer,
-        mimeType: "image/png"
-        })
+        await fs.mkdir(uploadDir, { recursive: true });
 
-        const fileUrl = Array.isArray(fileUpload) ? fileUpload[0].url : fileUpload.url;
-    
-        return res.status(201).json({
-        message: "Design erfolgreich gespeichert und hochgeladen",
-        customer_id: customerId,
-        file_url: fileUrl 
-        })
-    
+        const pngFilename = `${customerId}_${sanitizedTitle}_${timestamp}.png`;
+        const svgFilename = `${customerId}_${sanitizedTitle}_${timestamp}.svg`;
 
-    }catch (error)
-    {
-        const message = error instanceof Error ? error.message : String(error);
-        return res.status(500).json({ 
-        message: "Fehler beim Verarbeiten des Designs", 
-        error: message 
+        const cleanPng = pngData.startsWith("data:") ? pngData.replace(/^data:image\/\w+;base64,/, "") : pngData;
+        const pngBuffer = Buffer.from(cleanPng, "base64");
+        await fs.writeFile(join(uploadDir, pngFilename), pngBuffer);
+
+        let svgBuffer: Buffer;
+        if (svgData.startsWith("data:image/svg+xml;base64,"))
+        {
+        const cleanSvg = svgData.replace(/^data:image\/svg\+xml;base64,/, "");
+        svgBuffer = Buffer.from(cleanSvg, "base64");
+        } else {
+            svgBuffer = Buffer.from(svgData, "utf-8");
+        }
+        await fs.writeFile(join(uploadDir, svgFilename), svgBuffer);
+
+        const entityManager = req.scope.resolve("manager") as any;
+    
+        await entityManager.transactional(async (manager: any) => {
+
+        await manager.insert(CustomerDesign as any, {
+        title: safeTitle,
+        png_url: `/store/custom/designs/file/${pngFilename}`,
+        png_key: pngFilename,
+        svg_url: `/store/custom/designs/file/${svgFilename}`, 
+        svg_key: svgFilename,
+        customer_id: customerId
+    });
     })
-    }
+
+    return res.status(201).json({
+      message: "Design lokal im Backend gespeichert",
+      customer_id: customerId
+    })
+    
+    }catch (error) {
+    console.error("🚨 KRITISCHER FEHLER IM MEDUSA-ENDPOINT:", error);
+    const message = error instanceof Error ? error.message : String(error)
+    return res.status(500).json({ 
+      message: "Fehler beim lokalen Speichern", 
+      error: message,
+      stack: error instanceof Error ? error.stack : undefined 
+    })
+  }
 }
