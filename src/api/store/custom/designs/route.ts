@@ -59,9 +59,9 @@ export const POST = async(req: MedusaRequest, res: MedusaResponse) =>
 
         await manager.insert(CustomerDesign as any, {
         title: safeTitle,
-        png_url: `/store/custom/designs/file/${pngFilename}`,
+        png_url: `/designs/${pngFilename}`, 
         png_key: pngFilename,
-        svg_url: `/store/custom/designs/file/${svgFilename}`, 
+        svg_url: `/designs/${svgFilename}`, 
         svg_key: svgFilename,
         customer_id: customerId
     });
@@ -71,7 +71,7 @@ export const POST = async(req: MedusaRequest, res: MedusaResponse) =>
       message: "Design lokal im Backend gespeichert",
       customer_id: customerId
     })
-    
+
     }catch (error) {
     console.error("🚨 KRITISCHER FEHLER IM MEDUSA-ENDPOINT:", error);
     const message = error instanceof Error ? error.message : String(error)
@@ -81,4 +81,12 @@ export const POST = async(req: MedusaRequest, res: MedusaResponse) =>
       stack: error instanceof Error ? error.stack : undefined 
     })
   }
+}
+
+export const config = {
+  api: {
+    bodyParser: {
+      sizeLimit: "50mb", 
+    },
+  },
 }

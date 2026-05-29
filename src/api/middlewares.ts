@@ -5,7 +5,8 @@ import { createFindParams } from "@medusajs/medusa/api/utils/validators";
 import { PostCartsBundledLineItemsSchema} from "./store/carts/[id]/line-item-bundles/route";
 import { PostCustomPriceSchema } from "./store/variants/[id]/price/route";
 import { PostAddCustomLineItemSchema } from "./store/carts/[id]/line-items-custom/route";
-import { MiddlewaresConfig, authenticate } from "@medusajs/framework/http";
+import { authenticate } from "@medusajs/framework/http";
+import { json } from "body-parser";
 
 
 export default defineMiddlewares({
@@ -19,7 +20,10 @@ export default defineMiddlewares({
     },
     {
       matcher: "/store/custom/designs*",
-      middlewares: [authenticate("customer", ["bearer", "session"])],
+      method: "POST",
+      middlewares: [
+        authenticate("customer", ["bearer", "session"]),
+      ],
     },
     {
       matcher: "/admin/bundled-products",
