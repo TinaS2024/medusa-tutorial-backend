@@ -8,13 +8,18 @@ const envDir = isCompiledServerDir ? path.resolve(cwd, '..', '..') : cwd;
 
 loadEnv(process.env.NODE_ENV || 'development', envDir);
 
+// Aufsplittung der CORS-Strings sicher in echte Arrays
+const storeCorsString = process.env.STORE_CORS || "http://localhost:8000,http://localhost:3000";
+const adminCorsString = process.env.ADMIN_CORS || "http://localhost:5173,http://localhost:9000";
+const authCorsString = process.env.AUTH_CORS || "http://localhost:5173,http://localhost:9000,http://localhost:8000";
+
 module.exports = defineConfig({
   projectConfig: {
     databaseUrl: process.env.DATABASE_URL,
     http:{ 
-    storeCors: process.env.STORE_CORS!,
-    adminCors: process.env.ADMIN_CORS!,
-    authCors: process.env.AUTH_CORS!,
+    storeCors: storeCorsString,
+    adminCors: adminCorsString,
+    authCors: authCorsString,
     jwtSecret: process.env.JWT_SECRET || "supersecret",
     cookieSecret: process.env.COOKIE_SECRET || "supersecret",
     }
