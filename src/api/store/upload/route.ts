@@ -11,7 +11,8 @@ export default async (req: MedusaRequest, res: MedusaResponse) => {
 
     const { data: base64Data, product_id } = req.body as UploadRequestBody;
 
-    if (!base64Data || !product_id) {
+    if (!base64Data || !product_id) 
+    {
       return res.status(400).json({ message: "Fehlende Daten: base64-Daten oder Produkt-ID fehlen." });
     }
 
