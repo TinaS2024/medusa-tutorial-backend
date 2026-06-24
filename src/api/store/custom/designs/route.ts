@@ -1,85 +1,83 @@
 import type { MedusaRequest, MedusaResponse } from "@medusajs/framework/http";
-import { CustomerDesign } from "../../../../models/customer-design";
-import { promises as fs } from "fs";
-import { join } from "path";
+import { Modules } from "@medusajs/framework/utils";
+import { randomUUID } from "crypto";
 
 interface DesignRequestBody {
-  title: string
-  pngData: string
-  svgData: string
+  customerId: string
+  title?: string
+  design_image: string
+  variant_id?: string
+  country_code?: string
+  width?: number
+  height?: number
+  thickness?: number
 }
 
-export const POST = async(req: MedusaRequest, res: MedusaResponse) =>
-{
-    const auth = req.scope.resolve("auth") as { actor_id?: string };
-    const customerId = auth.actor_id;
+export const POST = async (req: MedusaRequest, res: MedusaResponse) => {
+  const {
+    customerId,
+    title,
+    design_image,
+    variant_id,
+    country_code,
+    width,
+    height,
+    thickness,
+  } = req.body as DesignRequestBody;
 
-    if (!customerId) 
-    {
-        return res.status(401).json({ message: "Nicht autorisiert" });
-    }
-
-    const { title, pngData, svgData } = req.body as DesignRequestBody;
-
-    if (!pngData || !svgData) 
-    {
-    return res.status(400).json({ message: "PNG und SVG sind erforderlich." })
+  if (!customerId || customerId === "guest") {
+    return res.status(400).json({ message: "customerId fehlt oder ist ein Gast." });
   }
 
-    
-    const safeTitle = typeof title === "string" && title.trim().length > 0 ? title.trim() : "design"
-    const timestamp = Date.now()
-    const sanitizedTitle = safeTitle.toLowerCase().replace(/\s+/g, "-")
+  if (!design_image) {
+    return res.status(400).json({ message: "design_image ist erforderlich." });
+  }
 
-    try{
-        const uploadDir = join(process.cwd(), "public", "uploads", "customer_designs");
+  try {
+    const customerModuleService = req.scope.resolve(Modules.CUSTOMER);
+    const customer = await customerModuleService.retrieveCustomer(customerId);
 
-        await fs.mkdir(uploadDir, { recursive: true });
+    const existingMetadata =
+      customer.metadata && typeof customer.metadata === "object"
+        ? (customer.metadata as Record<string, any>)
+        : {};
 
-        const pngFilename = `${customerId}_${sanitizedTitle}_${timestamp}.png`;
-        const svgFilename = `${customerId}_${sanitizedTitle}_${timestamp}.svg`;
+    const existingDesigns = Array.isArray(existingMetadata.designs)
+      ? existingMetadata.designs
+      : [];
 
-        const cleanPng = pngData.startsWith("data:") ? pngData.replace(/^data:image\/\w+;base64,/, "") : pngData;
-        const pngBuffer = Buffer.from(cleanPng, "base64");
-        await fs.writeFile(join(uploadDir, pngFilename), pngBuffer);
+    const isDuplicate = existingDesigns.some(
+      (d: any) => d && d.design_image === design_image
+    );
 
-        let svgBuffer: Buffer;
-        if (svgData.startsWith("data:image/svg+xml;base64,"))
-        {
-        const cleanSvg = svgData.replace(/^data:image\/svg\+xml;base64,/, "");
-        svgBuffer = Buffer.from(cleanSvg, "base64");
-        } else {
-            svgBuffer = Buffer.from(svgData, "utf-8");
-        }
-        await fs.writeFile(join(uploadDir, svgFilename), svgBuffer);
+    if (isDuplicate) {
+      return res.status(200).json({ message: "Design bereits vorhanden.", customer_id: customerId });
+    }
 
-        const entityManager = req.scope.resolve("manager") as any;
-    
-        await entityManager.transactional(async (manager: any) => {
+    const nextDesign = {
+      id: randomUUID(),
+      created_at: new Date().toISOString(),
+      title: title ?? null,
+      variant_id: variant_id ?? null,
+      country_code: country_code ?? null,
+      design_image,
+      width,
+      height,
+      thickness,
+    };
 
-        await manager.insert(CustomerDesign as any, {
-        title: safeTitle,
-        png_url: `/designs/${pngFilename}`, 
-        png_key: pngFilename,
-        svg_url: `/designs/${svgFilename}`, 
-        svg_key: svgFilename,
-        customer_id: customerId
-    });
-    })
+    const designs = [nextDesign, ...existingDesigns].slice(0, 50);
 
-    return res.status(201).json({
-      message: "Design lokal im Backend gespeichert",
-      customer_id: customerId
-    })
+    await customerModuleService.updateCustomers(
+      { id: customerId },
+      { metadata: { ...existingMetadata, designs } }
+    );
 
-    }catch (error) {
-    console.error("🚨 KRITISCHER FEHLER IM MEDUSA-ENDPOINT:", error);
-    const message = error instanceof Error ? error.message : String(error)
-    return res.status(500).json({ 
-      message: "Fehler beim lokalen Speichern", 
-      error: message,
-      stack: error instanceof Error ? error.stack : undefined 
-    })
+    return res.status(201).json({ message: "Design im Kundenkonto gespeichert.", customer_id: customerId });
+  } catch (error) {
+    console.error("🚨 Fehler beim Speichern des Designs in Metadaten:", error);
+    const message = error instanceof Error ? error.message : String(error);
+    return res.status(500).json({ message: "Fehler beim Speichern", error: message });
   }
 }
 

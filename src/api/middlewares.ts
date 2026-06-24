@@ -19,13 +19,6 @@ export default defineMiddlewares({
       ],
     },
     {
-      matcher: "/store/custom/designs*",
-      method: "POST",
-      middlewares: [
-        authenticate("customer", ["bearer", "session"]),
-      ],
-    },
-    {
       matcher: "/admin/bundled-products",
       methods: ["GET"],
       middlewares: [
