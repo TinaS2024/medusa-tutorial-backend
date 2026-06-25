@@ -13,6 +13,8 @@ type DesignerFormType = {
   has_cushion: boolean,
   has_emboss: boolean,
   cushion_color_option: string,
+  designer_shape?: string,
+  designer_category?: string
 }
 const firstString = (value: unknown): string | undefined => {
   if (typeof value === "string" && value.trim()) return value;
@@ -47,10 +49,6 @@ const getRequestedLocale = (req: MedusaRequest): "de-DE" | "en-GB" | "fr-FR" | "
   return normalizeLocale(candidate);
 };
 
-const includesAny = (haystack: string, needles: string[]): boolean => {
-  return needles.some((n) => haystack.includes(n));
-};
-
 const parseBoolean = (value: unknown): boolean => {
   if (typeof value === "boolean") return value;
   if (typeof value === "number") return value === 1;
@@ -62,6 +60,22 @@ const parseNumber = (value: unknown): number | undefined => {
   const n = typeof value === "number" ? value : Number(value);
   return Number.isFinite(n) ? n : undefined;
 };
+
+const categoryToKind = (cat?: string): string => {
+  switch (cat) {
+    case "shield":
+    case "wooden_shield":
+      return "shield";
+    case "emboss":
+      return "emboss";
+    case "stamp":
+    case "self_inking":
+      return "stamp";
+    default:
+      return "other";
+  }
+};
+
 
 export async function GET(req: MedusaRequest, res: MedusaResponse<DesignerFormType[]>) 
 {
@@ -98,34 +112,6 @@ export async function GET(req: MedusaRequest, res: MedusaResponse<DesignerFormTy
     localizedProducts = baseProducts;
   }
 
-   const embossKeywords = [
-    "prägestempel",
-    "praegestempel",
-    "emboss",
-    "embosser",
-    "gaufrage",
-    "timbre à sec",
-    "timbre a sec",
-    "blinddruk",
-    "blinddrukstempel",
-    "droogstempel",
-    "preegstempel",
-    "blind emboss",
-  ];
-
-  const shieldKeywords = ["schild", "shield", "plaque", "naambord", "naamplaat", "plaat"];
-
-  const stampKeywords = [
-    "trodat",
-    "stempel",
-    "stamp",
-    "tampon",
-    "holzstempel",
-    "houtstempel",
-    "bois",
-    "hout",
-  ];
-
   const widthTitles = ["breite", "width", "largeur", "breedte"];
   const heightTitles = ["höhe", "hoehe", "height", "hauteur", "hoogte"];
   const cushionTitles = ["kissenfarbe", "cushion", "coussin", "kussen", "encre", "ink"];
@@ -139,7 +125,6 @@ export async function GET(req: MedusaRequest, res: MedusaResponse<DesignerFormTy
   const baseById = new Map<
     string,
     {
-      kind: string;
       widthOptionId?: string;
       heightOptionId?: string;
       cushionOptionId?: string;
@@ -158,27 +143,7 @@ export async function GET(req: MedusaRequest, res: MedusaResponse<DesignerFormTy
     const titleLower = baseTitle.toLowerCase();
     const subtitleLower = baseSubtitle.toLowerCase();
 
-    let kind = "other";
-    if (includesAny(titleLower, embossKeywords) || includesAny(subtitleLower, embossKeywords))
-    {
-      kind = "emboss";
-    } else if (includesAny(titleLower, shieldKeywords) || includesAny(subtitleLower, shieldKeywords))
-    {
-      kind = "shield";
-    } else if (includesAny(titleLower, stampKeywords) || includesAny(subtitleLower, stampKeywords))
-    {
-      kind = "stamp";
-    }
-
     const baseMetadata = (baseProduct?.metadata as any) || {};
-
-    if (parseBoolean(baseMetadata.is_shieldProduct))
-    {
-      kind = "shield";
-    } else if (parseBoolean(baseMetadata.is_stampProduct))
-    {
-      kind = "stamp";
-    }
 
     let baseMaterial = "";
     if (typeof (baseProduct as any)?.material === "string")
@@ -196,7 +161,6 @@ export async function GET(req: MedusaRequest, res: MedusaResponse<DesignerFormTy
     const hasEmboss = baseOptions.some((opt) => isTitleMatch(opt, embossTitles));
 
     baseById.set(String(baseProduct.id), {
-      kind,
       widthOptionId: widthOption?.id,
       heightOptionId: heightOption?.id,
       cushionOptionId: cushionOption?.id,
@@ -221,7 +185,7 @@ export async function GET(req: MedusaRequest, res: MedusaResponse<DesignerFormTy
 
     const baseInfo = baseById.get(String(product.id));
 
-    const kind = baseInfo?.kind || "other";
+    const kind = categoryToKind(firstString(metadata.designer_category));
 
     const metaWidth = parseNumber((metadata as any)?.width ?? (metadata as any)?.default_width);
     const metaHeight = parseNumber((metadata as any)?.height ?? (metadata as any)?.default_height);
@@ -335,6 +299,8 @@ export async function GET(req: MedusaRequest, res: MedusaResponse<DesignerFormTy
         has_cushion: hasCushion,
         has_emboss: hasEmboss, 
         cushion_color_option: cushionColorOption,
+        designer_shape: firstString(variantMeta.designer_shape) ?? firstString(metadata.designer_shape),
+        designer_category: firstString(variantMeta.designer_category) ?? firstString(metadata.designer_category),
       });
     }
   }
