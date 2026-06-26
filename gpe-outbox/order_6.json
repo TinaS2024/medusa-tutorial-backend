@@ -1,0 +1,42 @@
+{
+  "order": {
+    "id": "order_01KW1H8RTFN9QDH5YQ2DGNJ9N3",
+    "display_id": 6,
+    "placed_at": "2026-06-26T08:38:15.636Z",
+    "currency": "eur",
+    "total": 4.76
+  },
+  "customer": {
+    "id": "cus_01KS2FWC5PFMN0KCR2H7Q9782E",
+    "email": "Akanah88@web.de",
+    "name": "Akanah Keto"
+  },
+  "shipping_address": {
+    "first_name": "Tina",
+    "last_name": "Schmidtbauer",
+    "address_1": "Hauptstraße 123",
+    "postal_code": "09387",
+    "city": "Jahnsdorf",
+    "country_code": "de"
+  },
+  "items": [
+    {
+      "line_item_id": "ordli_01KW1H8RTJ4D86851N9VQVMEY9",
+      "product": {
+        "product_id": "prod_01KNRHSHBS8HP25VS43QPQ64M4",
+        "variant_id": "variant_01KNRHY0YKQYE6N25QQ5XXJRTB",
+        "title": "Siegelstempel",
+        "variant_title": "Siegelstempel Messing",
+        "designer_shape": "round",
+        "designer_category": "stamp",
+        "width_mm": 50,
+        "height_mm": 50,
+        "thickness_mm": null
+      },
+      "design": {
+        "svg_url": "http%3A%2F%2Flocalhost%3A3000%2Fdesigns%2Fcus_01KS2FWC5PFMN0KCR2H7Q9782E%2FDesign-1782462747359-Hund.svg",
+        "png_url": "http%3A%2F%2Flocalhost%3A3000%2Fdesigns%2Fcus_01KS2FWC5PFMN0KCR2H7Q9782E%2FDesign-1782462747359-Hund.png"
+      }
+    }
+  ]
+}
