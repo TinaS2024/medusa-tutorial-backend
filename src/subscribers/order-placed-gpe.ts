@@ -93,7 +93,8 @@ export default async function orderPlacedGpeSubscriber({event: { data }, contain
     items,
   };
 
-  const outboxDir = process.env.GPE_OUTBOX_DIR || join(process.cwd(), "gpe-outbox");
+  const outboxDir = process.env.GPE_OUTBOX_DIR || join(process.cwd(), "..", "gpe-outbox");
+
   await fs.mkdir(outboxDir, { recursive: true });
 
   const filePath = join(outboxDir, `order_${order.display_id}.json`);
