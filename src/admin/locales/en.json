@@ -23,5 +23,19 @@
       "default_from_name": "Your shop team",
       "text": "Hello,\n\nWe received a request to reset the password for your account ({email}).\n\nYour verification code is:\n{code}\n\nEnter this code in the shop in the “Code” field and set your new password.\n\nIf you didn’t request a password reset, you can ignore this email.\n\nKind regards\n{from_name}"
     }
+  },
+  "bank_settings": {
+    "bank":"Bank connection",
+    "bank_connect":"Bank connection (Prepayment)",
+    "bank_info":"These bank details will be displayed on the order confirmation email.",
+    "account_holder":"Account holder",
+    "bank_name":"Bank / Credit institution",
+    "iban":"IBAN",
+    "bic":"BIC",
+    "note":"Note (optional)",
+    "load":"Reload",
+    "save":"Save",
+    "save_info":"Bank connection saved",
+    "save_error":"Save failed"
   }
 }

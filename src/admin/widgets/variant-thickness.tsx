@@ -10,12 +10,12 @@ type UpdateVariantResponse = { variant?: AdminProductVariant ;}
 
 const VariantThicknessWidget = ({ data: variant }: DetailWidgetProps<AdminProductVariant>) => {
 
-    const [lang, setLang] = useState<Lang>("de")
-    const t = getMessages(lang)
+    const [lang, setLang] = useState<Lang>("de");
+    const t = getMessages(lang);
 
     useEffect(() => {
     setLang(getClientLanguage())
-    }, [])
+    }, []);
 
     const initial = useMemo(() => {
     const raw = (variant.metadata as any)?.thickness ?? (variant.metadata as any)?.thickness_mm;

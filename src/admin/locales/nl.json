@@ -23,5 +23,19 @@
       "default_from_name": "Je shopteam",
       "text": "Hallo,\n\nWe hebben een verzoek ontvangen om het wachtwoord van je account ({email}) te resetten.\n\nJe verificatiecode is:\n{code}\n\nVoer deze code in de winkel in het veld “Code” in en stel daarna je nieuwe wachtwoord in.\n\nAls je geen wachtwoord-reset hebt aangevraagd, kun je deze e-mail negeren.\n\nMet vriendelijke groet\n{from_name}"
     }
+  },
+  "bank_settings": {
+    "bank":"Bankgegevens",
+    "bank_connect":"Bankgegevens (vooruitbetaling)",
+    "bank_info":"Deze bankgegevens worden weergegeven in de bestelbevestigingse-mail.",
+    "account_holder":"Bankrekeninghouder",
+    "bank_name":"Bank / Kredietinstelling",
+    "iban":"IBAN",
+    "bic":"BIC",
+    "note":"Note (optioneel)",
+    "load":"Herladen",
+    "save":"Opslaan",
+    "save_info":"Bankgegevens opgeslagen",
+    "save_error":"Opslaan mislukt"
   }
 }

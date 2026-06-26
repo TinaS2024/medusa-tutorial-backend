@@ -23,5 +23,19 @@
       "default_from_name": "Dein Shop-Team",
       "text": "Hallo,\n\nwir haben eine Anfrage zum Zurücksetzen deines Passworts für dein Konto ({email}) erhalten.\n\nDein Bestätigungscode lautet:\n{code}\n\nGib diesen Code im Shop in das Feld „Code“ ein und lege anschließend dein neues Passwort fest.\n\nWenn du das Passwort nicht zurücksetzen wolltest, kannst du diese E-Mail ignorieren.\n\nViele Grüße\n{from_name}"
     }
+  },
+  "bank_settings": {
+    "bank":"Bankverbindung",
+    "bank_connect":"Bankverbindung (Vorauszahlung)",
+    "bank_info":"Diese Bankdaten werden dem Kunden bei Vorauszahlung auf der Bestellbestätigung angezeigt.",
+    "account_holder":"Kontoinhaber",
+    "bank_name":"Bank / Kreditinstitut",
+    "iban":"IBAN",
+    "bic":"BIC",
+    "note":"Hinweis (optional)",
+    "load":"Neu laden",
+    "save":"Speichern",
+    "save_info":"Bankverbindung gespeichert",
+    "save_error":"Speichern fehlgeschlagen"
   }
 }

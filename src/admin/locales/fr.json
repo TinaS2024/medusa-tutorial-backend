@@ -23,5 +23,19 @@
       "default_from_name": "L'équipe de la boutique",
       "text": "Bonjour,\n\nNous avons reçu une demande de réinitialisation du mot de passe pour votre compte ({email}).\n\nVotre code de vérification est :\n{code}\n\nSaisissez ce code dans la boutique dans le champ « Code » puis définissez votre nouveau mot de passe.\n\nSi vous n’êtes pas à l’origine de cette demande, vous pouvez ignorer cet e-mail.\n\nCordialement\n{from_name}"
     }
+  },
+  "bank_settings": {
+    "bank":"Coordonnées bancaires",
+    "bank_connect":"Coordonnées bancaires (paiement anticipé)",
+    "bank_info":"Ces coordonnées bancaires seront affichées dans l'e-mail de confirmation de la commande.",
+    "account_holder":"Propriétaire de compte bancaire",
+    "bank_name":"Bank / Institution bancaire",
+    "iban":"IBAN",
+    "bic":"BIC",
+    "note":"Note (facultative)",
+    "load":"Recharger",
+    "save":"Sauvegarder",
+    "save_info":"Coordonnées bancaires enregistrées",
+    "save_error":"Échec de l'enregistrement"
   }
 }
