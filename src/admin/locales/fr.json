@@ -22,6 +22,12 @@
       "subject": "Réinitialiser votre mot de passe – votre code de vérification",
       "default_from_name": "L'équipe de la boutique",
       "text": "Bonjour,\n\nNous avons reçu une demande de réinitialisation du mot de passe pour votre compte ({email}).\n\nVotre code de vérification est :\n{code}\n\nSaisissez ce code dans la boutique dans le champ « Code » puis définissez votre nouveau mot de passe.\n\nSi vous n’êtes pas à l’origine de cette demande, vous pouvez ignorer cet e-mail.\n\nCordialement\n{from_name}"
+    },
+    "order_confirmation": {
+      "subject": "Confirmation de commande – Commande {référence}",
+      "default_from_name": "L'équipe de la boutique",
+      "text": "Bonjour,\n\nMerci de votre commande {reference}.\n\nVos articles:\n{items}\n\nTotal: {total}\n\n{payment_section}Cordialement\n{from_name}",
+      "prepayment_section": "Veuillez transférer ${total} à:\nPropriétaire de compte bancaire: {bank_account_holder}\nBank: {bank_name}\nIBAN: {bank_iban}\nBIC: {bank_bic}\nVerwendungszweck: {reference}\n{bank_note}\n\n"
     }
   },
   "bank_settings": {

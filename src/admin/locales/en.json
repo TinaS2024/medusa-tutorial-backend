@@ -22,6 +22,13 @@
       "subject": "Reset your password – your verification code",
       "default_from_name": "Your shop team",
       "text": "Hello,\n\nWe received a request to reset the password for your account ({email}).\n\nYour verification code is:\n{code}\n\nEnter this code in the shop in the “Code” field and set your new password.\n\nIf you didn’t request a password reset, you can ignore this email.\n\nKind regards\n{from_name}"
+      
+    },
+    "order_confirmation": {
+      "subject": "Order confirmation – Order {Reference}",
+      "default_from_name": "Your shop team",
+      "text": "Hello,\n\nThank you for your order {reference}.\n\nYour items:\n{items}\n\nTotal: {total}\n\n{payment_section}Kind regards\n{from_name}",
+      "prepayment_section": "Please transfer ${total} to:\nAccount holder: {bank_account_holder}\nBank: {bank_name}\nIBAN: {bank_iban}\nBIC: {bank_bic}\nVerwendungszweck: {reference}\n{bank_note}\n\n"
     }
   },
   "bank_settings": {

@@ -22,6 +22,12 @@
       "subject": "Passwort zurücksetzen – Ihr Bestätigungscode",
       "default_from_name": "Dein Shop-Team",
       "text": "Hallo,\n\nwir haben eine Anfrage zum Zurücksetzen deines Passworts für dein Konto ({email}) erhalten.\n\nDein Bestätigungscode lautet:\n{code}\n\nGib diesen Code im Shop in das Feld „Code“ ein und lege anschließend dein neues Passwort fest.\n\nWenn du das Passwort nicht zurücksetzen wolltest, kannst du diese E-Mail ignorieren.\n\nViele Grüße\n{from_name}"
+    },
+    "order_confirmation": {
+      "subject": "Bestellbestätigung – Bestellung {reference}",
+      "default_from_name": "Dein Shop-Team",
+      "text": "Hallo,\n\nvielen Dank für deine Bestellung {reference}.\n\nDeine Artikel:\n{items}\n\nGesamtsumme: {total}\n\n{payment_section}Viele Grüße\n{from_name}",
+      "prepayment_section": "Bitte überweise den Betrag von {total} auf folgendes Konto:\nKontoinhaber: {bank_account_holder}\nBank: {bank_name}\nIBAN: {bank_iban}\nBIC: {bank_bic}\nVerwendungszweck: {reference}\n{bank_note}\n\n"
     }
   },
   "bank_settings": {
