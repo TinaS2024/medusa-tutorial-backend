@@ -13,6 +13,46 @@ const storeCorsString = process.env.STORE_CORS || "http://localhost:8000,http://
 const adminCorsString = process.env.ADMIN_CORS || "http://localhost:5173,http://localhost:9000";
 const authCorsString = process.env.AUTH_CORS || "http://localhost:5173,http://localhost:9000,http://localhost:8000";
 
+const modules: any[] = [
+  {
+    resolve: "./src/modules/bundled-product",
+  },
+  {
+    resolve: "@medusajs/translation",
+  },
+  {
+    resolve: "@medusajs/medusa/notification",
+    options: {
+      providers: [
+        {
+          resolve: "@medusajs/medusa/notification-local",
+          id: "local",
+          options: { channels: ["email"] },
+        },
+      ],
+    },
+  },
+];
+
+// Stripe nur registrieren, wenn ein Key gesetzt ist (sonst inaktiv – keine echte Zahlung)
+if (process.env.STRIPE_API_KEY) {
+  modules.push({
+    resolve: "@medusajs/medusa/payment",
+    options: {
+      providers: [
+        {
+          resolve: "@medusajs/payment-stripe",
+          id: "stripe",
+          options: {
+            apiKey: process.env.STRIPE_API_KEY,
+            webhookSecret: process.env.STRIPE_WEBHOOK_SECRET,
+          },
+        },
+      ],
+    },
+  });
+}
+
 module.exports = defineConfig({
   projectConfig: {
     databaseUrl: process.env.DATABASE_URL,
@@ -24,29 +64,7 @@ module.exports = defineConfig({
     cookieSecret: process.env.COOKIE_SECRET || "supersecret",
     }
   },
-  
-  modules: [
-    {
-      resolve: "./src/modules/bundled-product",
-    },
-    {
-      resolve: "@medusajs/translation",
-    },
-    {
-      resolve: "@medusajs/medusa/notification",
-      options: {
-        providers: [
-          {
-            resolve: "@medusajs/medusa/notification-local",
-            id: "local",
-            options: {
-              channels: ["email"],
-            },
-          },
-        ]
-      }
-    }
-  ],
+  modules,
   featureFlags: {
     translation: true,
   },
