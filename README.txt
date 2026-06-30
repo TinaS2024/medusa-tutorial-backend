@@ -10,4 +10,7 @@ So können Sie Stripe für Zahlungsdienste (Kreditkarte, Debitkarte, PayPal, Kla
 Im Terminal eingeben um Stripe-Zugang zu prüfen:
 C:\stripe
 stripe login
-.\stripe listen --forward-to localhost:9000/hooks/payment/stripe
+.\stripe listen --forward-to localhost:9000/hooks/payment/stripe_stripe
+
+TODO:
+- SEPA-Synchronität noch ermöglichen
