@@ -12,5 +12,9 @@ C:\stripe
 stripe login
 .\stripe listen --forward-to localhost:9000/hooks/payment/stripe_stripe
 
+
+Zum Testen für Sepa: DE89 3704 0044 0532 0130 00
+Zum Testen für Kreditkarte: 4242 4242 4242 4242
+
 TODO:
 - SEPA-Synchronität noch ermöglichen
