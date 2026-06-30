@@ -3497,6 +3497,13 @@
   resolved "https://registry.npmjs.org/@medusajs/order/-/order-2.13.6.tgz"
   integrity sha512-It1PPQj3pEyhmJ28JXxdIxgKerV+MpNNE0B1pCsdL48iyyXYZboSIRQkRGJj3/qOkRhIhKD2HNq/nNodv2MS8Q==
 
+"@medusajs/payment-stripe@^2.17.1":
+  version "2.17.1"
+  resolved "https://registry.npmjs.org/@medusajs/payment-stripe/-/payment-stripe-2.17.1.tgz"
+  integrity sha512-PsqP1OPKsQvJtcsh2MAWpUoqS2Ln7wXtqQsVrZyzmDnL4hzeNN/RFF9CklR7P2A1T0jjQRDLodBy/aQ1iv8hUg==
+  dependencies:
+    stripe "^15.5.0"
+
 "@medusajs/payment-stripe@2.13.6":
   version "2.13.6"
   resolved "https://registry.npmjs.org/@medusajs/payment-stripe/-/payment-stripe-2.13.6.tgz"
