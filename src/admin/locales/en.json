@@ -44,5 +44,9 @@
     "save":"Save",
     "save_info":"Bank connection saved",
     "save_error":"Save failed"
+  },
+  "designs":
+  {
+    "cus_design":"Customer design"
   }
 }

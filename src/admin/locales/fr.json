@@ -43,5 +43,9 @@
     "save":"Sauvegarder",
     "save_info":"Coordonnées bancaires enregistrées",
     "save_error":"Échec de l'enregistrement"
+  },
+  "designs":
+  {
+    "cus_design":"Conception sur mesure"
   }
 }

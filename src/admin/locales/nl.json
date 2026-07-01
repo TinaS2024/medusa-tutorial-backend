@@ -43,5 +43,9 @@
     "save":"Opslaan",
     "save_info":"Bankgegevens opgeslagen",
     "save_error":"Opslaan mislukt"
+  },
+  "designs":
+  {
+    "cus_design":"Klantontwerp"
   }
 }

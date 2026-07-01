@@ -43,5 +43,9 @@
     "save":"Speichern",
     "save_info":"Bankverbindung gespeichert",
     "save_error":"Speichern fehlgeschlagen"
+  },
+  "designs":
+  {
+    "cus_design":"Kundendesign"
   }
 }
