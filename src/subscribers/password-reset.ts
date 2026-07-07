@@ -1,5 +1,6 @@
 import type { SubscriberArgs, SubscriberConfig } from "@medusajs/framework";
 import { Modules } from "@medusajs/framework/utils";
+import { sendMail } from "../lib/send-mail";
 
 import de from "../admin/locales/de.json";
 import en from "../admin/locales/en.json";
@@ -37,7 +38,7 @@ const toSupportedLocale = (raw: unknown): SupportedLocale => {
 
 
 export default async function passwordResetSubscriber({event: { data },container}: SubscriberArgs<PasswordResetEvent>) {
-  const notificationModuleService = container.resolve(Modules.NOTIFICATION);
+
 
   const storeModuleService = container.resolve(Modules.STORE);
 
@@ -48,9 +49,15 @@ export default async function passwordResetSubscriber({event: { data },container
     process.env.STOREFRONT_URL ||
     "http://localhost:8000";
 
-  const fromEmail = typeof metadata?.email_from === "string" ? metadata.email_from : null;
-
+   const fromEmail = typeof metadata?.email_from === "string" ? metadata.email_from : null;
   const fromName = typeof metadata?.email_from_name === "string" ? metadata.email_from_name : null;
+
+  // SMTP-Zugangsdaten aus den Store-Metadaten (im Admin einstellbar)
+  const smtpHost = typeof metadata?.smtp_host === "string" ? metadata.smtp_host : null;
+  const smtpUser = typeof metadata?.smtp_user === "string" ? metadata.smtp_user : null;
+  const smtpPass = typeof metadata?.smtp_pass === "string" ? metadata.smtp_pass : null;
+  const smtpPort = Number(metadata?.smtp_port) || 587;
+  const smtpSecure = smtpPort === 465;
 
   const locale = toSupportedLocale(metadata?.email_locale);
   const tpl = templatesByLocale[locale]?.email_templates?.password_reset;
@@ -60,32 +67,36 @@ export default async function passwordResetSubscriber({event: { data },container
 
   const signatureName = fromName || (tpl?.default_from_name as string | undefined) || "";
 
+  // Link zeigt jetzt auf die eigene Reset-Seite (ohne /account, siehe Teil C)
+  const resetUrl = `${storefrontUrl}/reset-password?token=${encodeURIComponent(token)}&email=${encodeURIComponent(email)}`;
+
   const subject = (tpl?.subject as string | undefined) || "Password reset";
   const text = interpolate(
-    (tpl?.text as string | undefined) || "Code: {code}",
+    (tpl?.text as string | undefined) || "Link: {reset_url}",
     {
       email,
       code: token,
+      reset_url: resetUrl,
       from_name: signatureName,
     }
   )
 
-  const resetUrl = `${storefrontUrl}/account/reset-password?token=${encodeURIComponent(token)}&email=${encodeURIComponent(email)}`;
+  if (!smtpHost || !smtpUser || !smtpPass) {
+    console.warn("[PasswordReset] SMTP nicht konfiguriert – es wurde keine E-Mail versendet.");
+    return;
+  }
 
-  await notificationModuleService.createNotifications({
+  const from = fromName
+    ? `${fromName} <${fromEmail ?? smtpUser}>`
+    : (fromEmail ?? smtpUser);
+
+  await sendMail({
+    smtp: { host: smtpHost, port: smtpPort, secure: smtpSecure, user: smtpUser, pass: smtpPass },
+    from,
     to: email,
-    channel: "email",
-    template: "password-reset",
-    data: {
-      locale,
-      subject,
-      text,
-      code: token,
-      reset_url: resetUrl,
-      from_email: fromEmail,
-      from_name: fromName,
-    },
-  })
+    subject,
+    text,
+  });
 }
 
 export const config: SubscriberConfig = {

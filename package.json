@@ -36,6 +36,7 @@
     "awilix": "^8.0.1",
     "medusa-plugin-category-images": "^1.0.18",
     "medusa-storage-supabase": "^0.1.7",
+    "nodemailer": "^9.0.3",
     "pg": "^8.13.0"
   },
   "devDependencies": {
@@ -45,6 +46,7 @@
     "@swc/jest": "^0.2.36",
     "@types/jest": "^29.5.13",
     "@types/node": "^20.0.0",
+    "@types/nodemailer": "^8.0.1",
     "@types/react": "^18.3.2",
     "@types/react-dom": "^18.2.25",
     "cross-env": "^10.1.0",

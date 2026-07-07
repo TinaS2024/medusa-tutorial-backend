@@ -7,6 +7,10 @@ type EmailSettingsResponse = {
     email_from_name: string | null
     storefront_url: string | null
     email_locale: "de" | "en" | "fr" | "nl" | null
+    smtp_host: string | null
+    smtp_port: number | null
+    smtp_user: string | null
+    smtp_pass: string | null
   }
 }
 
@@ -32,14 +36,18 @@ export async function GET(
       ? rawLocale
       : null;
 
-  res.json({
+   res.json({
     email_settings: {
       email_from: typeof md?.email_from === "string" ? md.email_from : null,
       email_from_name:
         typeof md?.email_from_name === "string" ? md.email_from_name : null,
       storefront_url:
         typeof md?.storefront_url === "string" ? md.storefront_url : null,
-    email_locale,
+      email_locale,
+      smtp_host: typeof md?.smtp_host === "string" ? md.smtp_host : null,
+      smtp_port: typeof md?.smtp_port === "number" ? md.smtp_port : null,
+      smtp_user: typeof md?.smtp_user === "string" ? md.smtp_user : null,
+      smtp_pass: typeof md?.smtp_pass === "string" ? md.smtp_pass : null,
     },
   })
 }
@@ -63,6 +71,13 @@ export async function POST(
   const storefront_url = normalize(body.storefront_url);
   const email_locale_raw = normalize(body.email_locale);
 
+  const smtp_host = normalize(body.smtp_host);
+  const smtp_user = normalize(body.smtp_user);
+  const smtp_pass = normalize(body.smtp_pass);
+  const smtp_port_raw = normalize(body.smtp_port);
+  const smtp_port = smtp_port_raw ? Number(smtp_port_raw) : null;
+
+
   const email_locale =
     email_locale_raw === "de" ||
     email_locale_raw === "en" ||
@@ -84,22 +99,31 @@ export async function POST(
   }
 
   const prev = (store.metadata as Record<string, unknown> | null) ?? {};
-  const metadata = {
+    const metadata = {
     ...prev,
     email_from,
     email_from_name,
     storefront_url,
     email_locale,
+    smtp_host,
+    smtp_port,
+    smtp_user,
+    smtp_pass,
   }
+
 
   await storeModuleService.updateStores({ id: store.id }, { metadata });
 
-  res.json({
+    res.json({
     email_settings: {
       email_from,
       email_from_name,
       storefront_url,
       email_locale,
+      smtp_host,
+      smtp_port,
+      smtp_user,
+      smtp_pass,
     },
   })
 }

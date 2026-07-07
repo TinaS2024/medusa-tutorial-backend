@@ -10,13 +10,23 @@ type EmailSettings = {
   email_from_name: string | null
   storefront_url: string | null
   email_locale: "de" | "en" | "fr" | "nl" | null
+  smtp_host: string | null
+  smtp_port: number | null
+  smtp_user: string | null
+  smtp_pass: string | null
 }
+
 
 const EmailSettingsPage = () => {
   const [emailFrom, setEmailFrom] = useState("");
   const [emailFromName, setEmailFromName] = useState("");
   const [storefrontUrl, setStorefrontUrl] = useState("");
   const [emailLocale, setEmailLocale] = useState<"de" | "en" | "fr" | "nl">("de");
+  const [smtpHost, setSmtpHost] = useState("");
+  const [smtpPort, setSmtpPort] = useState("");
+  const [smtpUser, setSmtpUser] = useState("");
+  const [smtpPass, setSmtpPass] = useState("");
+
 
   const { data, isLoading, refetch } = useQuery<{ email_settings: EmailSettings }>(
     {
@@ -35,6 +45,11 @@ const EmailSettingsPage = () => {
     setEmailFromName(s.email_from_name ?? "")
     setStorefrontUrl(s.storefront_url ?? "")
     setEmailLocale((s.email_locale ?? "de") as any)
+    setSmtpHost(s.smtp_host ?? "")
+    setSmtpPort(s.smtp_port != null ? String(s.smtp_port) : "")
+    setSmtpUser(s.smtp_user ?? "")
+    setSmtpPass(s.smtp_pass ?? "")
+
   }, [data])
 
   const { mutateAsync, isPending } = useMutation({
@@ -46,7 +61,12 @@ const EmailSettingsPage = () => {
           email_from_name: emailFromName,
           storefront_url: storefrontUrl,
           email_locale: emailLocale,
+          smtp_host: smtpHost,
+          smtp_port: smtpPort,
+          smtp_user: smtpUser,
+          smtp_pass: smtpPass,
         },
+
       })
     },
   })
@@ -113,6 +133,47 @@ const EmailSettingsPage = () => {
                 <Select.Item value="nl">Nederlands</Select.Item>
               </Select.Content>
             </Select>
+          </div>
+
+                    <div>
+            <Label>SMTP Host</Label>
+            <Input
+              value={smtpHost}
+              onChange={(e) => setSmtpHost(e.target.value)}
+              placeholder="smtp.domain.de"
+              disabled={isLoading}
+            />
+          </div>
+
+          <div>
+            <Label>SMTP Port</Label>
+            <Input
+              value={smtpPort}
+              onChange={(e) => setSmtpPort(e.target.value)}
+              placeholder="587"
+              disabled={isLoading}
+            />
+          </div>
+
+          <div>
+            <Label>SMTP Benutzer</Label>
+            <Input
+              value={smtpUser}
+              onChange={(e) => setSmtpUser(e.target.value)}
+              placeholder="firma@domain.de"
+              disabled={isLoading}
+            />
+          </div>
+
+          <div>
+            <Label>SMTP Passwort</Label>
+            <Input
+              type="password"
+              value={smtpPass}
+              onChange={(e) => setSmtpPass(e.target.value)}
+              placeholder="••••••••"
+              disabled={isLoading}
+            />
           </div>
 
           <div className="flex justify-end gap-x-2">
