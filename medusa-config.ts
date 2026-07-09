@@ -18,6 +18,9 @@ const modules: any[] = [
     resolve: "./src/modules/bundled-product",
   },
   {
+    resolve: "./src/modules/order-production"
+  },
+  {
     resolve: "@medusajs/translation",
   },
   {

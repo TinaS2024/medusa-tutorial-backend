@@ -21,7 +21,22 @@
     "password_reset": {
       "subject": "Reset your password – your verification code",
       "default_from_name": "Your shop team",
-      "text": "Hello,\n\nWe have received a request to reset your password for your account ({email}).\n\nPlease click on the following link to set a new password:\n{reset_url}\n\nIf you did not want to reset your password, you can ignore this email.\n\nBest regards\n{from_name}"
+      "text": "Hello,\n\nWe have received a request to reset your password for your account ({email}).\n\nPlease click on the following link to set a new password:\n{reset_url}\n\nIf you did not want to reset your password, you can ignore this email.\n\nBest regards\n{from_name}",
+    "production_status_update": {
+      "subject": "Your order {reference}: {status_label}",
+      "text": "Hello,\n\n The status of your order {reference} has changed:\n\n➜ {status_label}\n\nBest regards\n{from_name}",
+      "default_from_name": "Your Shop Team",
+      "statuses": {
+        "received": "Order received",
+        "paid":"Paid",
+        "in_design": "In design",
+        "in_production": "In production",
+        "ready_to_ship": "Ready to ship",
+        "shipped": "Shipped",
+        "completed":"Completed",
+        "cancelled": "Cancelled"
+      }
+  }
     },
     "order_confirmation": {
       "subject": "Order confirmation – Order {Reference}",

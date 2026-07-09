@@ -21,7 +21,22 @@
     "password_reset": {
       "subject": "Réinitialiser votre mot de passe – votre code de vérification",
       "default_from_name": "L'équipe de la boutique",
-      "text": "Bonjour,\n\nNous avons reçu une demande de réinitialisation du mot de passe de votre compte ({email}).\n\nVeuillez cliquer sur le lien suivant pour définir un nouveau mot de passe :\n{reset_url}\n\nSi vous ne souhaitez pas réinitialiser votre mot de passe, vous pouvez ignorer ce courriel.\n\nCordialement,\n{from_name}"
+      "text": "Bonjour,\n\nNous avons reçu une demande de réinitialisation du mot de passe de votre compte ({email}).\n\nVeuillez cliquer sur le lien suivant pour définir un nouveau mot de passe :\n{reset_url}\n\nSi vous ne souhaitez pas réinitialiser votre mot de passe, vous pouvez ignorer ce courriel.\n\nCordialement,\n{from_name}",
+    "production_status_update": {
+      "subject": "Votre commande {reference} : {status_label}",
+      "text": "Bonjour,\n\n Le statut de votre commande {reference} a changé :\n\n➜ {status_label}\n\nCordialement,\n{from_name}",
+      "default_from_name": "Votre équipe",
+      "statuses": {
+        "received": "Commande reçue",
+        "paid":"Payé",
+        "in_design": "En cours de conception",
+        "in_production": "En production",
+        "ready_to_ship": "Prête à être expédiée",
+        "shipped": "Expédiée",
+        "completed":"Terminé",
+        "cancelled": "Annulée"
+      }
+  }
     },
     "order_confirmation": {
       "subject": "Confirmation de commande – Commande {référence}",

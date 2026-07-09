@@ -21,7 +21,22 @@
     "password_reset": {
       "subject": "Passwort zurücksetzen – Ihr Bestätigungscode",
       "default_from_name": "Dein Shop-Team",
-      "text":"Hallo,\n\nwir haben eine Anfrage zum Zurücksetzen deines Passworts für dein Konto ({email}) erhalten.\n\nBitte klicke auf den folgenden Link, um ein neues Passwort festzulegen:\n{reset_url}\n\nWenn du das Passwort nicht zurücksetzen wolltest, kannst du diese E-Mail ignorieren.\n\nViele Grüße\n{from_name}"
+      "text":"Hallo,\n\nwir haben eine Anfrage zum Zurücksetzen deines Passworts für dein Konto ({email}) erhalten.\n\nBitte klicke auf den folgenden Link, um ein neues Passwort festzulegen:\n{reset_url}\n\nWenn du das Passwort nicht zurücksetzen wolltest, kannst du diese E-Mail ignorieren.\n\nViele Grüße\n{from_name}",
+    "production_status_update": {
+      "subject": "Ihre Bestellung {reference}: {status_label}",
+      "text": "Hallo,\n\n der Status Ihrer Bestellung {reference} hat sich geändert:\n\n➜ {status_label}\n\nViele Grüße\n{from_name}",
+      "default_from_name": "Ihr Shop-Team",
+      "statuses": {
+        "received": "Bestellung eingegangen",
+        "paid": "Bezahlt",
+        "in_design": "In Gestaltung",
+        "in_production": "In Produktion",
+        "ready_to_ship": "Versandbereit",
+        "shipped": "Versendet",
+        "completed":"Abgeschlossen",
+        "cancelled": "Storniert"
+      }
+  }
     },
     "order_confirmation": {
       "subject": "Bestellbestätigung – Bestellung {reference}",

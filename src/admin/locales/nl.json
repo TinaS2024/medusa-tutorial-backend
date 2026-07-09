@@ -21,7 +21,22 @@
     "password_reset": {
       "subject": "Wachtwoord resetten – je verificatiecode",
       "default_from_name": "Je shopteam",
-      "text": "Hallo,\n\nWe hebben een verzoek ontvangen om uw wachtwoord voor uw account ({email}) opnieuw in te stellen.\n\nKlik op de volgende link om een ​​nieuw wachtwoord in te stellen:\n{reset_url}\n\nAls u uw wachtwoord niet wilt wijzigen, kunt u deze e-mail negeren.\n\nMet vriendelijke groeten\n{from_name}"
+      "text": "Hallo,\n\nWe hebben een verzoek ontvangen om uw wachtwoord voor uw account ({email}) opnieuw in te stellen.\n\nKlik op de volgende link om een ​​nieuw wachtwoord in te stellen:\n{reset_url}\n\nAls u uw wachtwoord niet wilt wijzigen, kunt u deze e-mail negeren.\n\nMet vriendelijke groeten\n{from_name}",
+    "production_status_update": {
+      "subject": "Uw bestelling {referentie}: {status_label}",
+      "text": "Hallo,\n\n De status van uw bestelling {referentie} is gewijzigd:\n\n➜ {status_label}\n\nMet vriendelijke groeten\n{from_name}",
+      "default_from_name": "Uw winkelteam",
+      "statuses": {
+        "received": "Bestelling ontvangen",
+        "paid":"Betaald",
+        "in_design": "In ontwerp",
+        "in_production": "In productie",
+        "ready_to_ship": "Klaar voor verzending",
+        "shipped": "Verzonden",
+        "completed":"Voltooid",
+        "cancelled": "Geannuleerds"
+      }
+  }
     },
      "order_confirmation": {
       "subject": "Orderbevestiging – Bestelling {referentie}",
