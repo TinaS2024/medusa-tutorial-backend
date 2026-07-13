@@ -1,4 +1,5 @@
-import type { MedusaRequest, MedusaResponse } from "@medusajs/medusa";
+import type { MedusaRequest, MedusaResponse } from "@medusajs/framework/http";
+
 import { promises as fs } from "fs";
 import { join } from "path";
 

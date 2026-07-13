@@ -14,6 +14,21 @@ const adminCorsString = process.env.ADMIN_CORS || "http://localhost:5173,http://
 const authCorsString = process.env.AUTH_CORS || "http://localhost:5173,http://localhost:9000,http://localhost:8000";
 
 const modules: any[] = [
+    {
+    resolve: "@medusajs/medusa/file",
+    options: {
+      providers: [
+        {
+          resolve: "@medusajs/medusa/file-local",
+          id: "local",
+          options: {
+            upload_dir: path.join(envDir, "static"),
+            backend_url: `${process.env.MEDUSA_BACKEND_URL || "http://localhost:9000"}/static`,
+          },
+        },
+      ],
+    },
+  },
   {
     resolve: "./src/modules/bundled-product",
   },
