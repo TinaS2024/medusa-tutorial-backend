@@ -21,7 +21,8 @@ export const customAddToCartWorkflow = createWorkflow("custom-add-to-cart",
       {
       entity: "cart",
 
-      fields: ["region_id"],
+      // customer_id zusätzlich: GPE braucht den Kunden für den Rabatt.
+      fields: ["region_id", "customer_id"],
 
       filters: {
 
@@ -44,6 +45,9 @@ export const customAddToCartWorkflow = createWorkflow("custom-add-to-cart",
         variant_id: input.item.variant_id,
         region_id: carts[0].region_id!,
         metadata: input.item.metadata,
+        // Menge lag hier schon vor, wurde bisher nur nicht weitergereicht.
+        quantity: input.item.quantity,
+        customer_id: carts[0].customer_id,
       },
     })
 

@@ -57,6 +57,10 @@ export default async function orderPlacedGpeSubscriber({event: { data }, contain
           variant_id: item.variant_id,
           title: item.product?.title ?? item.title,
           variant_title: item.variant?.title ?? null,
+          // GPE-Identität (aus dem Produkt-Sync). null = kein GPE-Produkt.
+          gpe_id: productMeta.gpe_id ?? null,
+          gpe_name: productMeta.gpe_name ?? null,
+          gpe_external_id: productMeta.gpe_external_id ?? null,
           designer_shape: firstString(variantMeta.designer_shape) ?? firstString(productMeta.designer_shape) ?? null,
           designer_category: firstString(variantMeta.designer_category) ?? firstString(productMeta.designer_category) ?? null,
           width_mm: meta.width ?? null,

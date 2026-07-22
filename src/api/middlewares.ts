@@ -42,10 +42,17 @@ export default defineMiddlewares({
         validateAndTransformBody(PostCartsBundledLineItemsSchema),
       ],
     },
-    {
+      {
       matcher: "/store/variants/:id/price",
       methods: ["POST"],
       middlewares: [
+        // allowUnauthenticated: Gäste dürfen die Vorschau weiter sehen (dann
+        // ohne Rabatt). Ist ein Kunde angemeldet, füllt authenticate
+        // req.auth_context, damit die Route seine customer_id an GPE
+        // durchreichen kann – Vorschau = Warenkorbpreis (RECIPE 6a).
+        authenticate("customer", ["session", "bearer"], {
+          allowUnauthenticated: true,
+        }),
         validateAndTransformBody(PostCustomPriceSchema),
       ]
     },

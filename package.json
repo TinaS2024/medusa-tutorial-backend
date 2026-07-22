@@ -15,8 +15,10 @@
   "scripts": {
     "build": "medusa build",
     "seed": "medusa exec ./src/scripts/seed.ts",
-    "start": "medusa start",
-    "dev": "medusa develop",
+    "start": "cross-env NODE_EXTRA_CA_CERTS=certs/gpe-ca.pem medusa start",
+    "dev": "cross-env NODE_EXTRA_CA_CERTS=certs/gpe-ca.pem medusa develop",
+    "smoke:gpe": "cross-env NODE_EXTRA_CA_CERTS=certs/gpe-ca.pem npx tsx src/modules/erp/client/smoke-test.ts",
+    "smoke:gpe:write": "cross-env NODE_EXTRA_CA_CERTS=certs/gpe-ca.pem WRITE_TEST=1 npx tsx src/modules/erp/client/smoke-test.ts",
     "test:integration:http": "TEST_TYPE=integration:http NODE_OPTIONS=--experimental-vm-modules jest --silent=false --runInBand --forceExit",
     "test:integration:modules": "TEST_TYPE=integration:modules NODE_OPTIONS=--experimental-vm-modules jest --silent --runInBand --forceExit",
     "test:unit": "TEST_TYPE=unit NODE_OPTIONS=--experimental-vm-modules jest --silent --runInBand --forceExit"

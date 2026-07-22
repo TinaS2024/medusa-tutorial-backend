@@ -9,6 +9,16 @@ type WorkflowInput = {
   variant_id: string,
   region_id: string,
   metadata?: Record<string, unknown>,
+  /**
+   * Menge. Für die lokale Flächenformel irrelevant, für GPE aber
+   * preisrelevant (Staffelpreise). Default 1.
+   */
+  quantity?: number,
+  /**
+   * Angemeldeter Kunde. Nur für GPE nötig, dort hängt der Rabatt am Kunden.
+   * Ohne Kunde rechnet GPE ohne Rabatt.
+   */
+  customer_id?: string | null,
 }
 
 
@@ -62,6 +72,8 @@ export const getCustomPriceWorkflow = createWorkflow(
     const price = getCustomPriceStep({
       variant: variants[0],
       metadata: input.metadata,
+      quantity: input.quantity,
+      customer_id: input.customer_id,
     } as GetCustomPriceStepInput)
 
     return new WorkflowResponse(price)

@@ -18,6 +18,14 @@ addToCartWorkflow.hooks.validate(
             {
                 continue
             }
+            // GPE-Produkte: Gültigkeit entscheidet GPE, nicht wir. Die lokalen
+            // max_*-Grenzen wären eine zweite Wahrheit, die still von GPE
+            // abweichen kann. Abgelehnt wird stattdessen in getCustomPriceStep,
+            // wenn GPE für die Kombination keinen Preis liefert.
+            if(variant.product?.metadata?.gpe_id)
+            {
+                continue
+            }
             const heightValue = Number(item.metadata?.height);
             const widthValue = Number(item.metadata?.width);
             if(!item.metadata?.height || !item.metadata.width || isNaN(Number(heightValue)) || isNaN(Number(widthValue))) 
