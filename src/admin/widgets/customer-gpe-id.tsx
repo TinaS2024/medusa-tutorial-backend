@@ -4,6 +4,8 @@ import { Container, Heading, Text, Input, Button, Badge, toast } from "@medusajs
 import { DetailWidgetProps, AdminCustomer } from "@medusajs/framework/types";
 import { useMutation } from "@tanstack/react-query";
 import { sdk } from "../lib/sdk";
+import { getClientLanguage } from "../lib/i18n";
+import { getMessages, type Lang } from "../lib/messages";
 
 /** Antwort der Prüf-Route GET /admin/erp/customer/:gpeId (bereits vorhanden). */
 type GpeCustomerPreview = {
@@ -28,6 +30,13 @@ const readGpeId = (customer: AdminCustomer): string => {
 
 const CustomerGpeIdWidget = ({ data: customer }: DetailWidgetProps<AdminCustomer>) => 
 {
+  const [lang, setLang] = useState<Lang>("de")
+  const t = getMessages(lang).customer_gpe
+
+  useEffect(() => {
+    setLang(getClientLanguage())
+  }, [])
+
   // "linked" = die gespeicherte ID (für das Badge). Wird lokal nachgeführt,
   // damit die Anzeige sofort stimmt, ohne auf ein Neuladen der Seite zu warten.
   const [linked, setLinked] = useState(readGpeId(customer));
@@ -50,11 +59,11 @@ const CustomerGpeIdWidget = ({ data: customer }: DetailWidgetProps<AdminCustomer
       ),
     onSuccess: (data) => {
       setPreview(data)
-      toast.success("GPE-Kunde gefunden.")
+      toast.success(t.check_found)
     },
     onError: () => {
       setPreview(null)
-      toast.error("Kein GPE-Kunde mit dieser ID gefunden (oder GPE nicht erreichbar).")
+      toast.error(t.check_not_found)
     },
   })
 
@@ -70,11 +79,11 @@ const CustomerGpeIdWidget = ({ data: customer }: DetailWidgetProps<AdminCustomer
     onSuccess: (_res, gpeId) => {
       setLinked(gpeId ?? "")
       toast.success(
-        gpeId ? "GPE-Kunden-ID gespeichert." : "Verknüpfung entfernt."
+        gpeId ? t.save_ok : t.unlink_ok
       )
     },
     onError: () => {
-      toast.error("GPE-Kunden-ID konnte nicht gespeichert werden.")
+      toast.error(t.save_failed)
     },
   })
 
@@ -85,28 +94,25 @@ const CustomerGpeIdWidget = ({ data: customer }: DetailWidgetProps<AdminCustomer
     <Container className="divide-y p-0">
       <div className="flex flex-col gap-y-3 px-6 py-4">
         <div className="flex items-center justify-between">
-          <Heading level="h2">GPE-Kunde</Heading>
+          <Heading level="h2">{t.heading}</Heading>
           {linked ? (
-            <Badge color="green">verknüpft: {linked}</Badge>
+            <Badge color="green">{t.linked}: {linked}</Badge>
           ) : (
-            <Badge color="grey">nicht verknüpft</Badge>
+            <Badge color="grey">{t.not_linked}</Badge>
           )}
         </div>
 
         <Text size="small" className="text-ui-fg-subtle">
-          Verknüpft diesen Shop-Kunden mit einem bestehenden GPE-Kunden. Erst die
-          GPE-Kunden-ID eingeben und <b>Prüfen</b>, um den richtigen Kunden zu
-          bestätigen, dann <b>Speichern</b>. Die ID steuert den Kundenrabatt und
-          später den Bestellversand an GPE.
+          {t.description}
         </Text>
 
         <div className="flex items-end gap-x-3">
           <div className="flex flex-col gap-y-1">
-            <Text size="small">GPE-Kunden-ID</Text>
+            <Text size="small">{t.label}</Text>
             <Input
               value={value}
               onChange={(e) => setValue(e.target.value)}
-              placeholder="z.B. 10-000-943"
+              placeholder={t.placeholder}
               className="w-[200px]"
               disabled={busy}
             />
@@ -118,7 +124,7 @@ const CustomerGpeIdWidget = ({ data: customer }: DetailWidgetProps<AdminCustomer
             isLoading={check.isPending}
             disabled={busy || trimmed === ""}
           >
-            Prüfen
+            {t.check}
           </Button>
           <Button
             variant="primary"
@@ -127,21 +133,21 @@ const CustomerGpeIdWidget = ({ data: customer }: DetailWidgetProps<AdminCustomer
             isLoading={save.isPending}
             disabled={busy}
           >
-            Speichern
+            {t.save}
           </Button>
         </div>
 
         {preview && (
           <div className="rounded-lg border p-3 mt-1 flex flex-col gap-y-1">
-            <Text size="small" weight="plus">Gefundener GPE-Kunde</Text>
+            <Text size="small" weight="plus">{t.found_heading}</Text>
             <Text size="small" className="text-ui-fg-subtle">
-              Firma: {preview.company ?? "—"}
+              {t.company}: {preview.company ?? "—"}
             </Text>
             <Text size="small" className="text-ui-fg-subtle">
-              E-Mail: {preview.email ?? "—"}
+              {t.email}: {preview.email ?? "—"}
             </Text>
             <Text size="small" className="text-ui-fg-subtle">
-              Adresse:{" "}
+              {t.address}: {" "}
               {preview.addresses?.[0]
                 ? [
                     preview.addresses[0].line1,
@@ -154,7 +160,7 @@ const CustomerGpeIdWidget = ({ data: customer }: DetailWidgetProps<AdminCustomer
                 : "—"}
             </Text>
             <Text size="small" className="text-ui-fg-subtle">
-              Kundenrabatt: {preview.designerDiscount ?? "—"}
+              {t.discount}: {preview.designerDiscount ?? "—"}
             </Text>
           </div>
         )}

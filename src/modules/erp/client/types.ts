@@ -43,6 +43,7 @@ export type GpeWriteAddress = {
   city?: string
   /** Ländercode in GROSS, z. B. "DE". */
   country?: string
+  state?: string
   email?: string
 }
 

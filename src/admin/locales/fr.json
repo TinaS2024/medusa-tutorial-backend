@@ -21,7 +21,8 @@
     "password_reset": {
       "subject": "Réinitialiser votre mot de passe – votre code de vérification",
       "default_from_name": "L'équipe de la boutique",
-      "text": "Bonjour,\n\nNous avons reçu une demande de réinitialisation du mot de passe de votre compte ({email}).\n\nVeuillez cliquer sur le lien suivant pour définir un nouveau mot de passe :\n{reset_url}\n\nSi vous ne souhaitez pas réinitialiser votre mot de passe, vous pouvez ignorer ce courriel.\n\nCordialement,\n{from_name}",
+      "text": "Bonjour,\n\nNous avons reçu une demande de réinitialisation du mot de passe de votre compte ({email}).\n\nVeuillez cliquer sur le lien suivant pour définir un nouveau mot de passe :\n{reset_url}\n\nSi vous ne souhaitez pas réinitialiser votre mot de passe, vous pouvez ignorer ce courriel.\n\nCordialement,\n{from_name}"
+    },
     "production_status_update": {
       "subject": "Votre commande {reference} : {status_label}",
       "text": "Bonjour,\n\n Le statut de votre commande {reference} a changé :\n\n➜ {status_label}\n\nCordialement,\n{from_name}",
@@ -36,13 +37,12 @@
         "completed":"Terminé",
         "cancelled": "Annulée"
       }
-  }
-    },
+  },
     "order_confirmation": {
-      "subject": "Confirmation de commande – Commande {référence}",
+      "subject": "Confirmation de commande – Commande {reference}",
       "default_from_name": "L'équipe de la boutique",
       "text": "Bonjour,\n\nMerci de votre commande {reference}.\n\nVos articles:\n{items}\n\nTotal: {total}\n\n{payment_section}Cordialement\n{from_name}",
-      "prepayment_section": "Veuillez transférer ${total} à:\nPropriétaire de compte bancaire: {bank_account_holder}\nBank: {bank_name}\nIBAN: {bank_iban}\nBIC: {bank_bic}\nVerwendungszweck: {reference}\n{bank_note}\n\n"
+      "prepayment_section": "Veuillez transférer ${total} à:\nPropriétaire de compte bancaire: {bank_account_holder}\nBank: {bank_name}\nIBAN: {bank_iban}\nBIC: {bank_bic}\nRéférence: {reference}\n{bank_note}\n\n"
     }
   },
   "bank_settings": {
@@ -59,8 +59,28 @@
     "save_info":"Coordonnées bancaires enregistrées",
     "save_error":"Échec de l'enregistrement"
   },
-  "designs":
+   "designs":
   {
     "cus_design":"Conception sur mesure"
+  },
+  "customer_gpe": {
+    "heading": "Client GPE",
+    "linked": "lié",
+    "not_linked": "non lié",
+    "description": "Associe ce client de la boutique à un client GPE existant. Saisissez d'abord l'identifiant du client GPE et vérifiez-le pour confirmer le bon client, puis enregistrez. L'identifiant détermine la remise client et, plus tard, l'envoi de la commande à GPE.",
+    "label": "Identifiant client GPE",
+    "placeholder": "p. ex. 10-000-943",
+    "check": "Vérifier",
+    "save": "Enregistrer",
+    "check_found": "Client GPE trouvé.",
+    "check_not_found": "Aucun client GPE trouvé pour cet identifiant (ou GPE injoignable).",
+    "save_ok": "Identifiant client GPE enregistré.",
+    "unlink_ok": "Association supprimée.",
+    "save_failed": "Impossible d'enregistrer l'identifiant client GPE.",
+    "found_heading": "Client GPE trouvé",
+    "company": "Société",
+    "email": "E-mail",
+    "address": "Adresse",
+    "discount": "Remise client"
   }
 }

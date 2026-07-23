@@ -21,7 +21,8 @@
     "password_reset": {
       "subject": "Reset your password – your verification code",
       "default_from_name": "Your shop team",
-      "text": "Hello,\n\nWe have received a request to reset your password for your account ({email}).\n\nPlease click on the following link to set a new password:\n{reset_url}\n\nIf you did not want to reset your password, you can ignore this email.\n\nBest regards\n{from_name}",
+      "text": "Hello,\n\nWe have received a request to reset your password for your account ({email}).\n\nPlease click on the following link to set a new password:\n{reset_url}\n\nIf you did not want to reset your password, you can ignore this email.\n\nBest regards\n{from_name}"
+    },
     "production_status_update": {
       "subject": "Your order {reference}: {status_label}",
       "text": "Hello,\n\n The status of your order {reference} has changed:\n\n➜ {status_label}\n\nBest regards\n{from_name}",
@@ -36,13 +37,12 @@
         "completed":"Completed",
         "cancelled": "Cancelled"
       }
-  }
-    },
+  },
     "order_confirmation": {
-      "subject": "Order confirmation – Order {Reference}",
+      "subject": "Order confirmation – Order {reference}",
       "default_from_name": "Your shop team",
       "text": "Hello,\n\nThank you for your order {reference}.\n\nYour items:\n{items}\n\nTotal: {total}\n\n{payment_section}Kind regards\n{from_name}",
-      "prepayment_section": "Please transfer ${total} to:\nAccount holder: {bank_account_holder}\nBank: {bank_name}\nIBAN: {bank_iban}\nBIC: {bank_bic}\nVerwendungszweck: {reference}\n{bank_note}\n\n"
+      "prepayment_section": "Please transfer ${total} to:\nAccount holder: {bank_account_holder}\nBank: {bank_name}\nIBAN: {bank_iban}\nBIC: {bank_bic}\nReference: {reference}\n{bank_note}\n\n"
     }
   },
   "bank_settings": {
@@ -59,8 +59,28 @@
     "save_info":"Bank connection saved",
     "save_error":"Save failed"
   },
-  "designs":
+    "designs":
   {
     "cus_design":"Customer design"
+  },
+  "customer_gpe": {
+    "heading": "GPE customer",
+    "linked": "linked",
+    "not_linked": "not linked",
+    "description": "Links this shop customer to an existing GPE customer. First enter the GPE customer ID and check it to confirm the right customer, then save. The ID controls the customer discount and, later, order transmission to GPE.",
+    "label": "GPE customer ID",
+    "placeholder": "e.g. 10-000-943",
+    "check": "Check",
+    "save": "Save",
+    "check_found": "GPE customer found.",
+    "check_not_found": "No GPE customer found for this ID (or GPE unreachable).",
+    "save_ok": "GPE customer ID saved.",
+    "unlink_ok": "Link removed.",
+    "save_failed": "GPE customer ID could not be saved.",
+    "found_heading": "Found GPE customer",
+    "company": "Company",
+    "email": "Email",
+    "address": "Address",
+    "discount": "Customer discount"
   }
 }

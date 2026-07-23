@@ -21,7 +21,8 @@
     "password_reset": {
       "subject": "Passwort zurücksetzen – Ihr Bestätigungscode",
       "default_from_name": "Dein Shop-Team",
-      "text":"Hallo,\n\nwir haben eine Anfrage zum Zurücksetzen deines Passworts für dein Konto ({email}) erhalten.\n\nBitte klicke auf den folgenden Link, um ein neues Passwort festzulegen:\n{reset_url}\n\nWenn du das Passwort nicht zurücksetzen wolltest, kannst du diese E-Mail ignorieren.\n\nViele Grüße\n{from_name}",
+      "text":"Hallo,\n\nwir haben eine Anfrage zum Zurücksetzen deines Passworts für dein Konto ({email}) erhalten.\n\nBitte klicke auf den folgenden Link, um ein neues Passwort festzulegen:\n{reset_url}\n\nWenn du das Passwort nicht zurücksetzen wolltest, kannst du diese E-Mail ignorieren.\n\nViele Grüße\n{from_name}"
+    },
     "production_status_update": {
       "subject": "Ihre Bestellung {reference}: {status_label}",
       "text": "Hallo,\n\n der Status Ihrer Bestellung {reference} hat sich geändert:\n\n➜ {status_label}\n\nViele Grüße\n{from_name}",
@@ -36,8 +37,7 @@
         "completed":"Abgeschlossen",
         "cancelled": "Storniert"
       }
-  }
-    },
+  },
     "order_confirmation": {
       "subject": "Bestellbestätigung – Bestellung {reference}",
       "default_from_name": "Dein Shop-Team",
@@ -59,8 +59,28 @@
     "save_info":"Bankverbindung gespeichert",
     "save_error":"Speichern fehlgeschlagen"
   },
-  "designs":
+    "designs":
   {
     "cus_design":"Kundendesign"
+  },
+  "customer_gpe": {
+    "heading": "GPE-Kunde",
+    "linked": "verknüpft",
+    "not_linked": "nicht verknüpft",
+    "description": "Verknüpft diesen Shop-Kunden mit einem bestehenden GPE-Kunden. Erst die GPE-Kunden-ID eingeben und prüfen, um den richtigen Kunden zu bestätigen, dann speichern. Die ID steuert den Kundenrabatt und später den Bestellversand an GPE.",
+    "label": "GPE-Kunden-ID",
+    "placeholder": "z.B. 10-000-943",
+    "check": "Prüfen",
+    "save": "Speichern",
+    "check_found": "GPE-Kunde gefunden.",
+    "check_not_found": "Kein GPE-Kunde mit dieser ID gefunden (oder GPE nicht erreichbar).",
+    "save_ok": "GPE-Kunden-ID gespeichert.",
+    "unlink_ok": "Verknüpfung entfernt.",
+    "save_failed": "GPE-Kunden-ID konnte nicht gespeichert werden.",
+    "found_heading": "Gefundener GPE-Kunde",
+    "company": "Firma",
+    "email": "E-Mail",
+    "address": "Adresse",
+    "discount": "Kundenrabatt"
   }
 }

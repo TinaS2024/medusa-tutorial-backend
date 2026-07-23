@@ -5,6 +5,7 @@ import type {
   GpeCustomer,
   GpeProduct,
   GpeProductInfo,
+  GpeWriteAddress,
 } from "./client/types"
 
 /**
@@ -69,7 +70,29 @@ export default class ErpModuleService extends MedusaService({}) {
    * Preis und Gültigkeit für eine konkrete Optionskombination.
    * Ergebnis niemals cachen – hängt an Kunde, Menge und Rabatt.
    */
-  async getProductInfo(args: GetProductInfoArgs): Promise<GpeProductInfo | null> {
+    async getProductInfo(args: GetProductInfoArgs): Promise<GpeProductInfo | null> {
     return this.client.getProductInfo(args)
+  }
+
+  /**
+   * Adresse an einen bestehenden GPE-Kunden anhängen (nicht überschreiben).
+   * Der Kunde muss über customer.metadata.gpe_id verknüpft sein (Weg 1).
+   */
+  async addAddressToCustomerIfNotExists(args: {
+    gpeCustomerId: string
+    address: GpeWriteAddress
+    locale?: string
+  }) {
+    return this.client.addAddressToCustomerIfNotExists(args)
+  }
+
+  /** Kontakt an einen bestehenden GPE-Kunden anhängen (nicht überschreiben). */
+  async addContactToCustomerIfNotExists(args: {
+    gpeCustomerId: string
+    address: GpeWriteAddress
+    locale?: string
+  }) 
+  {
+    return this.client.addContactToCustomerIfNotExists(args);
   }
 }

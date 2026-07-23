@@ -43,7 +43,7 @@ async function main() {
     if (!customer) {
       console.log("   ✗ Kein Kunde gefunden")
     } else {
-      console.log("   ✓", {
+            console.log("   ✓", {
         id: customer.id,
         company: customer.company,
         email: customer.email,
@@ -107,16 +107,18 @@ async function main() {
   // Smoke-Run nichts schreibt.
   if (process.env.WRITE_TEST === "1" && testCustomerId) {
     console.log(`6) SCHREIBTEST: Adresse + Kontakt an ${testCustomerId} anhängen ...`)
-    const testAddress = {
+      const testAddress = {
       firstName: "Test",
       lastName: "Schreibpfad",
-      line1: "Teststraße 1",
+      line1: "Bundeslandweg 7",
       line2: "",
-      postalCode: "12345",
-      city: "Teststadt",
+      postalCode: "80331",
+      city: "München",
+      state: "Bayern",
       country: "DE",
       email: "schreibtest@example.com",
     }
+
     try {
       const contact = await client.addContactToCustomerIfNotExists({
         gpeCustomerId: testCustomerId,

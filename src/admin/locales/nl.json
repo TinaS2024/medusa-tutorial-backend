@@ -21,10 +21,11 @@
     "password_reset": {
       "subject": "Wachtwoord resetten – je verificatiecode",
       "default_from_name": "Je shopteam",
-      "text": "Hallo,\n\nWe hebben een verzoek ontvangen om uw wachtwoord voor uw account ({email}) opnieuw in te stellen.\n\nKlik op de volgende link om een ​​nieuw wachtwoord in te stellen:\n{reset_url}\n\nAls u uw wachtwoord niet wilt wijzigen, kunt u deze e-mail negeren.\n\nMet vriendelijke groeten\n{from_name}",
-    "production_status_update": {
-      "subject": "Uw bestelling {referentie}: {status_label}",
-      "text": "Hallo,\n\n De status van uw bestelling {referentie} is gewijzigd:\n\n➜ {status_label}\n\nMet vriendelijke groeten\n{from_name}",
+      "text": "Hallo,\n\nWe hebben een verzoek ontvangen om uw wachtwoord voor uw account ({email}) opnieuw in te stellen.\n\nKlik op de volgende link om een ​​nieuw wachtwoord in te stellen:\n{reset_url}\n\nAls u uw wachtwoord niet wilt wijzigen, kunt u deze e-mail negeren.\n\nMet vriendelijke groeten\n{from_name}"
+    },
+     "production_status_update": {
+      "subject": "Uw bestelling {referece}: {status_label}",
+      "text": "Hallo,\n\n De status van uw bestelling {reference} is gewijzigd:\n\n➜ {status_label}\n\nMet vriendelijke groeten\n{from_name}",
       "default_from_name": "Uw winkelteam",
       "statuses": {
         "received": "Bestelling ontvangen",
@@ -36,13 +37,12 @@
         "completed":"Voltooid",
         "cancelled": "Geannuleerds"
       }
-  }
-    },
+  },
      "order_confirmation": {
-      "subject": "Orderbevestiging – Bestelling {referentie}",
+      "subject": "Orderbevestiging – Bestelling {reference}",
       "default_from_name": "Je shopteam",
-      "text": "Hallo,\n\nBedankt voor je bestelling {reference}.\n\nJe items:\n{items}\n\nTotal: {total}\n\n{payment_section}Viele Grüße\n{from_name}",
-      "prepayment_section": "Vooruitbetaling van ${total} naar:\nBankrekeninghouder: {bank_account_holder}\nBank: {bank_name}\nIBAN: {bank_iban}\nBIC: {bank_bic}\nVerwendungszweck: {reference}\n{bank_note}\n\n"
+      "text": "Hallo,\n\nBedankt voor je bestelling {reference}.\n\nJe items:\n{items}\n\nTotal: {total}\n\n{payment_section}Met vriendelijke groeten\n{from_name}",
+      "prepayment_section": "Vooruitbetaling van ${total} naar:\nBankrekeninghouder: {bank_account_holder}\nBank: {bank_name}\nIBAN: {bank_iban}\nBIC: {bank_bic}\nReferentie: {reference}\n{bank_note}\n\n"
     }
   },
   "bank_settings": {
@@ -59,8 +59,28 @@
     "save_info":"Bankgegevens opgeslagen",
     "save_error":"Opslaan mislukt"
   },
-  "designs":
+   "designs":
   {
     "cus_design":"Klantontwerp"
+  },
+  "customer_gpe": {
+    "heading": "GPE-klant",
+    "linked": "gekoppeld",
+    "not_linked": "niet gekoppeld",
+    "description": "Koppelt deze shopklant aan een bestaande GPE-klant. Voer eerst het GPE-klantnummer in en controleer het om de juiste klant te bevestigen, en sla het dan op. Het nummer bepaalt de klantkorting en later het verzenden van de bestelling naar GPE.",
+    "label": "GPE-klantnummer",
+    "placeholder": "bijv. 10-000-943",
+    "check": "Controleren",
+    "save": "Opslaan",
+    "check_found": "GPE-klant gevonden.",
+    "check_not_found": "Geen GPE-klant gevonden voor dit nummer (of GPE onbereikbaar).",
+    "save_ok": "GPE-klantnummer opgeslagen.",
+    "unlink_ok": "Koppeling verwijderd.",
+    "save_failed": "GPE-klantnummer kon niet worden opgeslagen.",
+    "found_heading": "Gevonden GPE-klant",
+    "company": "Bedrijf",
+    "email": "E-mail",
+    "address": "Adres",
+    "discount": "Klantkorting"
   }
 }

@@ -535,6 +535,7 @@ function buildGpeAddressEntry(a: GpeWriteAddress, locale: string) {
     line2: a.line2,
     postalCode: a.postalCode,
     city: a.city,
+    state: a.state,
     country: a.country,
     email: a.email,
     language: locale,

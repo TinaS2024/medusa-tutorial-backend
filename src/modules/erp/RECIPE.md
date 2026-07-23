@@ -585,24 +585,32 @@ existieren dort schon; jemand trägt die GPE-Kunden-ID am Medusa-Kunden ein.
   (nur lesen) und `smoke:gpe:write` (`WRITE_TEST=1`, schreibt Test-Adresse +
   Kontakt an `10-004-444`).
 
-**BLOCKER — ExactOnline-Schreiben liefert HTTP 401.** Lesen klappt mit demselben
-Token (Kennung `medusa`, Company 999); Schreiben wird abgelehnt. Die Anfrage ist
-byte-gleich zur belegten Referenz (gleicher Token, `Company-ID`, URL-Form) →
-**kein Code-Bug**, sondern fehlende Schreibrechte: Die `medusa`-Kennung darf
-vermutlich nur lesen. Die Referenz schreibt mit der `designer`-Kennung, die wir
-bewusst nicht nutzen (siehe 6).
-→ **Nächster Schritt (wartet auf Chefin/GPE-Admin):** `medusa` (999) benötigt
-ExactOnline-Schreibrechte (Kunde `update` + `newcontact`, später „anlegen").
-Danach `npm run smoke:gpe:write` erneut — ohne Codeänderung.
+**GELÖST 22.07.2026 — ExactOnline-Schreiben funktioniert.** War HTTP 401, weil die
+`medusa`-Kennung (Company 999) nur Lese-, keine Schreibrechte auf den
+**ExactOnlineConnector** hatte (getrennter Server vom lesenden CustomerDataServer).
+Die Chefin hat die Schreibrechte gesetzt; `npm run smoke:gpe:write` legt jetzt am
+Testkunden `10-004-444` einen Kontakt (`number 21536`) und eine Adresse
+(`number 382751`, `type 4`) an — end-to-end verifiziert, ohne Codeänderung.
+Merker: Eine Rechte-Umstellung kappte kurz auch das **Lesen** — Kundenabfragen
+sind mandantengebunden (Header `Company-ID: 999`), Produkte nicht.
 
-**Zurückgestellt bis nach erfolgreichem Schreibtest:**
-- `state`/Bundesland: Die belegte Referenz sendet kein State-Feld; bewusst
-  zunächst weggelassen, bis der GPE-Schreib-Feldname geklärt ist (beide Systeme
-  führen State in der UI; in GPE erscheint das Select erst nach Länderwahl).
-- **Schritt 2b:** Service-Delegates + `order.placed`-Subscriber, der die echte
-  Medusa-Bestelladresse (Mapping: `first_name`→firstName, `last_name`→lastName,
-  `address_1`→line1, `address_2`→line2, `postal_code`→postalCode, `city`,
-  `country_code` GROSS→country) an den verknüpften GPE-Kunden anhängt.
+**Schritt 2b FERTIG & end-to-end verifiziert (23.07.2026):**
+- `order.placed`-Subscriber (`src/subscribers/order-placed-gpe-customer.ts`) +
+  Service-Delegates hängen bei Bestellung eines verknüpften Kunden Adresse +
+  Kontakt an den GPE-Kunden an (nicht überschreiben). An echter Bestellung
+  bewiesen (Maxi Musterfrau → Kontakt 21539 + Adresse).
+- **Dedup verifiziert:** 2. Schreiben gibt die bestehende Nummer zurück, kein
+  Duplikat (contacts UND addresses kommen in der `customers/filter`-Antwort mit).
+- **Firmenname** bewusst NICHT gesendet: hängt am Hauptadressat des Kunden;
+  Zusatzadressen können ihn in GPE gar nicht tragen (Auskunft Chefin).
+- **Bundesland:** Medusa liefert Freitext, GPE will ISO-Code (Bayern → `BY`,
+  empirisch bestätigt — sonst „(invalid option)" im Select). Mapping-Tabelle
+  `DE_PROVINCE_TO_CODE` im Subscriber; Unbekanntes → nicht senden.
+
+**Wirklich noch offen:**
+- State-Mapping für GB/FR/NL (nur DE fertig) — bei Bedarf, sobald deren
+  GPE-Optionswerte bekannt sind.
+- Testdaten an `10-004-444` in GPE aufräumen (alle mit `comment: "created with medusa"`).
 
 ## 7. Offene Fragen
 
