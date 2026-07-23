@@ -152,7 +152,7 @@ return(
                                     product_id: undefined, 
                                     quantity:1
                                 },
-                            ])}>Artikel hinnzufügen</Button>
+                            ])}>Artikel hinzufügen</Button>
                         </div>
                     </div>
                 </div>
