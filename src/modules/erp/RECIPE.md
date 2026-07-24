@@ -476,9 +476,14 @@ Warenkorb 8,01 € statt 10,11 (GPE stapelt designerDiscount 0,1 + generellen
 discount 0,12). Der komplette Pfad (`resolveGpeCustomer` in
 `get-custom-price.tsx`) läuft. Details in 6g.
 
-**Achtung — Rabatte stapeln:** GPE liefert bereits den rabattierten Stückpreis.
-Eine Medusa-Promotion/Preisliste käme im Warenkorb *zusätzlich* obendrauf.
-Ob das gewollt ist (doppelter Rabatt?), fachlich vor Livegang klären.
+**Rabatte stapeln — geklärt (24.07.2026): gewollt.** Der GPE-`designerDiscount`
+ist ein **Designer-Rabatt** (fürs Gestalten über den Designer), kein
+Produkt-Rabatt. Medusa nutzt jetzt einen eigenen, funktional gleichwertigen
+Designer. Eine Medusa-Promotion/Preisliste ist eine **andere** Rabatt-Art
+(Produkt/Marketing) — beide dürfen **stapeln**, kein doppelter Rabatt derselben
+Art. Aktuelles Verhalten (GPE liefert den designer-rabattierten Stückpreis,
+Medusa-Promotion greift im Warenkorb zusätzlich) ist damit korrekt; keine
+Codeänderung nötig.
 
 ### 6f. Analyse: echter GPE-Bestellversand (OrderDatabaseServer) — 20.07.2026
 
@@ -634,8 +639,10 @@ sind mandantengebunden (Header `Company-ID: 999`), Produkte nicht.
   über einen JSON-Vergleich (siehe 6f), nicht die komplexe Workflow-Referenz.
 - ~~**Rabatt-Testkunde**~~ — erledigt 20.07.2026: 10-000-393 (6 %) und
   10-000-943 (10 %) gefunden, live verifiziert (6e/6g).
-- **Rabatt-Stacking:** Soll ein Medusa-Rabatt zusätzlich zum GPE-`designerDiscount`
-  greifen, oder schließen die beiden sich aus? Siehe 6e.
+- ~~**Rabatt-Stacking**~~ — geklärt 24.07.2026: **stapeln ist gewollt.** Der
+  GPE-`designerDiscount` ist ein Designer-Rabatt, eine Medusa-Promotion ein
+  Produkt-/Marketing-Rabatt — verschiedene Arten, dürfen sich addieren. Aktuelles
+  Verhalten korrekt, keine Codeänderung. Details in 6e.
 
 - ~~**Preis ohne Optionen**~~ — beantwortet 16.07.2026: **ja**. GPE liefert
   auch bei "useDefaultOptionValues:false" und leeren `optionValues` einen

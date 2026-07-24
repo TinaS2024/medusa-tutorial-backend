@@ -25,7 +25,6 @@ export async function POST(req: AuthenticatedMedusaRequest<PostBundledProductsSc
 {
 
   try{
-    console.log("DEBUG Backend: Received Payload:", JSON.stringify(req.validatedBody, null, 2));
     
     const { result: bundledProduct } = await createBundledProductWorkflow(req.scope)
       .run({ input: {

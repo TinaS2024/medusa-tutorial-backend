@@ -105,7 +105,6 @@ const CreateBundledProduct = () =>
 
     setOpen(false);
     toast.success("Bundled product created successfully");
-    console.log("DEBUG product created successfully");
 
     queryClient.invalidateQueries({
       queryKey: ["bundled-products"],
@@ -115,7 +114,6 @@ const CreateBundledProduct = () =>
   } catch (error) {
 
     toast.error("Failed to create bundled product");
-    console.error("DEBUG Frontend: Error during createBundledProduct:", error);
 
   }
 }
