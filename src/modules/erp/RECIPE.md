@@ -531,10 +531,11 @@ Pflicht. "99000" existiert und trägt die Versandkosten.
 - **Preisblock nicht nötig** — GPE rechnet den Preis selbst.
 - **Versandkosten GPE-seitig** — GPE kann eigene Versandpreise festlegen/nutzen.
 - **Daten-Sync wöchentlich** — Produkt-Sync als geplanter Job 1×/Woche (Pull).
-- **Proof/Versandformat OFFEN:** Chefin vergleicht die Outbox-JSON mit einer
-  GPE-JSON und meldet Änderungen. Deutet auf ein einfacheres abgestimmtes
-  JSON-Format statt der komplexen newOrder/Workflow-Referenz — der frühere
-  Blocker „Stempel-Workflow" entfällt damit womöglich. WARTET auf ihre JSON.
+- **Proof/Versandformat — geklärt (24.07.2026):** Laut Chefin bleibt das
+  Outbox-JSON-Manifest **vorerst wie es ist** – keine Formatänderung nötig. Der
+  echte automatisierte Versand an GPE bleibt damit **zurückgestellt** (optional
+  zuschaltbar); die Outbox (`gpe-outbox/order_<Nr>.json`) bleibt der neutrale
+  Vertrag und reicht aktuell aus. Kein offener Blocker mehr.
 
 ### 6g. Anzeige-Inkonsistenzen bei GPE-Produkten (Livegang-Themen, 20.07.2026)
 
