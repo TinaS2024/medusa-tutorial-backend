@@ -23,7 +23,7 @@ const modules: any[] = [
           id: "local",
           options: {
             upload_dir: path.join(envDir, "static"),
-            backend_url: `${process.env.MEDUSA_BACKEND_URL || "http://localhost:9000"}/static`,
+            backend_url: `${process.env.NEXT_PUBLIC_BACKEND_URL || "http://localhost:9000"}/static`,
           },
         },
       ],
