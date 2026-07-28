@@ -16,17 +16,22 @@ export default async function orderPlacedGpeSubscriber({event: { data }, contain
 
   const { data: [order] } = await query.graph({
     entity: "order",
-    fields: [
+      fields: [
       "id", "display_id", "currency_code", "total", "email", "created_at",
       "customer.id", "customer.email", "customer.first_name", "customer.last_name",
+      "customer.metadata",
       "shipping_address.first_name", "shipping_address.last_name",
       "shipping_address.address_1", "shipping_address.postal_code",
       "shipping_address.city", "shipping_address.country_code",
+      "billing_address.first_name", "billing_address.last_name",
+      "billing_address.address_1", "billing_address.postal_code",
+      "billing_address.city", "billing_address.country_code",
       "items.id", "items.title", "items.quantity", "items.unit_price",
       "items.metadata", "items.product_id", "items.variant_id",
       "items.product.title", "items.product.metadata",
       "items.variant.title", "items.variant.metadata",
     ],
+
     filters: { id: data.id },
   });
 
@@ -67,6 +72,7 @@ export default async function orderPlacedGpeSubscriber({event: { data }, contain
           height_mm: meta.height ?? null,
           thickness_mm: meta.thickness ?? null,
         },
+        designText: firstString(meta.designText) ?? null,
         design: {
           svg_url: svgUrl ?? null,
           png_url: firstString(meta.design_image) ?? null,
@@ -90,10 +96,12 @@ export default async function orderPlacedGpeSubscriber({event: { data }, contain
     },
     customer: {
       id: order.customer?.id ?? null,
+      customer_gpe_id: (order.customer?.metadata as any)?.gpe_id ?? null,
       email: order.customer?.email ?? order.email ?? null,
       name: [order.customer?.first_name, order.customer?.last_name].filter(Boolean).join(" ") || null,
     },
     shipping_address: order.shipping_address ?? null,
+    billing_address: order.billing_address ?? null,
     items,
   };
 

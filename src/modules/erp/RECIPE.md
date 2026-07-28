@@ -536,6 +536,17 @@ Pflicht. "99000" existiert und trägt die Versandkosten.
   echte automatisierte Versand an GPE bleibt damit **zurückgestellt** (optional
   zuschaltbar); die Outbox (`gpe-outbox/order_<Nr>.json`) bleibt der neutrale
   Vertrag und reicht aktuell aus. Kein offener Blocker mehr.
+- **Manifest-Felder erweitert (28.07.2026, auf Wunsch der Chefin):**
+  `customer.customer_gpe_id` (aus `customer.metadata.gpe_id`, `null` wenn
+  Kunde nicht verknüpft), `billing_address` (Rechnungsadresse), und pro
+  Position `designText` **oberhalb** von `design`. `designText` = alle
+  Textelemente des Designs (normaler + Kreis- + Ellipsentext, Feld `textInput`),
+  versteckte (`render:"none"`) ausgeschlossen, nach Position sortiert
+  (oben→unten), mit **literalem `\\n`** getrennt. Datenweg: Designer gibt
+  `designText` als URL-Parameter mit (`DesignButtons.jsx`) → Storefront reicht
+  es als `metadata.designText` durch (`cart/templates/index.tsx`) → Subscriber
+  schreibt es ins Manifest. **Offen (Chefin, später):** Optionen-Darstellung im JSON.
+
 
 ### 6g. Anzeige-Inkonsistenzen bei GPE-Produkten (Livegang-Themen, 20.07.2026)
 

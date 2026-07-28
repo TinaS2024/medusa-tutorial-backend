@@ -12,11 +12,17 @@ const AuthCleanupPage = () => {
     if (!email.trim()) return;
     setBusy(true);
     try {
-      const r = await sdk.client.fetch<{ deleted: string[] }>("/admin/auth-identity", {
+        const r = await sdk.client.fetch<{
+        deleted_customers: string[]
+        deleted_auth_identities: string[]
+      }>("/admin/auth-identity", {
         method: "DELETE",
         query: { email: email.trim() },
       });
-      toast.success(`Freigegeben (${r.deleted?.length ?? 0} Identität(en) gelöscht)`);
+      toast.success(
+        `Freigegeben: ${r.deleted_customers?.length ?? 0} Kunde(n), ` +
+          `${r.deleted_auth_identities?.length ?? 0} Login-Identität(en) gelöscht.`
+      );
       setEmail("");
     } catch (e: any) {
       toast.error(e?.message || "Löschen fehlgeschlagen");

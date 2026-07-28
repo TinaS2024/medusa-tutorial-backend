@@ -39,6 +39,7 @@ const toSupportedLocale = (raw: unknown): SupportedLocale => {
 
 export default async function passwordResetSubscriber({event: { data },container}: SubscriberArgs<PasswordResetEvent>) {
 
+  console.log("[PasswordReset] Event empfangen:", { entity_id: data.entity_id, actor_type: data.actor_type });
 
   const storeModuleService = container.resolve(Modules.STORE);
 
@@ -49,7 +50,7 @@ export default async function passwordResetSubscriber({event: { data },container
     process.env.STOREFRONT_URL ||
     "http://localhost:8000";
 
-   const fromEmail = typeof metadata?.email_from === "string" ? metadata.email_from : null;
+  const fromEmail = typeof metadata?.email_from === "string" ? metadata.email_from : null;
   const fromName = typeof metadata?.email_from_name === "string" ? metadata.email_from_name : null;
 
   // SMTP-Zugangsdaten aus den Store-Metadaten (im Admin einstellbar)
@@ -90,13 +91,19 @@ export default async function passwordResetSubscriber({event: { data },container
     ? `${fromName} <${fromEmail ?? smtpUser}>`
     : (fromEmail ?? smtpUser);
 
-  await sendMail({
-    smtp: { host: smtpHost, port: smtpPort, secure: smtpSecure, user: smtpUser, pass: smtpPass },
-    from,
-    to: email,
-    subject,
-    text,
-  });
+    console.log(`[PasswordReset] sende an ${email} über ${smtpHost}:${smtpPort} (secure=${smtpSecure}) …`);
+  try {
+    await sendMail({
+      smtp: { host: smtpHost, port: smtpPort, secure: smtpSecure, user: smtpUser, pass: smtpPass },
+      from,
+      to: email,
+      subject,
+      text,
+    });
+    console.log(`[PasswordReset] ✓ Mail an ${email} versendet.`);
+  } catch (err: any) {
+    console.error(`[PasswordReset] ✗ Versand fehlgeschlagen: ${err?.message ?? err}`);
+  }
 }
 
 export const config: SubscriberConfig = {
