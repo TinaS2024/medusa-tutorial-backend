@@ -1,0 +1,2458 @@
+[
+  {
+    "id": "prod_01KX2W91KX2SW6EZARVD59F4X0",
+    "title": "Geschenkkarte 25 €",
+    "subtitle": null,
+    "description": null,
+    "handle": "geschenkekarte",
+    "status": "published",
+    "is_giftcard": false,
+    "discountable": true,
+    "thumbnail": "http://localhost:9000/static/1783584680972-Gutschein.png",
+    "weight": null,
+    "length": null,
+    "height": "100",
+    "width": "150",
+    "hs_code": "",
+    "mid_code": "",
+    "material": "Papier",
+    "origin_country": "de",
+    "metadata": {
+      "is_giftcard": true
+    },
+    "type": null,
+    "collection": null,
+    "categories": [
+      {
+        "name": "Geschenkkarte",
+        "handle": "geschenkkarte"
+      }
+    ],
+    "tags": [],
+    "images": [
+      {
+        "url": "http://localhost:9000/static/1783584680972-Gutschein.png",
+        "rank": 0
+      }
+    ],
+    "options": [
+      {
+        "id": "opt_01KX2W91M34HZ8N5ZNBCQG70JX",
+        "title": "Default option",
+        "values": [
+          {
+            "value": "Default option value"
+          }
+        ]
+      }
+    ],
+    "variants": [
+      {
+        "title": "Default variant",
+        "sku": null,
+        "barcode": null,
+        "manage_inventory": false,
+        "allow_backorder": false,
+        "weight": null,
+        "metadata": null,
+        "id": "variant_01KX2W91QGDK4C0587VS829R19",
+        "options": [
+          {
+            "value": "Default option value",
+            "option": {
+              "title": "Default option"
+            }
+          }
+        ],
+        "prices": [
+          {
+            "amount": 25,
+            "currency_code": "eur",
+            "id": "price_01KX32DY96SXG3PMQMASA42VQS"
+          },
+          {
+            "amount": 25,
+            "currency_code": "eur",
+            "id": "price_01KX32DY97EZEQ4QZB82JXFQ5R"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "prod_01KX2XAWRJW1JG673W89VD2Y3R",
+    "title": "Alu Goldschild",
+    "subtitle": null,
+    "description": null,
+    "handle": "alu-goldschild",
+    "status": "published",
+    "is_giftcard": false,
+    "discountable": true,
+    "thumbnail": "http://localhost:9000/static/1783584696953-Gold.png",
+    "weight": null,
+    "length": null,
+    "height": "50",
+    "width": "50",
+    "hs_code": "",
+    "mid_code": "",
+    "material": "Alu",
+    "origin_country": "de",
+    "metadata": {
+      "option_keys": {
+        "opt_01KX2XAWRKNWP7GHFMVY70AM5F": "background_color"
+      },
+      "is_designable": true,
+      "designer_shape": "rect",
+      "is_personalized": true,
+      "designer_category": "shield",
+      "dimension_price_factor": 0.01
+    },
+    "type": null,
+    "collection": null,
+    "categories": [
+      {
+        "name": "Schilder",
+        "handle": "schilder"
+      }
+    ],
+    "tags": [],
+    "images": [
+      {
+        "url": "http://localhost:9000/static/1783584696953-Gold.png",
+        "rank": 0
+      }
+    ],
+    "options": [
+      {
+        "id": "opt_01KX2XAWRKNWP7GHFMVY70AM5F",
+        "title": "Hintergrundfarbe",
+        "values": [
+          {
+            "value": "gold"
+          }
+        ]
+      }
+    ],
+    "variants": [
+      {
+        "title": "Alu Goldschild",
+        "sku": null,
+        "barcode": null,
+        "manage_inventory": false,
+        "allow_backorder": false,
+        "weight": null,
+        "metadata": null,
+        "id": "variant_01KX2XAWT88BG4T31KTCPQ4CYR",
+        "options": [
+          {
+            "value": "gold",
+            "option": {
+              "title": "Hintergrundfarbe"
+            }
+          }
+        ],
+        "prices": [
+          {
+            "amount": 5,
+            "currency_code": "eur",
+            "id": "price_01KX30EMXEN17F1890S5R9CPY9"
+          },
+          {
+            "amount": 5,
+            "currency_code": "eur",
+            "id": "price_01KX315HPMP78VE3P34NFB7R8W"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "prod_01KX2XBN8MW0N9TWJ85DBBTEJM",
+    "title": "Alu Silberschild",
+    "subtitle": null,
+    "description": null,
+    "handle": "alu-silberschild",
+    "status": "published",
+    "is_giftcard": false,
+    "discountable": true,
+    "thumbnail": "http://localhost:9000/static/1783584712974-Silber.png",
+    "weight": null,
+    "length": null,
+    "height": "50",
+    "width": "50",
+    "hs_code": "",
+    "mid_code": "",
+    "material": "Alu",
+    "origin_country": "de",
+    "metadata": {
+      "option_keys": {
+        "opt_01KX5P38A1XWSYJ57S1Y2XKJ4W": "background_color"
+      },
+      "is_designable": true,
+      "designer_shape": "rect",
+      "is_personalized": true,
+      "designer_category": "shield",
+      "dimension_price_factor": 0.01
+    },
+    "type": null,
+    "collection": null,
+    "categories": [
+      {
+        "name": "Schilder",
+        "handle": "schilder"
+      }
+    ],
+    "tags": [],
+    "images": [
+      {
+        "url": "http://localhost:9000/static/1783584712974-Silber.png",
+        "rank": 0
+      }
+    ],
+    "options": [
+      {
+        "id": "opt_01KX5P38A1XWSYJ57S1Y2XKJ4W",
+        "title": "Hintergrundfarbe",
+        "values": [
+          {
+            "value": "silver"
+          }
+        ]
+      }
+    ],
+    "variants": [
+      {
+        "title": "Alu Silberschild",
+        "sku": null,
+        "barcode": null,
+        "manage_inventory": false,
+        "allow_backorder": false,
+        "weight": null,
+        "metadata": null,
+        "id": "variant_01KX2XBNA22G1ZQHF9VXVRRVHE",
+        "options": [
+          {
+            "value": "silver",
+            "option": {
+              "title": "Hintergrundfarbe"
+            }
+          }
+        ],
+        "prices": [
+          {
+            "amount": 5,
+            "currency_code": "eur",
+            "id": "price_01KX3155C6NQ7HHXZSJY9JN1QX"
+          },
+          {
+            "amount": 5,
+            "currency_code": "eur",
+            "id": "price_01KX3155C78GA9XNK0SC4FTCTC"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "prod_01KX2XC4NVX6D3SEGEJ699RPR7",
+    "title": "Alu Bronzeschild",
+    "subtitle": null,
+    "description": null,
+    "handle": "alu-bronzeschild",
+    "status": "published",
+    "is_giftcard": false,
+    "discountable": true,
+    "thumbnail": "http://localhost:9000/static/1783584728318-Bronze.png",
+    "weight": null,
+    "length": null,
+    "height": "50",
+    "width": "50",
+    "hs_code": "",
+    "mid_code": "",
+    "material": "Alu",
+    "origin_country": "de",
+    "metadata": {
+      "option_keys": {
+        "opt_01KX2XC4NVEVHD0XNVK4GMX7D0": "background_color"
+      },
+      "is_designable": true,
+      "designer_shape": "rect",
+      "is_personalized": true,
+      "designer_category": "shield",
+      "dimension_price_factor": 0.001
+    },
+    "type": null,
+    "collection": null,
+    "categories": [
+      {
+        "name": "Schilder",
+        "handle": "schilder"
+      }
+    ],
+    "tags": [],
+    "images": [
+      {
+        "url": "http://localhost:9000/static/1783584728318-Bronze.png",
+        "rank": 0
+      }
+    ],
+    "options": [
+      {
+        "id": "opt_01KX2XC4NVEVHD0XNVK4GMX7D0",
+        "title": "Hintergrundfarbe",
+        "values": [
+          {
+            "value": "bronze"
+          }
+        ]
+      }
+    ],
+    "variants": [
+      {
+        "title": "Alu Bronzeschild",
+        "sku": null,
+        "barcode": null,
+        "manage_inventory": false,
+        "allow_backorder": false,
+        "weight": null,
+        "metadata": null,
+        "id": "variant_01KX5P6YHD17W40BZKWKQJN7MY",
+        "options": [
+          {
+            "value": "bronze",
+            "option": {
+              "title": "Hintergrundfarbe"
+            }
+          }
+        ],
+        "prices": [
+          {
+            "amount": 5,
+            "currency_code": "eur",
+            "id": "price_01KX5P6YK05GQYM81K7BMCW651"
+          },
+          {
+            "amount": 5,
+            "currency_code": "eur",
+            "id": "price_01KX5P6YK153TN3Y0NZDHC5TRM"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "prod_01KX2XF4HDHXM9P9J2CHSG8F0G",
+    "title": "Alu Schild",
+    "subtitle": null,
+    "description": null,
+    "handle": "alu-schild",
+    "status": "published",
+    "is_giftcard": false,
+    "discountable": true,
+    "thumbnail": "http://localhost:9000/static/1783935120938-Weiss.png",
+    "weight": null,
+    "length": null,
+    "height": "50",
+    "width": "50",
+    "hs_code": "",
+    "mid_code": "",
+    "material": "Alu",
+    "origin_country": "de",
+    "metadata": {
+      "option_keys": {
+        "opt_01KX2XF4HEXST7D8GZSXEN3TD6": "background_color",
+        "opt_01KX36WRDKGEW8WKVPZ7X1XQFF": "engraving_color"
+      },
+      "is_designable": true,
+      "designer_shape": "rect",
+      "is_personalized": true,
+      "designer_category": "shield",
+      "dimension_price_factor": 0.01
+    },
+    "type": null,
+    "collection": null,
+    "categories": [
+      {
+        "name": "Schilder",
+        "handle": "schilder"
+      }
+    ],
+    "tags": [],
+    "images": [
+      {
+        "url": "http://localhost:9000/static/1783584759715-Gelb.png",
+        "rank": 0
+      },
+      {
+        "url": "http://localhost:9000/static/1783584759715-Schwarz.png",
+        "rank": 1
+      },
+      {
+        "url": "http://localhost:9000/static/1783935120938-Weiss.png",
+        "rank": 2
+      }
+    ],
+    "options": [
+      {
+        "id": "opt_01KX2XF4HEXST7D8GZSXEN3TD6",
+        "title": "Hintergrundfarbe",
+        "values": [
+          {
+            "value": "yellow"
+          },
+          {
+            "value": "white"
+          },
+          {
+            "value": "black"
+          }
+        ]
+      },
+      {
+        "id": "opt_01KX36WRDKGEW8WKVPZ7X1XQFF",
+        "title": "Gravurfarbe",
+        "values": [
+          {
+            "value": "black"
+          },
+          {
+            "value": "white"
+          }
+        ]
+      }
+    ],
+    "variants": [
+      {
+        "title": "Gelbes Schild weiße Gravur",
+        "sku": "yellow",
+        "barcode": null,
+        "manage_inventory": false,
+        "allow_backorder": false,
+        "weight": null,
+        "metadata": null,
+        "id": "variant_01KX2XF4K9BKCMH2V93045EQRX",
+        "options": [
+          {
+            "value": "yellow",
+            "option": {
+              "title": "Hintergrundfarbe"
+            }
+          },
+          {
+            "value": "white",
+            "option": {
+              "title": "Gravurfarbe"
+            }
+          }
+        ],
+        "prices": [
+          {
+            "amount": 5,
+            "currency_code": "eur",
+            "id": "price_01KX318EMR87ANPJ44FCWHPMGP"
+          },
+          {
+            "amount": 5,
+            "currency_code": "eur",
+            "id": "price_01KX318EMS94R80YXE2A5HBF4B"
+          }
+        ]
+      },
+      {
+        "title": "Gelbes Schild schwarze Gravur",
+        "sku": null,
+        "barcode": null,
+        "manage_inventory": false,
+        "allow_backorder": false,
+        "weight": null,
+        "metadata": null,
+        "id": "variant_01KX37DQ7GPHBGK7W1610S8A58",
+        "options": [
+          {
+            "value": "black",
+            "option": {
+              "title": "Gravurfarbe"
+            }
+          },
+          {
+            "value": "yellow",
+            "option": {
+              "title": "Hintergrundfarbe"
+            }
+          }
+        ],
+        "prices": [
+          {
+            "amount": 5,
+            "currency_code": "eur",
+            "id": "price_01KX37DQ8J11NNMX8Y4G1TB9JQ"
+          },
+          {
+            "amount": 5,
+            "currency_code": "eur",
+            "id": "price_01KX37DQ8KC1P91VGZF4PFTZVG"
+          }
+        ]
+      },
+      {
+        "title": "Weißes Schild schwarze Gravur",
+        "sku": "white",
+        "barcode": null,
+        "manage_inventory": false,
+        "allow_backorder": false,
+        "weight": null,
+        "metadata": null,
+        "id": "variant_01KX2XF4K9RE28XBABY01H4C4K",
+        "options": [
+          {
+            "value": "black",
+            "option": {
+              "title": "Gravurfarbe"
+            }
+          },
+          {
+            "value": "white",
+            "option": {
+              "title": "Hintergrundfarbe"
+            }
+          }
+        ],
+        "prices": [
+          {
+            "amount": 5,
+            "currency_code": "eur",
+            "id": "price_01KX318EMRQG4E9HTRKST9X7NW"
+          },
+          {
+            "amount": 5,
+            "currency_code": "eur",
+            "id": "price_01KX318EMRCE2FXHDACJWD7E12"
+          }
+        ]
+      },
+      {
+        "title": "Schwarzes Schild weiße Gravur",
+        "sku": "black",
+        "barcode": null,
+        "manage_inventory": false,
+        "allow_backorder": false,
+        "weight": null,
+        "metadata": null,
+        "id": "variant_01KX2XF4K8GSNQ8SXFN5Z8V4VK",
+        "options": [
+          {
+            "value": "black",
+            "option": {
+              "title": "Hintergrundfarbe"
+            }
+          },
+          {
+            "value": "white",
+            "option": {
+              "title": "Gravurfarbe"
+            }
+          }
+        ],
+        "prices": [
+          {
+            "amount": 5,
+            "currency_code": "eur",
+            "id": "price_01KX318EMQ9J0YX53MY2S5XM29"
+          },
+          {
+            "amount": 5,
+            "currency_code": "eur",
+            "id": "price_01KX318EMR73GPC3SHAKR2EYMG"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "prod_01KX2XGJK5A1Q0NXDWPNGVAQQ0",
+    "title": "Schiefer Schild",
+    "subtitle": "",
+    "description": "",
+    "handle": "schiefer-schild",
+    "status": "published",
+    "is_giftcard": false,
+    "discountable": true,
+    "thumbnail": "http://localhost:9000/static/1783584775742-Schieferschilder.jpg",
+    "weight": null,
+    "length": null,
+    "height": "50",
+    "width": "100",
+    "hs_code": "",
+    "mid_code": "",
+    "material": null,
+    "origin_country": "de",
+    "metadata": {
+      "is_designable": true,
+      "designer_shape": "rect",
+      "designer_category": "shield"
+    },
+    "type": null,
+    "collection": null,
+    "categories": [
+      {
+        "name": "Schilder",
+        "handle": "schilder"
+      }
+    ],
+    "tags": [],
+    "images": [
+      {
+        "url": "http://localhost:9000/static/1783584775742-Schieferschilder.jpg",
+        "rank": 0
+      }
+    ],
+    "options": [
+      {
+        "id": "opt_01KX2XGJK5222TF1E7A2Y8HF95",
+        "title": "Default option",
+        "values": [
+          {
+            "value": "Default option value"
+          }
+        ]
+      }
+    ],
+    "variants": [
+      {
+        "title": "Default variant",
+        "sku": null,
+        "barcode": null,
+        "manage_inventory": false,
+        "allow_backorder": false,
+        "weight": null,
+        "metadata": null,
+        "id": "variant_01KX2XGJMTCWDX1W5NQGRCSMC5",
+        "options": [
+          {
+            "value": "Default option value",
+            "option": {
+              "title": "Default option"
+            }
+          }
+        ],
+        "prices": [
+          {
+            "amount": 5,
+            "currency_code": "eur",
+            "id": "price_01KX31EJ1GHF126K3FP07MZGPD"
+          },
+          {
+            "amount": 5,
+            "currency_code": "eur",
+            "id": "price_01KX31EJ1EFV10SH6XV69H6TVH"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "prod_01KX2XJKJHVAWM9YRB4C9HQ0YC",
+    "title": "Holzschild",
+    "subtitle": null,
+    "description": null,
+    "handle": "holzschild",
+    "status": "published",
+    "is_giftcard": false,
+    "discountable": true,
+    "thumbnail": "http://localhost:9000/static/1783584794618-Holzschilder.jpg",
+    "weight": null,
+    "length": null,
+    "height": null,
+    "width": null,
+    "hs_code": "",
+    "mid_code": "",
+    "material": "Holz",
+    "origin_country": "de",
+    "metadata": {
+      "is_designable": true,
+      "designer_category": "wooden_shield"
+    },
+    "type": null,
+    "collection": null,
+    "categories": [
+      {
+        "name": "Schilder",
+        "handle": "schilder"
+      }
+    ],
+    "tags": [],
+    "images": [
+      {
+        "url": "http://localhost:9000/static/1783584794617-holzschild_rund.png",
+        "rank": 0
+      },
+      {
+        "url": "http://localhost:9000/static/1783584794618-Holzschilder.jpg",
+        "rank": 1
+      }
+    ],
+    "options": [
+      {
+        "id": "opt_01KX2XJKJJY3ZY4AA9TJ4V5W4B",
+        "title": "Form",
+        "values": [
+          {
+            "value": "Rund"
+          },
+          {
+            "value": "Eckig"
+          }
+        ]
+      }
+    ],
+    "variants": [
+      {
+        "title": "Rund",
+        "sku": null,
+        "barcode": null,
+        "manage_inventory": false,
+        "allow_backorder": false,
+        "weight": null,
+        "metadata": {
+          "designer_shape": "round"
+        },
+        "id": "variant_01KX2XJKM7R0H3CY456HR05020",
+        "options": [
+          {
+            "value": "Rund",
+            "option": {
+              "title": "Form"
+            }
+          }
+        ],
+        "prices": [
+          {
+            "amount": 5,
+            "currency_code": "eur",
+            "id": "price_01KX326FWSZT5GTKGBA3SMF18A"
+          },
+          {
+            "amount": 5,
+            "currency_code": "eur",
+            "id": "price_01KX326FWT334SG9RYCYEVHCGX"
+          }
+        ]
+      },
+      {
+        "title": "Eckig",
+        "sku": null,
+        "barcode": null,
+        "manage_inventory": false,
+        "allow_backorder": false,
+        "weight": null,
+        "metadata": {
+          "designer_shape": "rect"
+        },
+        "id": "variant_01KX2XJKM7RFB4K85X80HT3EMX",
+        "options": [
+          {
+            "value": "Eckig",
+            "option": {
+              "title": "Form"
+            }
+          }
+        ],
+        "prices": [
+          {
+            "amount": 5,
+            "currency_code": "eur",
+            "id": "price_01KX3267P4FD1PAAJZ245C981X"
+          },
+          {
+            "amount": 5,
+            "currency_code": "eur",
+            "id": "price_01KX3267P5NERJEJZQFBFKF3EQ"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "prod_01KX2XMG86PQ72HDT93GF9BS7R",
+    "title": "Trodat Printy",
+    "subtitle": null,
+    "description": null,
+    "handle": "trodat-printy",
+    "status": "published",
+    "is_giftcard": false,
+    "discountable": true,
+    "thumbnail": "http://localhost:9000/static/1783584810187-Automatikstempel.png",
+    "weight": null,
+    "length": null,
+    "height": null,
+    "width": null,
+    "hs_code": "",
+    "mid_code": "",
+    "material": "Gummi",
+    "origin_country": "de",
+    "metadata": {
+      "has_cushion": true,
+      "option_keys": {
+        "opt_01KX2XMG87B252G10Z792MD3FA": "Sorte",
+        "opt_01KX35CK0RFZGEBKKBDXXK0A72": "cushion_color"
+      },
+      "is_designable": true,
+      "designer_shape": "rect",
+      "designer_category": "self_inking"
+    },
+    "type": null,
+    "collection": null,
+    "categories": [
+      {
+        "name": "Stempel",
+        "handle": "stempel"
+      }
+    ],
+    "tags": [],
+    "images": [
+      {
+        "url": "http://localhost:9000/static/1783584810187-Automatikstempel.png",
+        "rank": 0
+      }
+    ],
+    "options": [
+      {
+        "id": "opt_01KX2XMG87B252G10Z792MD3FA",
+        "title": "Sorte",
+        "values": [
+          {
+            "value": "4912"
+          },
+          {
+            "value": "4910"
+          },
+          {
+            "value": "4915"
+          }
+        ]
+      },
+      {
+        "id": "opt_01KX35CK0RFZGEBKKBDXXK0A72",
+        "title": "Kissenfarbe",
+        "values": [
+          {
+            "value": "blue"
+          },
+          {
+            "value": "red"
+          },
+          {
+            "value": "green"
+          }
+        ]
+      }
+    ],
+    "variants": [
+      {
+        "title": "4915",
+        "sku": null,
+        "barcode": null,
+        "manage_inventory": false,
+        "allow_backorder": false,
+        "weight": null,
+        "metadata": {
+          "thickness": 2.3
+        },
+        "id": "variant_01KX2XMG9VYYM3DSD2ZSHWTY3X",
+        "options": [
+          {
+            "value": "4915",
+            "option": {
+              "title": "Sorte"
+            }
+          },
+          {
+            "value": "red",
+            "option": {
+              "title": "Kissenfarbe"
+            }
+          }
+        ],
+        "prices": [
+          {
+            "amount": 5,
+            "currency_code": "eur",
+            "id": "price_01KX33A7EKJ0PTM6CS6H3RHCEX"
+          },
+          {
+            "amount": 5,
+            "currency_code": "eur",
+            "id": "price_01KX33A7EKZ3Q2WGF18C0TKZCK"
+          }
+        ]
+      },
+      {
+        "title": "4912",
+        "sku": null,
+        "barcode": null,
+        "manage_inventory": false,
+        "allow_backorder": false,
+        "weight": null,
+        "metadata": {
+          "thickness": 1.5
+        },
+        "id": "variant_01KX2XMG9VNWHCWY106QM3TDK3",
+        "options": [
+          {
+            "value": "green",
+            "option": {
+              "title": "Kissenfarbe"
+            }
+          },
+          {
+            "value": "4912",
+            "option": {
+              "title": "Sorte"
+            }
+          }
+        ],
+        "prices": [
+          {
+            "amount": 5,
+            "currency_code": "eur",
+            "id": "price_01KX33A7EK2YHBWHHEKS78P563"
+          },
+          {
+            "amount": 5,
+            "currency_code": "eur",
+            "id": "price_01KX33A7EJBYGCESF5ZC7NTQ2G"
+          }
+        ]
+      },
+      {
+        "title": "4910",
+        "sku": null,
+        "barcode": null,
+        "manage_inventory": false,
+        "allow_backorder": false,
+        "weight": null,
+        "metadata": {
+          "thickness": 1.5
+        },
+        "id": "variant_01KX2XMG9TCH2H8TXE4DFFN0VB",
+        "options": [
+          {
+            "value": "4910",
+            "option": {
+              "title": "Sorte"
+            }
+          },
+          {
+            "value": "blue",
+            "option": {
+              "title": "Kissenfarbe"
+            }
+          }
+        ],
+        "prices": [
+          {
+            "amount": 5,
+            "currency_code": "eur",
+            "id": "price_01KX33490DGDS8VMPGEJPMCZKT"
+          },
+          {
+            "amount": 5,
+            "currency_code": "eur",
+            "id": "price_01KX33490FQ8Y4JPMNC8DE364G"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "prod_01KX2XQ491YW69D835GS4NE04Z",
+    "title": "Colop Printer",
+    "subtitle": null,
+    "description": null,
+    "handle": "colop-printer",
+    "status": "published",
+    "is_giftcard": false,
+    "discountable": true,
+    "thumbnail": "http://localhost:9000/static/1783584839938-Colop.jpg",
+    "weight": null,
+    "length": null,
+    "height": null,
+    "width": null,
+    "hs_code": "",
+    "mid_code": "",
+    "material": "Gummi",
+    "origin_country": "de",
+    "metadata": {
+      "has_cushion": true,
+      "option_keys": {
+        "opt_01KX2XQ492FCEP2SMGMFEJFR0V": "Sorte",
+        "opt_01KX35G87XD6W5MMXCM9M0MN1Q": "Kissenfarbe"
+      },
+      "is_designable": true,
+      "designer_shape": "rect",
+      "designer_category": "self_inking"
+    },
+    "type": null,
+    "collection": null,
+    "categories": [
+      {
+        "name": "Stempel",
+        "handle": "stempel"
+      }
+    ],
+    "tags": [],
+    "images": [
+      {
+        "url": "http://localhost:9000/static/1783584839938-Colop.jpg",
+        "rank": 0
+      }
+    ],
+    "options": [
+      {
+        "id": "opt_01KX35G87XD6W5MMXCM9M0MN1Q",
+        "title": "Kissenfarbe",
+        "values": [
+          {
+            "value": "green"
+          },
+          {
+            "value": "red"
+          },
+          {
+            "value": "blue"
+          }
+        ]
+      },
+      {
+        "id": "opt_01KX2XQ492FCEP2SMGMFEJFR0V",
+        "title": "Sorte",
+        "values": [
+          {
+            "value": "30"
+          },
+          {
+            "value": "40"
+          },
+          {
+            "value": "50"
+          }
+        ]
+      }
+    ],
+    "variants": [
+      {
+        "title": "Colop Printer 30",
+        "sku": null,
+        "barcode": null,
+        "manage_inventory": false,
+        "allow_backorder": false,
+        "weight": null,
+        "metadata": null,
+        "id": "variant_01KX2XQ4ASVY3TQVAHR1JX1X8S",
+        "options": [
+          {
+            "value": "30",
+            "option": {
+              "title": "Sorte"
+            }
+          },
+          {
+            "value": "red",
+            "option": {
+              "title": "Kissenfarbe"
+            }
+          }
+        ],
+        "prices": [
+          {
+            "amount": 5,
+            "currency_code": "eur",
+            "id": "price_01KX33EN1TN7C22Z84ZZY5AK82"
+          },
+          {
+            "amount": 5,
+            "currency_code": "eur",
+            "id": "price_01KX33EN1VHRK3W0AQGG3WXYPQ"
+          }
+        ]
+      },
+      {
+        "title": "Colop Printer 50",
+        "sku": null,
+        "barcode": null,
+        "manage_inventory": false,
+        "allow_backorder": false,
+        "weight": null,
+        "metadata": null,
+        "id": "variant_01KX2XQ4AT92R356ES58P3JF9J",
+        "options": [
+          {
+            "value": "green",
+            "option": {
+              "title": "Kissenfarbe"
+            }
+          },
+          {
+            "value": "50",
+            "option": {
+              "title": "Sorte"
+            }
+          }
+        ],
+        "prices": [
+          {
+            "amount": 5,
+            "currency_code": "eur",
+            "id": "price_01KX33EN1WEXFKANY20HPR2Y6V"
+          },
+          {
+            "amount": 5,
+            "currency_code": "eur",
+            "id": "price_01KX33EN1WSTQGB3RPA4JGBYVY"
+          }
+        ]
+      },
+      {
+        "title": "Colop Printer 40",
+        "sku": null,
+        "barcode": null,
+        "manage_inventory": false,
+        "allow_backorder": false,
+        "weight": null,
+        "metadata": null,
+        "id": "variant_01KX2XQ4ATEP87Z1JYN8KM3YA0",
+        "options": [
+          {
+            "value": "40",
+            "option": {
+              "title": "Sorte"
+            }
+          },
+          {
+            "value": "blue",
+            "option": {
+              "title": "Kissenfarbe"
+            }
+          }
+        ],
+        "prices": [
+          {
+            "amount": 5,
+            "currency_code": "eur",
+            "id": "price_01KX33EN1VN58V72K2MKNG3DRY"
+          },
+          {
+            "amount": 5,
+            "currency_code": "eur",
+            "id": "price_01KX33EN1V0Y3M48AK2PACQDRQ"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "prod_01KX2XSZTX4RMT2VFCR84W3KH1",
+    "title": "Kugelschreiberstempel",
+    "subtitle": "",
+    "description": "",
+    "handle": "kugelschreiberstempel",
+    "status": "published",
+    "is_giftcard": false,
+    "discountable": true,
+    "thumbnail": "http://localhost:9000/static/1783584860745-Kulistempel.png",
+    "weight": null,
+    "length": null,
+    "height": "8",
+    "width": "33",
+    "hs_code": "",
+    "mid_code": "",
+    "material": null,
+    "origin_country": "de",
+    "metadata": {
+      "has_cushion": true,
+      "option_keys": {
+        "opt_01KX2XSZTYFFNNNT6288VS2HBS": "cushion_color",
+        "opt_01KX2XSZTYGV8AJ33TTKFWSF45": "pencolor"
+      },
+      "is_designable": true,
+      "designer_shape": "rect",
+      "designer_category": "self_inking"
+    },
+    "type": null,
+    "collection": null,
+    "categories": [
+      {
+        "name": "Kulistempel",
+        "handle": "kulistempel"
+      }
+    ],
+    "tags": [],
+    "images": [
+      {
+        "url": "http://localhost:9000/static/1783584860745-Kulistempel.png",
+        "rank": 0
+      }
+    ],
+    "options": [
+      {
+        "id": "opt_01KX2XSZTYGV8AJ33TTKFWSF45",
+        "title": "Stiftfarbe",
+        "values": [
+          {
+            "value": "red"
+          },
+          {
+            "value": "green"
+          },
+          {
+            "value": "blue"
+          }
+        ]
+      },
+      {
+        "id": "opt_01KX2XSZTYFFNNNT6288VS2HBS",
+        "title": "Kissenfarbe",
+        "values": [
+          {
+            "value": "red"
+          },
+          {
+            "value": "blue"
+          },
+          {
+            "value": "green"
+          }
+        ]
+      }
+    ],
+    "variants": [
+      {
+        "title": "Grüner Kuli blaues Kissen",
+        "sku": null,
+        "barcode": null,
+        "manage_inventory": false,
+        "allow_backorder": false,
+        "weight": null,
+        "metadata": null,
+        "id": "variant_01KX3592P71G027W479Y45SZNV",
+        "options": [
+          {
+            "value": "green",
+            "option": {
+              "title": "Stiftfarbe"
+            }
+          },
+          {
+            "value": "blue",
+            "option": {
+              "title": "Kissenfarbe"
+            }
+          }
+        ],
+        "prices": [
+          {
+            "amount": 5,
+            "currency_code": "eur",
+            "id": "price_01KX3592Q2H3T8864T4DGH0PWX"
+          },
+          {
+            "amount": 5,
+            "currency_code": "eur",
+            "id": "price_01KX3592Q3RKX16HCHJKCXNZ15"
+          }
+        ]
+      },
+      {
+        "title": "Roter Kuli Kissen Rot",
+        "sku": null,
+        "barcode": null,
+        "manage_inventory": false,
+        "allow_backorder": false,
+        "weight": null,
+        "metadata": null,
+        "id": "variant_01KX3561RPB2PHKTX92M5F750V",
+        "options": [
+          {
+            "value": "red",
+            "option": {
+              "title": "Kissenfarbe"
+            }
+          },
+          {
+            "value": "red",
+            "option": {
+              "title": "Stiftfarbe"
+            }
+          }
+        ],
+        "prices": [
+          {
+            "amount": 5,
+            "currency_code": "eur",
+            "id": "price_01KX3561SKRTQHN0JDFEXSGDGR"
+          },
+          {
+            "amount": 5,
+            "currency_code": "eur",
+            "id": "price_01KX3561SKQ5WPMKWB6318YFNJ"
+          }
+        ]
+      },
+      {
+        "title": "Roter Kuli grünes Kissen",
+        "sku": null,
+        "barcode": null,
+        "manage_inventory": false,
+        "allow_backorder": false,
+        "weight": null,
+        "metadata": null,
+        "id": "variant_01KX356Z9YR4T5GESFEN1ZKC4N",
+        "options": [
+          {
+            "value": "green",
+            "option": {
+              "title": "Kissenfarbe"
+            }
+          },
+          {
+            "value": "red",
+            "option": {
+              "title": "Stiftfarbe"
+            }
+          }
+        ],
+        "prices": [
+          {
+            "amount": 5,
+            "currency_code": "eur",
+            "id": "price_01KX356ZAYVG81T618RJFG7H0E"
+          },
+          {
+            "amount": 5,
+            "currency_code": "eur",
+            "id": "price_01KX356ZAZKAJ8J6SJPMXSY26Z"
+          }
+        ]
+      },
+      {
+        "title": "Roter Kuli blaues Kissen",
+        "sku": null,
+        "barcode": null,
+        "manage_inventory": false,
+        "allow_backorder": false,
+        "weight": null,
+        "metadata": null,
+        "id": "variant_01KX357FJS8SW865JW705A2GGP",
+        "options": [
+          {
+            "value": "blue",
+            "option": {
+              "title": "Kissenfarbe"
+            }
+          },
+          {
+            "value": "red",
+            "option": {
+              "title": "Stiftfarbe"
+            }
+          }
+        ],
+        "prices": [
+          {
+            "amount": 5,
+            "currency_code": "eur",
+            "id": "price_01KX357FKNSKEX4CHYVZX9SBPZ"
+          },
+          {
+            "amount": 5,
+            "currency_code": "eur",
+            "id": "price_01KX357FKPG6WVYH14WV5NS5AF"
+          }
+        ]
+      },
+      {
+        "title": "Grüner Kuli rotes Kissen",
+        "sku": null,
+        "barcode": null,
+        "manage_inventory": false,
+        "allow_backorder": false,
+        "weight": null,
+        "metadata": null,
+        "id": "variant_01KX3585VZ4BD845F8PYAVR5TH",
+        "options": [
+          {
+            "value": "red",
+            "option": {
+              "title": "Kissenfarbe"
+            }
+          },
+          {
+            "value": "green",
+            "option": {
+              "title": "Stiftfarbe"
+            }
+          }
+        ],
+        "prices": [
+          {
+            "amount": 5,
+            "currency_code": "eur",
+            "id": "price_01KX3585WTK9DJWH8SS7MJDHDS"
+          },
+          {
+            "amount": 5,
+            "currency_code": "eur",
+            "id": "price_01KX3585WVQQAYFS53PDNP6508"
+          }
+        ]
+      },
+      {
+        "title": "Grüner Kuli grünes Kissen",
+        "sku": null,
+        "barcode": null,
+        "manage_inventory": false,
+        "allow_backorder": false,
+        "weight": null,
+        "metadata": null,
+        "id": "variant_01KX358KXTZY03SYHBRY9EEX5F",
+        "options": [
+          {
+            "value": "green",
+            "option": {
+              "title": "Kissenfarbe"
+            }
+          },
+          {
+            "value": "green",
+            "option": {
+              "title": "Stiftfarbe"
+            }
+          }
+        ],
+        "prices": [
+          {
+            "amount": 5,
+            "currency_code": "eur",
+            "id": "price_01KX358KYPY2N32N96N51M9AA3"
+          },
+          {
+            "amount": 5,
+            "currency_code": "eur",
+            "id": "price_01KX358KYP9QAQ8FJKXRDPQNK0"
+          }
+        ]
+      },
+      {
+        "title": "Blauer Kuli rotes Kissen",
+        "sku": null,
+        "barcode": null,
+        "manage_inventory": false,
+        "allow_backorder": false,
+        "weight": null,
+        "metadata": null,
+        "id": "variant_01KX359HGH6HJ51QDXSVF30DRA",
+        "options": [
+          {
+            "value": "red",
+            "option": {
+              "title": "Kissenfarbe"
+            }
+          },
+          {
+            "value": "blue",
+            "option": {
+              "title": "Stiftfarbe"
+            }
+          }
+        ],
+        "prices": [
+          {
+            "amount": 5,
+            "currency_code": "eur",
+            "id": "price_01KX359HHCBNWD1F41PPNSERGF"
+          },
+          {
+            "amount": 5,
+            "currency_code": "eur",
+            "id": "price_01KX359HHDKE65S914YGKT67CA"
+          }
+        ]
+      },
+      {
+        "title": "Blauer Kuli grünes Kissen",
+        "sku": null,
+        "barcode": null,
+        "manage_inventory": false,
+        "allow_backorder": false,
+        "weight": null,
+        "metadata": null,
+        "id": "variant_01KX35A1VNFCPCADKGQWS31BS7",
+        "options": [
+          {
+            "value": "green",
+            "option": {
+              "title": "Kissenfarbe"
+            }
+          },
+          {
+            "value": "blue",
+            "option": {
+              "title": "Stiftfarbe"
+            }
+          }
+        ],
+        "prices": [
+          {
+            "amount": 5,
+            "currency_code": "eur",
+            "id": "price_01KX35A1WDY9NXE21R4FEHGKPQ"
+          },
+          {
+            "amount": 5,
+            "currency_code": "eur",
+            "id": "price_01KX35A1WDVV220RCP935718SF"
+          }
+        ]
+      },
+      {
+        "title": "Blauer Kuli blaues Kissen",
+        "sku": null,
+        "barcode": null,
+        "manage_inventory": false,
+        "allow_backorder": false,
+        "weight": null,
+        "metadata": null,
+        "id": "variant_01KX35ANQAVEW588VV92434S6J",
+        "options": [
+          {
+            "value": "blue",
+            "option": {
+              "title": "Kissenfarbe"
+            }
+          },
+          {
+            "value": "blue",
+            "option": {
+              "title": "Stiftfarbe"
+            }
+          }
+        ],
+        "prices": [
+          {
+            "amount": 5,
+            "currency_code": "eur",
+            "id": "price_01KX35ANR4F5V5H37X9ZWQDH23"
+          },
+          {
+            "amount": 5,
+            "currency_code": "eur",
+            "id": "price_01KX35ANR5XFG3ZW7BW5YG93CF"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "prod_01KX2XW1W5XN117GZZWM7T29CB",
+    "title": "Siegelstempel",
+    "subtitle": null,
+    "description": null,
+    "handle": "siegelstempel",
+    "status": "published",
+    "is_giftcard": false,
+    "discountable": true,
+    "thumbnail": "http://localhost:9000/static/1783584877033-Siegelstempel.png",
+    "weight": null,
+    "length": null,
+    "height": "25",
+    "width": "25",
+    "hs_code": "",
+    "mid_code": "",
+    "material": "Messing, Bronze oder Silber",
+    "origin_country": "de",
+    "metadata": {
+      "is_designable": true,
+      "designer_shape": "round",
+      "designer_category": "stamp"
+    },
+    "type": null,
+    "collection": null,
+    "categories": [
+      {
+        "name": "Stempel",
+        "handle": "stempel"
+      }
+    ],
+    "tags": [],
+    "images": [
+      {
+        "url": "http://localhost:9000/static/1783584877033-Siegelstempel.png",
+        "rank": 0
+      }
+    ],
+    "options": [
+      {
+        "id": "opt_01KX2XW1W6EDCBBFD2E742WX73",
+        "title": "Material",
+        "values": [
+          {
+            "value": "Messing"
+          },
+          {
+            "value": "Silber"
+          },
+          {
+            "value": "Bronze"
+          }
+        ]
+      }
+    ],
+    "variants": [
+      {
+        "title": "Siegelstempel Silber",
+        "sku": null,
+        "barcode": null,
+        "manage_inventory": false,
+        "allow_backorder": false,
+        "weight": null,
+        "metadata": null,
+        "id": "variant_01KX32KWZ9W34KD4P3DS0ZTG4R",
+        "options": [
+          {
+            "value": "Silber",
+            "option": {
+              "title": "Material"
+            }
+          }
+        ],
+        "prices": [
+          {
+            "amount": 5,
+            "currency_code": "eur",
+            "id": "price_01KX32KX04VWNQMNXJQQQR3DJB"
+          },
+          {
+            "amount": 5,
+            "currency_code": "eur",
+            "id": "price_01KX32KX0428SFZY338PRN97YY"
+          }
+        ]
+      },
+      {
+        "title": "Siegelstempel Messing",
+        "sku": null,
+        "barcode": null,
+        "manage_inventory": false,
+        "allow_backorder": false,
+        "weight": null,
+        "metadata": null,
+        "id": "variant_01KX32K39DWGA2F3ASTPQXXK7T",
+        "options": [
+          {
+            "value": "Messing",
+            "option": {
+              "title": "Material"
+            }
+          }
+        ],
+        "prices": [
+          {
+            "amount": 5,
+            "currency_code": "eur",
+            "id": "price_01KX32K3AAY82PCSGMNDBDFNQR"
+          },
+          {
+            "amount": 5,
+            "currency_code": "eur",
+            "id": "price_01KX32K3A9764A6BH56DW3PW78"
+          }
+        ]
+      },
+      {
+        "title": "Siegelstempel Bronze",
+        "sku": null,
+        "barcode": null,
+        "manage_inventory": false,
+        "allow_backorder": false,
+        "weight": null,
+        "metadata": null,
+        "id": "variant_01KX32KH8AKQTPEZ40WSVMQ31P",
+        "options": [
+          {
+            "value": "Bronze",
+            "option": {
+              "title": "Material"
+            }
+          }
+        ],
+        "prices": [
+          {
+            "amount": 5,
+            "currency_code": "eur",
+            "id": "price_01KX32KH980XVQHCEYPH4W7799"
+          },
+          {
+            "amount": 5,
+            "currency_code": "eur",
+            "id": "price_01KX32KH980QF11PHAWB2JTDJV"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "prod_01KX2XWH8SGKP76WGC086QSHD6",
+    "title": "Wiegestempel",
+    "subtitle": null,
+    "description": null,
+    "handle": "wiegestempel",
+    "status": "published",
+    "is_giftcard": false,
+    "discountable": true,
+    "thumbnail": "http://localhost:9000/static/1783584896521-Wiegestempel.png",
+    "weight": null,
+    "length": null,
+    "height": "40",
+    "width": "100",
+    "hs_code": "",
+    "mid_code": "",
+    "material": "Holz",
+    "origin_country": "de",
+    "metadata": {
+      "is_designable": true,
+      "designer_shape": "rect",
+      "designer_category": "stamp"
+    },
+    "type": null,
+    "collection": null,
+    "categories": [
+      {
+        "name": "Stempel",
+        "handle": "stempel"
+      }
+    ],
+    "tags": [],
+    "images": [
+      {
+        "url": "http://localhost:9000/static/1783584896521-Wiegestempel.png",
+        "rank": 0
+      }
+    ],
+    "options": [
+      {
+        "id": "opt_01KX2XWH8SE61M4BP5XN8F8M8X",
+        "title": "Default option",
+        "values": [
+          {
+            "value": "Default option value"
+          }
+        ]
+      }
+    ],
+    "variants": [
+      {
+        "title": "Default variant",
+        "sku": null,
+        "barcode": null,
+        "manage_inventory": false,
+        "allow_backorder": false,
+        "weight": null,
+        "metadata": null,
+        "id": "variant_01KX2XWH9VRJ23F1ZQEGBWVNFJ",
+        "options": [
+          {
+            "value": "Default option value",
+            "option": {
+              "title": "Default option"
+            }
+          }
+        ],
+        "prices": [
+          {
+            "amount": 5,
+            "currency_code": "eur",
+            "id": "price_01KX32NA49NTVSRD03QHEP52B2"
+          },
+          {
+            "amount": 5,
+            "currency_code": "eur",
+            "id": "price_01KX32NA499T8TXYWJP2274N98"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "prod_01KX2XX3REA82YYG39164857R8",
+    "title": "Fleischbeschaustempel",
+    "subtitle": "",
+    "description": "",
+    "handle": "fleischbeschaustempel",
+    "status": "published",
+    "is_giftcard": false,
+    "discountable": true,
+    "thumbnail": "http://localhost:9000/static/1783584910540-Fleischbeschaustempel.png",
+    "weight": null,
+    "length": null,
+    "height": null,
+    "width": null,
+    "hs_code": "",
+    "mid_code": "",
+    "material": null,
+    "origin_country": "de",
+    "metadata": {
+      "is_designable": true,
+      "designer_category": "stamp"
+    },
+    "type": null,
+    "collection": null,
+    "categories": [
+      {
+        "name": "Stempel",
+        "handle": "stempel"
+      }
+    ],
+    "tags": [],
+    "images": [
+      {
+        "url": "http://localhost:9000/static/1783584910540-Fleischbeschaustempel.png",
+        "rank": 0
+      }
+    ],
+    "options": [
+      {
+        "id": "opt_01KX2XX3RFXFKX3M8YXWKGVFME",
+        "title": "Default option",
+        "values": [
+          {
+            "value": "Default option value"
+          }
+        ]
+      }
+    ],
+    "variants": [
+      {
+        "title": "Default variant",
+        "sku": null,
+        "barcode": null,
+        "manage_inventory": false,
+        "allow_backorder": false,
+        "weight": null,
+        "metadata": null,
+        "id": "variant_01KX2XX3SSP56JCFKFMVMVSJMZ",
+        "options": [
+          {
+            "value": "Default option value",
+            "option": {
+              "title": "Default option"
+            }
+          }
+        ],
+        "prices": [
+          {
+            "amount": 5,
+            "currency_code": "eur",
+            "id": "price_01KX3225HW7FMGGWKC67V83ZHF"
+          },
+          {
+            "amount": 5,
+            "currency_code": "eur",
+            "id": "price_01KX3225HWC127TH36XS263QPY"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "prod_01KX2XY7BTWF64PBXWHAJR1XAB",
+    "title": "Brennstempel",
+    "subtitle": null,
+    "description": null,
+    "handle": "brennstempel",
+    "status": "published",
+    "is_giftcard": false,
+    "discountable": true,
+    "thumbnail": "http://localhost:9000/static/1783584925287-Brennstempel.png",
+    "weight": null,
+    "length": null,
+    "height": null,
+    "width": null,
+    "hs_code": "",
+    "mid_code": "",
+    "material": "Alu-Bronze",
+    "origin_country": "de",
+    "metadata": {
+      "is_designable": true,
+      "designer_category": "stamp"
+    },
+    "type": null,
+    "collection": null,
+    "categories": [
+      {
+        "name": "Stempel",
+        "handle": "stempel"
+      }
+    ],
+    "tags": [],
+    "images": [
+      {
+        "url": "http://localhost:9000/static/1783584925287-Brennstempel.png",
+        "rank": 0
+      }
+    ],
+    "options": [
+      {
+        "id": "opt_01KX2XY7BVPAQFTQA60RNJJC85",
+        "title": "Form",
+        "values": [
+          {
+            "value": "Rund"
+          },
+          {
+            "value": "Eckig"
+          }
+        ]
+      }
+    ],
+    "variants": [
+      {
+        "title": "Eckig",
+        "sku": null,
+        "barcode": null,
+        "manage_inventory": false,
+        "allow_backorder": false,
+        "weight": null,
+        "metadata": {
+          "designer_shape": "rect"
+        },
+        "id": "variant_01KX2XY7CS2KS40E6D3QW5SNGK",
+        "options": [
+          {
+            "value": "Eckig",
+            "option": {
+              "title": "Form"
+            }
+          }
+        ],
+        "prices": [
+          {
+            "amount": 5,
+            "currency_code": "eur",
+            "id": "price_01KX32D03R89D6RHCVJ0DGXR2Q"
+          },
+          {
+            "amount": 5,
+            "currency_code": "eur",
+            "id": "price_01KX32D03Q7PZZ8V10T281TDJJ"
+          }
+        ]
+      },
+      {
+        "title": "Rund",
+        "sku": null,
+        "barcode": null,
+        "manage_inventory": false,
+        "allow_backorder": false,
+        "weight": null,
+        "metadata": {
+          "designer_shape": "round"
+        },
+        "id": "variant_01KX2XY7CS8KWW6B1PWYTP714K",
+        "options": [
+          {
+            "value": "Rund",
+            "option": {
+              "title": "Form"
+            }
+          }
+        ],
+        "prices": [
+          {
+            "amount": 5,
+            "currency_code": "eur",
+            "id": "price_01KX32D03QGTQ8N9D23ZSYVXJM"
+          },
+          {
+            "amount": 5,
+            "currency_code": "eur",
+            "id": "price_01KX32D03PE2TDKBG1J3NDBFAM"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "prod_01KX2XZHVB67WZ079ESJ14FY55",
+    "title": "Prägestempel",
+    "subtitle": null,
+    "description": null,
+    "handle": "pragestempel",
+    "status": "published",
+    "is_giftcard": false,
+    "discountable": true,
+    "thumbnail": "http://localhost:9000/static/1783935097204-Praegestempel.png",
+    "weight": null,
+    "length": null,
+    "height": "50",
+    "width": "50",
+    "hs_code": "",
+    "mid_code": "",
+    "material": "Gummi",
+    "origin_country": "de",
+    "metadata": {
+      "option_keys": {
+        "opt_01KX2XZHVC64GBGMSENMTH4N49": "embossing_position"
+      },
+      "is_designable": true,
+      "designer_shape": "round",
+      "designer_category": "embos"
+    },
+    "type": null,
+    "collection": null,
+    "categories": [
+      {
+        "name": "Stempel",
+        "handle": "stempel"
+      }
+    ],
+    "tags": [],
+    "images": [
+      {
+        "url": "http://localhost:9000/static/1783935097204-Praegestempel.png",
+        "rank": 0
+      }
+    ],
+    "options": [
+      {
+        "id": "opt_01KX2XZHVC64GBGMSENMTH4N49",
+        "title": "Prägeposition",
+        "values": [
+          {
+            "value": "right"
+          },
+          {
+            "value": "top"
+          },
+          {
+            "value": "bottom"
+          },
+          {
+            "value": "left"
+          }
+        ]
+      }
+    ],
+    "variants": [
+      {
+        "title": "Oben",
+        "sku": null,
+        "barcode": null,
+        "manage_inventory": false,
+        "allow_backorder": false,
+        "weight": null,
+        "metadata": null,
+        "id": "variant_01KX2XZHWEVWJ692DE4WYVEPGV",
+        "options": [
+          {
+            "value": "top",
+            "option": {
+              "title": "Prägeposition"
+            }
+          }
+        ],
+        "prices": [
+          {
+            "amount": 5,
+            "currency_code": "eur",
+            "id": "price_01KX32CNKA842JZYQ5NXTM4BZA"
+          },
+          {
+            "amount": 5,
+            "currency_code": "eur",
+            "id": "price_01KX32CNKAH6VH9JTDD0T602Q9"
+          }
+        ]
+      },
+      {
+        "title": "Unten",
+        "sku": null,
+        "barcode": null,
+        "manage_inventory": false,
+        "allow_backorder": false,
+        "weight": null,
+        "metadata": null,
+        "id": "variant_01KX2XZHWEYTBJYWN05DWT3FEP",
+        "options": [
+          {
+            "value": "bottom",
+            "option": {
+              "title": "Prägeposition"
+            }
+          }
+        ],
+        "prices": [
+          {
+            "amount": 5,
+            "currency_code": "eur",
+            "id": "price_01KX32CNKAJ7QBJ26GCYX0FC66"
+          },
+          {
+            "amount": 5,
+            "currency_code": "eur",
+            "id": "price_01KX32CNKBHV85E4GPFX7S9ZPF"
+          }
+        ]
+      },
+      {
+        "title": "Rechts",
+        "sku": null,
+        "barcode": null,
+        "manage_inventory": false,
+        "allow_backorder": false,
+        "weight": null,
+        "metadata": null,
+        "id": "variant_01KX2XZHWFP5CX0ZYTZVVR3W3S",
+        "options": [
+          {
+            "value": "right",
+            "option": {
+              "title": "Prägeposition"
+            }
+          }
+        ],
+        "prices": [
+          {
+            "amount": 5,
+            "currency_code": "eur",
+            "id": "price_01KX32CNKCD0A922K1FY7PD2F8"
+          },
+          {
+            "amount": 5,
+            "currency_code": "eur",
+            "id": "price_01KX32CNKCBP5CCG9WZS4VG64H"
+          }
+        ]
+      },
+      {
+        "title": "Links",
+        "sku": null,
+        "barcode": null,
+        "manage_inventory": false,
+        "allow_backorder": false,
+        "weight": null,
+        "metadata": null,
+        "id": "variant_01KX2XZHWFQ21H3SJZY318HT36",
+        "options": [
+          {
+            "value": "left",
+            "option": {
+              "title": "Prägeposition"
+            }
+          }
+        ],
+        "prices": [
+          {
+            "amount": 5,
+            "currency_code": "eur",
+            "id": "price_01KX32CNKB1VN691BSJBK4N766"
+          },
+          {
+            "amount": 5,
+            "currency_code": "eur",
+            "id": "price_01KX32CNKBWRCA4DYGSCWJPQCA"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "prod_01KX2YF9MCYHQBR3VWHC50X9WR",
+    "title": "Holzstempel",
+    "subtitle": null,
+    "description": null,
+    "handle": "holzstempel",
+    "status": "published",
+    "is_giftcard": false,
+    "discountable": true,
+    "thumbnail": "http://localhost:9000/static/1783584967583-Holzstempel.png",
+    "weight": null,
+    "length": null,
+    "height": null,
+    "width": null,
+    "hs_code": "",
+    "mid_code": "",
+    "material": "Holz",
+    "origin_country": "de",
+    "metadata": {
+      "is_designable": true,
+      "designer_category": "stamp"
+    },
+    "type": null,
+    "collection": null,
+    "categories": [
+      {
+        "name": "Stempel",
+        "handle": "stempel"
+      }
+    ],
+    "tags": [],
+    "images": [
+      {
+        "url": "http://localhost:9000/static/1783584967583-Holzstempel.png",
+        "rank": 0
+      }
+    ],
+    "options": [
+      {
+        "id": "opt_01KX2YF9MEW6SYNDD9WJRVBM32",
+        "title": "Form",
+        "values": [
+          {
+            "value": "Eckig"
+          },
+          {
+            "value": "Rund"
+          }
+        ]
+      }
+    ],
+    "variants": [
+      {
+        "title": "Eckig",
+        "sku": null,
+        "barcode": null,
+        "manage_inventory": false,
+        "allow_backorder": false,
+        "weight": null,
+        "metadata": {
+          "designer_shape": "rect"
+        },
+        "id": "variant_01KX2YF9P6WAJ37FBN3N29VT91",
+        "options": [
+          {
+            "value": "Eckig",
+            "option": {
+              "title": "Form"
+            }
+          }
+        ],
+        "prices": [
+          {
+            "amount": 5,
+            "currency_code": "eur",
+            "id": "price_01KX32DBD9PASC2RGDMTRXGH07"
+          },
+          {
+            "amount": 5,
+            "currency_code": "eur",
+            "id": "price_01KX32DBD7H9RCAX05NDBXXK1B"
+          }
+        ]
+      },
+      {
+        "title": "Rund",
+        "sku": null,
+        "barcode": null,
+        "manage_inventory": false,
+        "allow_backorder": false,
+        "weight": null,
+        "metadata": {
+          "designer_shape": "round"
+        },
+        "id": "variant_01KX2YF9P6WB79AAER78DF14CJ",
+        "options": [
+          {
+            "value": "Rund",
+            "option": {
+              "title": "Form"
+            }
+          }
+        ],
+        "prices": [
+          {
+            "amount": 5,
+            "currency_code": "eur",
+            "id": "price_01KX32DBD6T1E5KE9ZCXXSZA4S"
+          },
+          {
+            "amount": 5,
+            "currency_code": "eur",
+            "id": "price_01KX32DBD75ZSAHM3GZ2VT2YBK"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "prod_01KXN06ZQ9MT7FZ6FDB1Q6CX25",
+    "title": "Trodat 4911",
+    "subtitle": "",
+    "description": "GPE-Testprodukt",
+    "handle": "trodat-4911",
+    "status": "published",
+    "is_giftcard": false,
+    "discountable": true,
+    "thumbnail": "http://localhost:9000/static/1784190041808-4912.png",
+    "weight": null,
+    "length": null,
+    "height": null,
+    "width": null,
+    "hs_code": "",
+    "mid_code": "",
+    "material": null,
+    "origin_country": "de",
+    "metadata": {
+      "gpe_id": "9806",
+      "gpe_name": "4911",
+      "has_cushion": true,
+      "is_designable": true,
+      "designer_shape": "rect",
+      "gpe_external_id": "5a6adf26-7c28-4b7d-a427-0e074a0f27a4",
+      "is_personalized": true,
+      "designer_category": "self_inking"
+    },
+    "type": null,
+    "collection": null,
+    "categories": [
+      {
+        "name": "Stempel",
+        "handle": "stempel"
+      }
+    ],
+    "tags": [],
+    "images": [
+      {
+        "url": "http://localhost:9000/static/1784190041808-4912.png",
+        "rank": 0
+      }
+    ],
+    "options": [
+      {
+        "id": "opt_01KXN06ZQF7YQTNQX87Q1GN2ME",
+        "title": "Default option",
+        "values": [
+          {
+            "value": "Default option value"
+          }
+        ]
+      }
+    ],
+    "variants": [
+      {
+        "title": "Default variant",
+        "sku": null,
+        "barcode": null,
+        "manage_inventory": false,
+        "allow_backorder": false,
+        "weight": null,
+        "metadata": null,
+        "id": "variant_01KXN06ZTDP8A6H6722XNFA1HN",
+        "options": [
+          {
+            "value": "Default option value",
+            "option": {
+              "title": "Default option"
+            }
+          }
+        ],
+        "prices": [
+          {
+            "amount": 10.11,
+            "currency_code": "eur",
+            "id": "price_01KY1W3H1XMEXXYTBZZTK9EA56"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "prod_01KY78SZBPT099V300RW54V778",
+    "title": "Alu-Schilder",
+    "subtitle": null,
+    "description": null,
+    "handle": "alu-schilder",
+    "status": "published",
+    "is_giftcard": false,
+    "discountable": true,
+    "thumbnail": "http://localhost:9000/static/1784803133734-Gold.png",
+    "weight": null,
+    "length": null,
+    "height": "50",
+    "width": "50",
+    "hs_code": "",
+    "mid_code": "",
+    "material": "Alu",
+    "origin_country": "de",
+    "metadata": {
+      "is_designable": true,
+      "designer_shape": "round",
+      "designer_category": "shield"
+    },
+    "type": null,
+    "collection": null,
+    "categories": [
+      {
+        "name": "Schilder",
+        "handle": "schilder"
+      }
+    ],
+    "tags": [],
+    "images": [
+      {
+        "url": "http://localhost:9000/static/1784803133733-Bronze.png",
+        "rank": 0
+      },
+      {
+        "url": "http://localhost:9000/static/1784803133734-Gold.png",
+        "rank": 1
+      },
+      {
+        "url": "http://localhost:9000/static/1784803133735-Silber.png",
+        "rank": 2
+      }
+    ],
+    "options": [
+      {
+        "id": "opt_01KY78SZBSSF6DWMCBXCQZJDHP",
+        "title": "Default",
+        "values": [
+          {
+            "value": "default"
+          }
+        ]
+      }
+    ],
+    "variants": [
+      {
+        "title": "Alu-Schilder",
+        "sku": null,
+        "barcode": null,
+        "manage_inventory": false,
+        "allow_backorder": false,
+        "weight": null,
+        "metadata": null,
+        "id": "variant_01KY78SZCTZP68H0DP65JX6DZP",
+        "options": [
+          {
+            "value": "default",
+            "option": {
+              "title": "Default"
+            }
+          }
+        ],
+        "prices": [
+          {
+            "amount": 20,
+            "currency_code": "eur",
+            "id": "price_01KY78Z7ZNP0A2V1AHCT08RZWR"
+          },
+          {
+            "amount": 20,
+            "currency_code": "eur",
+            "id": "price_01KY78Z7ZPKB35BETW7TWEB70X"
+          }
+        ]
+      }
+    ]
+  }
+]
