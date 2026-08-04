@@ -1,6 +1,6 @@
 import type { MedusaRequest, MedusaResponse } from "@medusajs/framework/http";
 import { Modules } from "@medusajs/framework/utils";
-import { revalidateStorefront } from "../../../admin/routes/revalidate-storefront";
+import { revalidateStorefront } from "../../../lib/revalidate-storefront";
 import { ContainerRegistrationKeys } from "@medusajs/framework/utils";
 
 type ThemeSettings = {

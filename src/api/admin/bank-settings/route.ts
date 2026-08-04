@@ -1,5 +1,7 @@
 import type { MedusaRequest, MedusaResponse } from "@medusajs/framework/http";
 import { Modules } from "@medusajs/framework/utils";
+import { ContainerRegistrationKeys } from "@medusajs/framework/utils";
+import { revalidateStorefront } from "../../../lib/revalidate-storefront";
 
 type BankSettings = {
   bank_account_holder: string | null
@@ -64,6 +66,14 @@ export async function POST(req: MedusaRequest, res: MedusaResponse<BankSettingsR
   };
 
   await storeModuleService.updateStores({ id: store.id }, { metadata });
+
+  const revalidated = await revalidateStorefront(["bank"])
+  if (!revalidated.ok) 
+  {
+    const logger = req.scope.resolve(ContainerRegistrationKeys.LOGGER)
+    logger.warn(`[bank] Storefront-Cache nicht invalidiert: ${revalidated.reason}`)
+  }
+
 
   res.json({
     bank_settings: { bank_account_holder, bank_name, bank_iban, bank_bic, bank_note },
