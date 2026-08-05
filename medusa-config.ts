@@ -76,9 +76,17 @@ if (process.env.STRIPE_API_KEY) {
 }
 
 module.exports = defineConfig({
-  projectConfig: {
+    projectConfig: {
     databaseUrl: process.env.DATABASE_URL,
+    // Lokaler Produktionstest über http://localhost: Medusa erzwingt bei
+    // NODE_ENV=production secure-Cookies, die der Browser über HTTP verwirft
+    // (Anmeldemaske erscheint immer wieder). Nur mit ausdrücklich gesetzter
+    // Variable lockern – auf dem Server mit HTTPS bleibt alles wie bisher.
+    ...(process.env.ALLOW_INSECURE_COOKIES === "true"
+      ? { cookieOptions: { secure: false, sameSite: "lax" as const } }
+      : {}),
     http:{ 
+
     storeCors: storeCorsString,
     adminCors: adminCorsString,
     authCors: authCorsString,
