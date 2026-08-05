@@ -2,7 +2,7 @@ import { defineRouteConfig } from "@medusajs/admin-sdk";
 import { CubeSolid } from "@medusajs/icons";
 import { Button, Container, Heading, Input, Label, Text, toast } from "@medusajs/ui";
 import { useMutation, useQuery } from "@tanstack/react-query";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState, type ChangeEvent } from "react";
 import { sdk } from "../../lib/sdk";
 
 type ThemeSettings = {
@@ -26,34 +26,15 @@ const DEFAULTS = {
 }
 
 const ColorField = ({
-  label, hint, value, onChange, disabled, previewBg,
+  label, hint, value, onChange, disabled,
 }: {
   label: string
   hint?: string
   value: string
   onChange: (v: string) => void
   disabled?: boolean
-  previewBg?: string
 }) => {
-  const [uploading, setUploading] = useState(false)
 
-  const onFile = async (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0]
-    if (!file) return
-    setUploading(true)
-    try {
-      const { files } = await sdk.admin.upload.create({ files: [file] })
-      const url = files?.[0]?.url
-      if (!url) throw new Error("Upload lieferte keine Adresse zurück")
-      onChange(url)
-      toast.success("Bild hochgeladen – jetzt noch speichern")
-    } catch (err: any) {
-      toast.error(err?.message || "Upload fehlgeschlagen")
-    } finally {
-      setUploading(false)
-      e.target.value = ""
-    }
-  }
   return(
   <div>
     <Label>{label}</Label>
@@ -89,8 +70,9 @@ const ImageField = ({
   previewBg?: string
 }) => {
   const [uploading, setUploading] = useState(false)
+  const inputRef = useRef<HTMLInputElement>(null)
 
-  const onFile = async (e: React.ChangeEvent<HTMLInputElement>) => {
+  const onFile = async (e: ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0]
     if (!file) return
     setUploading(true)
@@ -121,20 +103,25 @@ const ImageField = ({
           <img src={value} alt={label} className="max-h-20 max-w-[240px] object-contain" />
         </div>
       )}
+        <input
+        ref={inputRef}
+        type="file"
+        accept="image/png,image/jpeg,image/svg+xml,image/webp"
+        className="hidden"
+        onChange={onFile}
+      />
 
       <div className="flex items-center gap-x-2">
-        <label className="inline-flex">
-          <input
-            type="file"
-            accept="image/png,image/jpeg,image/svg+xml,image/webp"
-            className="hidden"
-            disabled={disabled || uploading}
-            onChange={onFile}
-          />
-          <Button asChild variant="secondary" size="small" isLoading={uploading}>
-            <span className="cursor-pointer">{value ? "Bild ersetzen" : "Bild hochladen"}</span>
-          </Button>
-        </label>
+        <Button
+          variant="secondary"
+          size="small"
+          isLoading={uploading}
+          disabled={disabled}
+          onClick={() => inputRef.current?.click()}
+        >
+          {value ? "Bild ersetzen" : "Bild hochladen"}
+        </Button>
+
         {value && (
           <Button variant="transparent" size="small" disabled={disabled} onClick={() => onChange("")}>
             Entfernen
