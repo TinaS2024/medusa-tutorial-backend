@@ -1,10 +1,19 @@
 import { defineRouteConfig } from "@medusajs/admin-sdk";
 import { CubeSolid } from "@medusajs/icons";
 import { Button, Container, Heading, Input, Label, Text, toast } from "@medusajs/ui";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { sdk } from "../../lib/sdk";
+import { getClientLanguage } from "../../lib/i18n";
+import { getMessages, type Lang } from "../../lib/messages";
 
 const AuthCleanupPage = () => {
+  const [lang, setLang] = useState<Lang>("de");
+  const t = getMessages(lang).auth_cleanup;
+
+  useEffect(() => {
+    setLang(getClientLanguage());
+  }, []);
+
   const [email, setEmail] = useState("");
   const [busy, setBusy] = useState(false);
 
@@ -20,12 +29,13 @@ const AuthCleanupPage = () => {
         query: { email: email.trim() },
       });
       toast.success(
-        `Freigegeben: ${r.deleted_customers?.length ?? 0} Kunde(n), ` +
-          `${r.deleted_auth_identities?.length ?? 0} Login-Identität(en) gelöscht.`
+        t.success
+          .replace("{customers}", String(r.deleted_customers?.length ?? 0))
+          .replace("{identities}", String(r.deleted_auth_identities?.length ?? 0))
       );
       setEmail("");
     } catch (e: any) {
-      toast.error(e?.message || "Löschen fehlgeschlagen");
+      toast.error(e?.message || t.error);
     } finally {
       setBusy(false);
     }
@@ -34,14 +44,13 @@ const AuthCleanupPage = () => {
   return (
     <Container className="divide-y p-0">
       <div className="p-6">
-        <Heading level="h1">E-Mail / Login freigeben</Heading>
+        <Heading level="h1">{t.title}</Heading>
         <Text className="text-ui-fg-subtle mt-2">
-          Löscht die Login-Identität (emailpass) einer E-Mail, damit sie erneut registriert werden kann.
-          Nur nutzen, wenn der zugehörige Kunde nicht mehr existiert.
+           {t.intro}
         </Text>
         <div className="mt-6 grid gap-y-4 max-w-md">
           <div>
-            <Label>E-Mail</Label>
+            <Label>{t.email}</Label>
             <Input
               value={email}
               onChange={(e) => setEmail(e.target.value)}
@@ -50,7 +59,7 @@ const AuthCleanupPage = () => {
           </div>
           <div className="flex justify-end">
             <Button variant="danger" isLoading={busy} onClick={onDelete}>
-              Login-Identität löschen
+              {t.delete}
             </Button>
           </div>
         </div>
@@ -60,7 +69,7 @@ const AuthCleanupPage = () => {
 };
 
 export const config = defineRouteConfig({
-  label: "E-Mail freigeben",
+  label: getMessages(getClientLanguage()).auth_cleanup.menu,
   icon: CubeSolid,
 });
 

@@ -1,11 +1,24 @@
 import { Button, FocusModal, Heading, Input, Label, Select, toast, } from "@medusajs/ui";
-import { useState, useRef, useCallback, useMemo } from "react";
+import { useState, useEffect, useRef, useCallback, useMemo } from "react";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { sdk } from "../lib/sdk";
 import { HttpTypes } from "@medusajs/framework/types";
+import { getClientLanguage } from "../lib/i18n";
+import { getMessages, type Lang, type Messages } from "../lib/messages";
+
+type BundleTexts = Messages["bundled_products"]
+
 
 const CreateBundledProduct = () =>
 {
+    const [lang, setLang] = useState<Lang>("de");
+    const t = getMessages(lang).bundled_products;
+
+    useEffect(() => {
+        setLang(getClientLanguage());
+    }, []);
+
+
     const [open, setOpen ] = useState(false);
     const [title, setTitle ] = useState("");
     const [items, setItems ] = useState<{
@@ -22,11 +35,12 @@ const CreateBundledProduct = () =>
     const [currentProductPage, setCurrentProductPage] = useState(0);
     const [productsCount, setProductsCount] = useState(0);
     const hasNextPage = useMemo(() => {
-        return productsCount ? productsCount > productsLimit : true
-        }, [productsCount, productsLimit]);
+        return productsCount === 0 ? true : products.length < productsCount
+        }, [products.length, productsCount]);
+
     const queryClient = useQueryClient();
 
-    useQuery({ queryKey: ["products"],
+    useQuery({ queryKey: ["products", currentProductPage],
     queryFn: async () => {
 
     const { products, count } = await sdk.admin.product.list({
@@ -34,20 +48,24 @@ const CreateBundledProduct = () =>
         offset: currentProductPage * productsLimit,
     })
     setProductsCount(count);
-    setProducts((prev) => [...prev, ...products]);
+        setProducts((prev) => {
+      const known = new Set(prev.map((p) => p.id))
+      return [...prev, ...products.filter((p) => !known.has(p.id))]
+    });
     return products;
   },
     enabled: hasNextPage,
 })
 
 
-    const fetchMoreProducts = () => {
-        if (!hasNextPage) {
+    const fetchMoreProducts = useCallback(() => {
+      if (!hasNextPage) {
             return
         }
 
-    setCurrentProductPage(currentProductPage + 1)
-}
+    setCurrentProductPage((page) => page + 1)
+}, [hasNextPage])
+
 
     const { mutateAsync: createBundledProduct, isPending: isCreating } = useMutation({
         mutationFn: async (data: Record<string, any>) => {
@@ -63,14 +81,14 @@ const CreateBundledProduct = () =>
 
       if(!title.trim())
       {
-        toast.error("Bundle Titel cannot be empty.");
+        toast.error(t.error_title_empty);
         return;
       }
 
       const hasUndefinedProductId = items.some(item => item.product_id == undefined);
       if(hasUndefinedProductId)
       {
-        toast.error("All bundle items must have a selected product.");
+        toast.error(t.error_item_product);
         return;
       }
 
@@ -104,7 +122,7 @@ const CreateBundledProduct = () =>
     })
 
     setOpen(false);
-    toast.success("Bundled product created successfully");
+    toast.success(t.created);
 
     queryClient.invalidateQueries({
       queryKey: ["bundled-products"],
@@ -113,7 +131,7 @@ const CreateBundledProduct = () =>
     setItems([{ product_id: undefined, quantity: 1 }]);
   } catch (error) {
 
-    toast.error("Failed to create bundled product");
+    toast.error(t.create_failed);
 
   }
 }
@@ -121,27 +139,27 @@ const CreateBundledProduct = () =>
 return(
     <FocusModal open={open} onOpenChange={setOpen}>
         <FocusModal.Trigger asChild>
-            <Button variant="primary">Erstellen</Button>
+            <Button variant="primary">{t.create}</Button>
         </FocusModal.Trigger>
         <FocusModal.Content>
             <FocusModal.Header>
                 <div className="flex items-center justify-end gap-x-2">
-                    <Heading level={"h1"}>Gebündeltes Produkt erstellen</Heading>
+                    <Heading level={"h1"}>{t.drawer_title}</Heading>
                 </div>
             </FocusModal.Header>
             <FocusModal.Body>
                 <div className="flex flex-1 flex-col items-center overflow-y-auto">
                     <div className="mx-auto flex w-full max-w-[720px] flex-col gap-y-8 px-2 py-16">
                         <div>
-                            <Label>Bundle-Titel</Label>
+                            <Label>{t.bundle_title}</Label>
                             <Input value={title} onChange={(e)=>setTitle(e.target.value)}/>
 
                         </div>
                         <div>
-                            <Heading level={"h2"}>Bundle-Artikel</Heading>
+                            <Heading level={"h2"}>{t.items}</Heading>
                             {items.map((item,index) =>
                             (
-                                <BundledProductItem key={index} item={item} index={index} setItems={setItems} products={products} fetchMoreProducts={fetchMoreProducts} hasNextPage={hasNextPage}/>
+                                <BundledProductItem key={index} item={item} index={index} setItems={setItems} products={products} fetchMoreProducts={fetchMoreProducts} hasNextPage={hasNextPage} t={t}/>
                             ))
 
                             }
@@ -150,15 +168,15 @@ return(
                                     product_id: undefined, 
                                     quantity:1
                                 },
-                            ])}>Artikel hinzufügen</Button>
+                            ])}>{t.add_item}</Button>
                         </div>
                     </div>
                 </div>
             </FocusModal.Body>
             <FocusModal.Footer>
                 <div className="flex items-center justify-end gap-x-2">
-                    <Button variant="secondary" onClick={() =>setOpen(false)}>Abbrechen</Button>
-                    <Button variant="primary" onClick={handleCreate} isLoading={isCreating}>Bundle erstellen</Button>
+                    <Button variant="secondary" onClick={() =>setOpen(false)}>{t.cancel}</Button>
+                    <Button variant="primary" onClick={handleCreate} isLoading={isCreating}>{t.submit}</Button>
                 </div>
             </FocusModal.Footer>
         </FocusModal.Content>
@@ -178,54 +196,46 @@ type BundledProductItemProps = {
     setItems: React.Dispatch<React.SetStateAction<{
     product_id: string | undefined;
     quantity: number;
-
     }[]>>
     products: HttpTypes.AdminProduct[] | undefined
     fetchMoreProducts: () => void
     hasNextPage: boolean
+    t: BundleTexts
 }
 
 
-const BundledProductItem = ({ item, index, setItems, products, fetchMoreProducts, hasNextPage}: BundledProductItemProps) => {
+const BundledProductItem = ({ item, index, setItems, products, fetchMoreProducts, hasNextPage, t}: BundledProductItemProps) => {
 
-const observer = useRef(new IntersectionObserver(
-    (entries) => {
-        if (!hasNextPage) {
-            return
-        }
+const observer = useRef<IntersectionObserver | null>(null)
 
-const first = entries[0];
+const lastOptionRef = useCallback((node: HTMLDivElement | null) => {
 
-        if (first.isIntersecting) {
-          fetchMoreProducts()
-        }
-      }, { threshold: 1 }
-    )
-  )
+      observer.current?.disconnect()
 
-
-const lastOptionRef = useCallback((node: HTMLDivElement) => {
-
-      if (!hasNextPage) {
+      if (!node || !hasNextPage) 
+      {
         return
       }
 
-      if (observer.current) {
-        observer.current.disconnect()
-      }
+      observer.current = new IntersectionObserver(
+        (entries) => {
+          if (entries[0]?.isIntersecting) 
+          {
+            fetchMoreProducts()
+          }
+        },
+        { threshold: 1 }
+      )
 
-      if (node) {
-        observer.current.observe(node)
-      }
-
+      observer.current.observe(node)
     },
 
-    [hasNextPage]
+    [hasNextPage, fetchMoreProducts]
   )
 
   return (
     <div className="my-2">
-      <Heading level={"h3"} className="mb-2">Item {index + 1}</Heading>
+      <Heading level={"h3"} className="mb-2">{t.item.replace("{index}", String(index + 1))}</Heading>
         <Select value={item.product_id} onValueChange={(value) => 
             setItems((items) => 
                 items.map((item, i) => {
@@ -237,7 +247,7 @@ const lastOptionRef = useCallback((node: HTMLDivElement) => {
         >
 
           <Select.Trigger>
-            <Select.Value placeholder="Select Product" />
+            <Select.Value placeholder={t.select_product} />
           </Select.Trigger>
           <Select.Content>
             {products?.map((product, productIndex) => (
@@ -249,8 +259,8 @@ const lastOptionRef = useCallback((node: HTMLDivElement) => {
           </Select.Content>
         </Select>
         <div className="flex items-center gap-x-2 [&_div]:flex-1">
-          <Label>Anzahl</Label>
-          <Input type="number" placeholder="Quantity"className="w-full mt-1 rounded-md border border-gray-200 p-2" value={item.quantity} onChange={(e) => 
+          <Label>{t.quantity}</Label>
+          <Input type="number" placeholder={t.quantity_placeholder}className="w-full mt-1 rounded-md border border-gray-200 p-2" value={item.quantity} onChange={(e) => 
             setItems((items) => 
                 items.map((item, i) => {
                   return i === index ? { ...item, quantity: parseInt(e.target.value) } : item }))

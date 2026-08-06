@@ -4,6 +4,11 @@ import { Button, Container, Heading, Input, Label, Text, toast } from "@medusajs
 import { useMutation, useQuery } from "@tanstack/react-query";
 import { useEffect, useRef, useState, type ChangeEvent } from "react";
 import { sdk } from "../../lib/sdk";
+import { getClientLanguage } from "../../lib/i18n";
+import { getMessages, type Lang } from "../../lib/messages";
+
+type ThemeTexts = ReturnType<typeof getMessages>["theme_settings"]
+
 
 type ThemeSettings = {
   theme_primary: string | null
@@ -60,7 +65,7 @@ const ColorField = ({
 }
 
 const ImageField = ({
-  label, hint, value, onChange, disabled, previewBg,
+  label, hint, value, onChange, disabled, previewBg,t
 }: {
   label: string
   hint?: string
@@ -68,6 +73,7 @@ const ImageField = ({
   onChange: (v: string) => void
   disabled?: boolean
   previewBg?: string
+  t: ThemeTexts
 }) => {
   const [uploading, setUploading] = useState(false)
   const inputRef = useRef<HTMLInputElement>(null)
@@ -79,11 +85,11 @@ const ImageField = ({
     try {
       const { files } = await sdk.admin.upload.create({ files: [file] })
       const url = files?.[0]?.url
-      if (!url) throw new Error("Upload lieferte keine Adresse zurück")
+      if (!url) throw new Error(t.upload_no_url)
       onChange(url)
-      toast.success("Bild hochgeladen – jetzt noch speichern")
+      toast.success(t.upload_info)
     } catch (err: any) {
-      toast.error(err?.message || "Upload fehlgeschlagen")
+      toast.error(err?.message || t.upload_error)
     } finally {
       setUploading(false)
       e.target.value = ""
@@ -133,7 +139,13 @@ const ImageField = ({
 }
 
 const ThemeSettingsPage = () => {
-  const [values, setValues] = useState(DEFAULTS)
+  const [values, setValues] = useState(DEFAULTS);
+  const [lang, setLang] = useState<Lang>("de");
+  const t = getMessages(lang).theme_settings;
+
+  useEffect(() => {
+    setLang(getClientLanguage())
+  }, []);
 
   const { data, isLoading, refetch } = useQuery<{ theme_settings: ThemeSettings }>({
     queryKey: ["theme-settings"],
@@ -166,74 +178,76 @@ const ThemeSettingsPage = () => {
   const onSave = async () => {
     try {
       await mutateAsync()
-      toast.success("Design gespeichert")
+      toast.success(t.save_info)
       await refetch()
     } catch (e: any) {
-      toast.error(e?.message || "Speichern fehlgeschlagen")
+      toast.error(e?.message || t.save_error)
     }
   }
 
   return (
     <Container className="divide-y p-0">
       <div className="p-6">
-        <Heading level="h1">Design</Heading>
+        <Heading level="h1">{t.title}</Heading>
         <Text className="text-ui-fg-subtle mt-2">
-          Farben des Shops. Änderungen sind nach dem Speichern sofort im Shop sichtbar.
+          {t.intro}
         </Text>
 
         <div className="mt-6 grid gap-y-5">
           <ColorField
-            label="Hauptfarbe"
-            hint="Buttons, Aktionen, Hervorhebungen"
+            label={t.primary}
+            hint={t.primary_hint}
             value={values.theme_primary}
             onChange={set("theme_primary")}
             disabled={isLoading}
           />
           <ColorField
-            label="Hauptfarbe (Mouseover)"
-            hint="Farbe, wenn die Maus über einem Button steht"
+            label={t.primary_hover}
+            hint={t.primary_hover_hint}
             value={values.theme_primary_hover}
             onChange={set("theme_primary_hover")}
             disabled={isLoading}
           />
           <ColorField
-            label="Schriftfarbe auf Buttons"
+            label={t.button_text}
             value={values.theme_button_text}
             onChange={set("theme_button_text")}
             disabled={isLoading}
           />
           <ColorField
-            label="Kopfzeile Hintergrund"
+            label={t.header_bg}
             value={values.theme_header_bg}
             onChange={set("theme_header_bg")}
             disabled={isLoading}
           />
           <ColorField
-            label="Fußzeile Hintergrund"
+            label={t.footer_bg}
             value={values.theme_footer_bg}
             onChange={set("theme_footer_bg")}
             disabled={isLoading}
           />
 
-                    <ImageField
-            label="Logo"
-            hint="Wird in Kopf- und Fußzeile angezeigt. Ohne Logo erscheint der Shop-Name als Text. Am besten PNG oder SVG mit transparentem Hintergrund."
+          <ImageField
+            label={t.logo}
+            hint={t.logo_hint}
             value={values.theme_logo_url}
             onChange={set("theme_logo_url")}
             disabled={isLoading}
             previewBg={values.theme_header_bg}
+            t={t}
           />
 
           <ImageField
-            label="Startseiten-Bild"
-            hint="Das große Bild auf der Startseite. Ohne eigenes Bild wird das Standardbild verwendet."
+            label={t.hero}
+            hint={t.hero_hint}
             value={values.theme_hero_url}
             onChange={set("theme_hero_url")}
             disabled={isLoading}
+            t={t}
           />
 
           <div className="rounded-lg border border-ui-border-base p-4">
-            <Text size="small" className="text-ui-fg-subtle mb-3">Vorschau</Text>
+            <Text size="small" className="text-ui-fg-subtle mb-3">{t.preview}</Text>
             <div className="rounded-md overflow-hidden border border-ui-border-base">
               <div className="h-10" style={{ backgroundColor: values.theme_header_bg }} />
               <div className="p-6 bg-ui-bg-base flex justify-center">
@@ -241,7 +255,7 @@ const ThemeSettingsPage = () => {
                   className="px-4 py-2 rounded-md text-sm"
                   style={{ backgroundColor: values.theme_primary, color: values.theme_button_text }}
                 >
-                  In den Warenkorb
+                  {t.preview_button}
                 </span>
               </div>
               <div className="h-10" style={{ backgroundColor: values.theme_footer_bg }} />
@@ -250,10 +264,10 @@ const ThemeSettingsPage = () => {
 
           <div className="flex justify-end gap-x-2">
             <Button variant="secondary" disabled={isPending} onClick={() => refetch()}>
-              Zurücksetzen
+              {t.reload}
             </Button>
             <Button variant="primary" isLoading={isPending} onClick={onSave}>
-              Speichern
+              {t.save}
             </Button>
           </div>
         </div>
@@ -263,7 +277,7 @@ const ThemeSettingsPage = () => {
 }
 
 export const config = defineRouteConfig({
-  label: "Design",
+  label: getMessages(getClientLanguage()).theme_settings.menu,
   icon: CubeSolid,
 })
 

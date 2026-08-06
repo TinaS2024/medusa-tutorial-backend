@@ -97,7 +97,7 @@ const BankSettingsPage = () => {
           </div>
           <div>
             <Label>{t.bank_settings.note}</Label>
-            <Textarea value={note} onChange={(e) => setNote(e.target.value)} placeholder="Bitte innerhalb von 14 Tagen unter Angabe der Bestellnummer überweisen." disabled={isLoading} />
+            <Textarea value={note} onChange={(e) => setNote(e.target.value)} placeholder={t.bank_settings.info} disabled={isLoading} />
           </div>
 
           <div className="flex justify-end gap-x-2">

@@ -4,6 +4,9 @@ import { Button, Container, Heading, Input, Label, Select, Text, toast } from "@
 import { useMutation, useQuery } from "@tanstack/react-query";
 import { useEffect, useState } from "react";
 import { sdk } from "../../lib/sdk";
+import { getClientLanguage } from "../../lib/i18n";
+import { getMessages, type Lang } from "../../lib/messages";
+
 
 type EmailSettings = {
   email_from: string | null
@@ -26,6 +29,14 @@ const EmailSettingsPage = () => {
   const [smtpPort, setSmtpPort] = useState("");
   const [smtpUser, setSmtpUser] = useState("");
   const [smtpPass, setSmtpPass] = useState("");
+
+  const [lang, setLang] = useState<Lang>("de");
+  const t = getMessages(lang).email_settings;
+
+  useEffect(() => {
+    setLang(getClientLanguage());
+  }, []);
+
 
 
   const { data, isLoading, refetch } = useQuery<{ email_settings: EmailSettings }>(
@@ -84,14 +95,14 @@ const EmailSettingsPage = () => {
   return (
     <Container className="divide-y p-0">
       <div className="p-6">
-        <Heading level="h1">E-Mail Einstellungen</Heading>
+        <Heading level="h1">{t.save_info}</Heading>
         <Text className="text-ui-fg-subtle mt-2">
-          Diese Werte werden für Passwort-Reset E-Mails verwendet (Absender/Link).
+          {t.intro}
         </Text>
 
         <div className="mt-6 grid gap-y-4">
           <div>
-            <Label>Absender E-Mail</Label>
+            <Label>{t.from}</Label>
             <Input
               value={emailFrom}
               onChange={(e) => setEmailFrom(e.target.value)}
@@ -101,7 +112,7 @@ const EmailSettingsPage = () => {
           </div>
 
           <div>
-            <Label>Absender Name (optional)</Label>
+            <Label>{t.from_name}</Label>
             <Input
               value={emailFromName}
               onChange={(e) => setEmailFromName(e.target.value)}
@@ -111,7 +122,7 @@ const EmailSettingsPage = () => {
           </div>
 
           <div>
-            <Label>Storefront URL (für Reset-Link)</Label>
+            <Label>{t.storefront_url}</Label>
             <Input
               value={storefrontUrl}
               onChange={(e) => setStorefrontUrl(e.target.value)}
@@ -121,7 +132,7 @@ const EmailSettingsPage = () => {
           </div>
 
           <div>
-            <Label>E-Mail Sprache</Label>
+            <Label>{t.locale}</Label>
             <Select value={emailLocale} onValueChange={(v) => setEmailLocale(v as any)}>
               <Select.Trigger>
                 <Select.Value placeholder="Sprache auswählen" />
@@ -136,7 +147,7 @@ const EmailSettingsPage = () => {
           </div>
 
                     <div>
-            <Label>SMTP Host</Label>
+            <Label>{t.smtp_host}</Label>
             <Input
               value={smtpHost}
               onChange={(e) => setSmtpHost(e.target.value)}
@@ -146,7 +157,7 @@ const EmailSettingsPage = () => {
           </div>
 
           <div>
-            <Label>SMTP Port</Label>
+            <Label>{t.smtp_port}</Label>
             <Input
               value={smtpPort}
               onChange={(e) => setSmtpPort(e.target.value)}
@@ -156,7 +167,7 @@ const EmailSettingsPage = () => {
           </div>
 
           <div>
-            <Label>SMTP Benutzer</Label>
+            <Label>{t.smtp_user}</Label>
             <Input
               value={smtpUser}
               onChange={(e) => setSmtpUser(e.target.value)}
@@ -166,7 +177,7 @@ const EmailSettingsPage = () => {
           </div>
 
           <div>
-            <Label>SMTP Passwort</Label>
+            <Label>{t.smtp_pass}</Label>
             <Input
               type="password"
               value={smtpPass}
@@ -178,10 +189,10 @@ const EmailSettingsPage = () => {
 
           <div className="flex justify-end gap-x-2">
             <Button variant="secondary" disabled={isPending} onClick={() => refetch()}>
-              Neu laden
+              {t.reload}
             </Button>
             <Button variant="primary" isLoading={isPending} onClick={onSave}>
-              Speichern
+              {t.save}
             </Button>
           </div>
         </div>
@@ -191,7 +202,7 @@ const EmailSettingsPage = () => {
 }
 
 export const config = defineRouteConfig({
-  label: "E-Mail Einstellungen",
+  label: getMessages(getClientLanguage()).email_settings.menu,
   icon: CubeSolid,
 })
 

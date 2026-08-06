@@ -2,7 +2,7 @@ import { CreateProductWorkflowInputDTO } from "@medusajs/framework/types";
 import { createWorkflow, transform, WorkflowResponse } from "@medusajs/framework/workflows-sdk";
 import { createBundleStep } from "./steps/create-bundle";
 import { createBundleItemsStep } from "./steps/create-bundle-items";
-import { createProductsWorkflow, createRemoteLinkStep} from "@medusajs/medusa/core-flows";
+import { createProductsWorkflow, createRemoteLinkStep, useQueryGraphStep} from "@medusajs/medusa/core-flows";
 import { BUNDLED_PRODUCT_MODULE } from "../modules/bundled-product";
 import { Modules } from "@medusajs/framework/utils";
 
@@ -25,12 +25,32 @@ export const createBundledProductWorkflow = createWorkflow("create-bundled-produ
 
     const bundle = createBundleStep({ title: bundleData.title, })
     const bundleItems = createBundleItemsStep({ bundle_id: bundle.id, items: bundleData.items, })
+
+    // Standard-Verkaufskanal des Stores ermitteln – ohne Kanal ist das fertige
+    // Bundle-Produkt im Storefront unsichtbar und muss von Hand zugewiesen werden.
+    const { data: stores } = useQueryGraphStep({
+        entity: "store",
+        fields: ["default_sales_channel_id"],
+    })
+
+    const productWithChannel = transform({
+        product: bundleData.product,
+        stores,
+    }, (data) => {
+        const channelId = data.stores[0]?.default_sales_channel_id
+
+        return channelId
+            ? { ...data.product, sales_channels: [{ id: channelId }] }
+            : data.product
+    })
+
     const bundleProduct = createProductsWorkflow.runAsStep({
         input: 
         { 
-            products: [bundleData.product], 
+            products: [productWithChannel], 
         }, 
     })
+
 
 
     createRemoteLinkStep([{ 

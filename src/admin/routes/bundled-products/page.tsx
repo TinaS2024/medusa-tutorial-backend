@@ -2,10 +2,14 @@ import { defineRouteConfig } from "@medusajs/admin-sdk";
 import { CubeSolid } from "@medusajs/icons";
 import { Container, Heading, DataTable, useDataTable, createDataTableColumnHelper, DataTablePaginationState, } from "@medusajs/ui";
 import { useQuery } from "@tanstack/react-query";
-import { useMemo, useState } from "react";
+import { useMemo, useState, useEffect } from "react";
 import { sdk } from "../../lib/sdk";
 import { Link } from "react-router-dom";
 import CreateBundledProduct from "../../components/create-bundled-product";
+import { getClientLanguage } from "../../lib/i18n";
+import { getMessages, type Lang, type Messages } from "../../lib/messages";
+
+type BundleTexts = Messages["bundled_products"]
 
 
 type BundledProduct = {
@@ -28,11 +32,11 @@ type BundledProduct = {
 
 const columnHelper = createDataTableColumnHelper<BundledProduct>()
 
-const columns = [columnHelper.accessor("id", { header: "ID", }),
+const getColumns = (t: BundleTexts) =>[columnHelper.accessor("id", { header: "ID", }),
 
-  columnHelper.accessor("title", { header: "Title", }),
+  columnHelper.accessor("title", { header: t.col_title, }),
 
-  columnHelper.accessor("items", { header: "Items",
+  columnHelper.accessor("items", { header: t.col_items,
 
     cell: ({ row }) => {
 
@@ -47,13 +51,13 @@ const columns = [columnHelper.accessor("id", { header: "ID", }),
       ))
     },
   }),
-  columnHelper.accessor("product", {header: "Product",
+  columnHelper.accessor("product", {header: t.col_product,
 
     cell: ({ row }) => {
 
       return (
         <Link to={`/products/${row.original.product?.id}`}>
-          Produkt ansehen
+          {t.view_product}
         </Link>
       )
     },
@@ -64,6 +68,15 @@ const limit = 15;
 
 
 const BundledProductsPage = () => {
+
+  const [lang, setLang] = useState<Lang>("de");
+  const t = getMessages(lang).bundled_products;
+
+  useEffect(() => {
+    setLang(getClientLanguage());
+  }, []);
+
+   const columns = useMemo(() => getColumns(t), [lang]);
 
   const [pagination, setPagination] = useState<DataTablePaginationState>({ pageSize: limit, pageIndex: 0,})
   const offset = useMemo(() => {
@@ -103,7 +116,7 @@ const BundledProductsPage = () => {
   <Container className="divide-y p-0">
       <DataTable instance={table}>
         <DataTable.Toolbar className="flex items-start justify-between gap-2 md:flex-row md:items-center">
-          <Heading>Gebündelte Produkte</Heading>
+          <Heading>{t.title}</Heading>
             <CreateBundledProduct />
         </DataTable.Toolbar>
         <DataTable.Table />
@@ -114,7 +127,7 @@ const BundledProductsPage = () => {
 }
 
 export const config = defineRouteConfig({
-    label: "Bundled Products",
+    label: getMessages(getClientLanguage()).bundled_products.menu,
     icon: CubeSolid,
     })
 

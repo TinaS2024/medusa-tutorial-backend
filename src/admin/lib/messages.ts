@@ -10,6 +10,7 @@ export const messages = {
   nl,
 } as const;
 
-export type Lang = keyof typeof messages
+export type Lang = keyof typeof messages;
 
-export const getMessages = (lang: Lang) => messages[lang]
+export const getMessages = (lang: Lang) => messages[lang];
+export type Messages = ReturnType<typeof getMessages>

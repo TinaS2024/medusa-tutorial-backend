@@ -13,6 +13,9 @@ const localeToLang = (locale?: string): "de" | "en" | "fr" | "nl" => {
 
 export const getClientLanguage = (): "de" | "en" | "fr" | "nl" => {
   if (typeof window === "undefined") return FALLBACK_LANG;
-  const stored = window.localStorage.getItem("ui_locale");
+  
+  /* lng ist Medusas eigener Sprachschlüssel*/
+    const stored = window.localStorage.getItem("lng") ?? window.localStorage.getItem("ui_locale");
+
   return localeToLang(stored ?? undefined);
 };
