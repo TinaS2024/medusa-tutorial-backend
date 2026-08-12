@@ -7,8 +7,7 @@ So können Sie Stripe für Zahlungsdienste (Kreditkarte, Debitkarte, PayPal, Kla
 5. Webhook in Stripe einrichten -> https://<backend>/hooks/payment/stripe
 
 
-Im Terminal eingeben um Stripe-Zugang zu prüfen:
-C:\stripe
+Im Terminal (cmd) eingeben um Stripe-Zugang zu prüfen:
 stripe login
 .\stripe listen --forward-to localhost:9000/hooks/payment/stripe_stripe
 
