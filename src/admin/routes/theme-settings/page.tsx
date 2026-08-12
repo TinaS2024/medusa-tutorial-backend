@@ -2,33 +2,64 @@ import { defineRouteConfig } from "@medusajs/admin-sdk";
 import { CubeSolid } from "@medusajs/icons";
 import { Button, Container, Heading, Input, Label, Text, toast } from "@medusajs/ui";
 import { useMutation, useQuery } from "@tanstack/react-query";
-import { useEffect, useRef, useState, type ChangeEvent } from "react";
+import { useEffect, useRef, useState, type ChangeEvent, type ReactNode } from "react";
 import { sdk } from "../../lib/sdk";
 import { getClientLanguage } from "../../lib/i18n";
 import { getMessages, type Lang } from "../../lib/messages";
+import { RelationNullableModifier } from "@medusajs/utils";
 
 type ThemeTexts = ReturnType<typeof getMessages>["theme_settings"]
 
 
 type ThemeSettings = {
+  theme_surface_bg: string | null
+  theme_border: string | null
   theme_primary: string | null
   theme_primary_hover: string | null
   theme_button_text: string | null
   theme_header_bg: string | null
+  theme_hero_bg: string | null
+  theme_page_bg: string | null
+  theme_page_text: string | null
   theme_footer_bg: string | null
   theme_logo_url: string | null
   theme_hero_url: string | null
 }
 
 const DEFAULTS = {
+  theme_surface_bg: "#F9FAFB",
+  theme_border: "#E5E7EB",
   theme_primary: "#431407",
   theme_primary_hover: "#7c2d12",
   theme_button_text: "#ffffff",
   theme_header_bg: "#431407",
+  theme_hero_bg: "#F9FAFB",
+  theme_page_bg: "#F9FAFB",
+  theme_page_text: "#431407",
   theme_footer_bg: "#431407",
   theme_logo_url: "",
   theme_hero_url: "",
 }
+const Section = ({
+  title, hint, children, defaultOpen = false,
+}: {
+  title: string
+  hint?: string
+  children: React.ReactNode
+  defaultOpen?: boolean
+}) => (
+  <details open={defaultOpen} className="rounded-lg border border-ui-border-base bg-ui-bg-subtle">
+    <summary className="cursor-pointer select-none px-4 py-3">
+      <span className="font-medium">{title}</span>
+      {hint && (
+        <span className="text-ui-fg-subtle text-sm ml-2">— {hint}</span>
+      )}
+    </summary>
+    <div className="grid gap-y-5 border-t border-ui-border-base p-4">
+      {children}
+    </div>
+  </details>
+)
 
 const ColorField = ({
   label, hint, value, onChange, disabled,
@@ -156,10 +187,15 @@ const ThemeSettingsPage = () => {
     const s = data?.theme_settings
     if (!s) return
     setValues({
+      theme_surface_bg: s.theme_surface_bg ?? DEFAULTS.theme_surface_bg,
+      theme_border: s.theme_border ?? DEFAULTS.theme_border,
       theme_primary: s.theme_primary ?? DEFAULTS.theme_primary,
       theme_primary_hover: s.theme_primary_hover ?? DEFAULTS.theme_primary_hover,
       theme_button_text: s.theme_button_text ?? DEFAULTS.theme_button_text,
       theme_header_bg: s.theme_header_bg ?? DEFAULTS.theme_header_bg,
+      theme_hero_bg: s.theme_hero_bg ?? DEFAULTS.theme_hero_bg,
+      theme_page_bg: s.theme_page_bg ?? DEFAULTS.theme_page_bg,
+      theme_page_text: s.theme_page_text ?? DEFAULTS.theme_page_text,
       theme_footer_bg: s.theme_footer_bg ?? DEFAULTS.theme_footer_bg,
       theme_logo_url: s.theme_logo_url ?? "",
       theme_hero_url: s.theme_hero_url ?? "",
@@ -194,63 +230,57 @@ const ThemeSettingsPage = () => {
         </Text>
 
         <div className="mt-6 grid gap-y-5">
-          <ColorField
-            label={t.primary}
-            hint={t.primary_hint}
-            value={values.theme_primary}
-            onChange={set("theme_primary")}
-            disabled={isLoading}
-          />
-          <ColorField
-            label={t.primary_hover}
-            hint={t.primary_hover_hint}
-            value={values.theme_primary_hover}
-            onChange={set("theme_primary_hover")}
-            disabled={isLoading}
-          />
-          <ColorField
-            label={t.button_text}
-            value={values.theme_button_text}
-            onChange={set("theme_button_text")}
-            disabled={isLoading}
-          />
-          <ColorField
-            label={t.header_bg}
-            value={values.theme_header_bg}
-            onChange={set("theme_header_bg")}
-            disabled={isLoading}
-          />
-          <ColorField
-            label={t.footer_bg}
-            value={values.theme_footer_bg}
-            onChange={set("theme_footer_bg")}
-            disabled={isLoading}
-          />
+          
+          <Section title={t.group_basics} hint={t.group_basics_hint} defaultOpen>
+            <ColorField label={t.page_bg} hint={t.page_bg_hint} value={values.theme_page_bg} onChange={set("theme_page_bg")} disabled={isLoading} />
+            
+            <ColorField label={t.page_text} hint={t.page_text_hint} value={values.theme_page_text} onChange={set("theme_page_text")} disabled={isLoading} />
+           
+            <ColorField label={t.surface_bg} hint={t.surface_bg_hint} value={values.theme_surface_bg} onChange={set("theme_surface_bg")} disabled={isLoading} />
+            
+            <ColorField label={t.border} hint={t.border_hint} value={values.theme_border} onChange={set("theme_border")} disabled={isLoading} />
+          
+          </Section>
 
-          <ImageField
-            label={t.logo}
-            hint={t.logo_hint}
-            value={values.theme_logo_url}
-            onChange={set("theme_logo_url")}
-            disabled={isLoading}
-            previewBg={values.theme_header_bg}
-            t={t}
-          />
+          <Section title={t.group_actions} hint={t.group_actions_hint}>
 
-          <ImageField
-            label={t.hero}
-            hint={t.hero_hint}
-            value={values.theme_hero_url}
-            onChange={set("theme_hero_url")}
-            disabled={isLoading}
-            t={t}
-          />
+            <ColorField label={t.primary} hint={t.primary_hint} value={values.theme_primary} onChange={set("theme_primary")} disabled={isLoading} />
+            
+            <ColorField label={t.primary_hover} hint={t.primary_hover_hint} value={values.theme_primary_hover} onChange={set("theme_primary_hover")} disabled={isLoading} />
+            
+            <ColorField label={t.button_text} value={values.theme_button_text} onChange={set("theme_button_text")} disabled={isLoading} />
+          
+          </Section>
+
+          <Section title={t.group_frame}>
+
+            <ColorField label={t.header_bg} value={values.theme_header_bg} onChange={set("theme_header_bg")} disabled={isLoading} />
+            
+            <ColorField label={t.footer_bg} value={values.theme_footer_bg} onChange={set("theme_footer_bg")} disabled={isLoading} />
+         
+          </Section>
+
+          <Section title={t.group_home}>
+            
+            <ColorField label={t.hero_bg} hint={t.hero_bg_hint} value={values.theme_hero_bg} onChange={set("theme_hero_bg")} disabled={isLoading} />
+          
+          </Section>
+
+          <Section title={t.group_media}>
+           
+            <ImageField label={t.logo} hint={t.logo_hint} value={values.theme_logo_url} onChange={set("theme_logo_url")}
+              disabled={isLoading} previewBg={values.theme_header_bg} t={t} />
+           
+            <ImageField label={t.hero} hint={t.hero_hint} value={values.theme_hero_url} onChange={set("theme_hero_url")}
+              disabled={isLoading} t={t} />
+          
+          </Section>
 
           <div className="rounded-lg border border-ui-border-base p-4">
             <Text size="small" className="text-ui-fg-subtle mb-3">{t.preview}</Text>
             <div className="rounded-md overflow-hidden border border-ui-border-base">
               <div className="h-10" style={{ backgroundColor: values.theme_header_bg }} />
-              <div className="p-6 bg-ui-bg-base flex justify-center">
+                <div className="p-6 flex justify-center" style={{ backgroundColor: values.theme_hero_bg }}>
                 <span
                   className="px-4 py-2 rounded-md text-sm"
                   style={{ backgroundColor: values.theme_primary, color: values.theme_button_text }}

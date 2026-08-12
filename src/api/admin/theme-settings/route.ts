@@ -4,10 +4,15 @@ import { revalidateStorefront } from "../../../lib/revalidate-storefront";
 import { ContainerRegistrationKeys } from "@medusajs/framework/utils";
 
 type ThemeSettings = {
+  theme_surface_bg: string | null
+  theme_border: string | null
   theme_primary: string | null
   theme_primary_hover: string | null
   theme_button_text: string | null
   theme_header_bg: string | null
+  theme_hero_bg: string | null
+  theme_page_bg: string | null
+  theme_page_text: string | null
   theme_footer_bg: string | null
   theme_logo_url: string | null
   theme_hero_url: string | null
@@ -42,10 +47,15 @@ export async function GET(req: MedusaRequest, res: MedusaResponse) {
 
   res.json({
     theme_settings: {
+      theme_surface_bg: read(md, "theme_surface_bg"),
+      theme_border: read(md, "theme_border"),
       theme_primary: read(md, "theme_primary"),
       theme_primary_hover: read(md, "theme_primary_hover"),
       theme_button_text: read(md, "theme_button_text"),
       theme_header_bg: read(md, "theme_header_bg"),
+      theme_hero_bg: read(md, "theme_hero_bg"),
+      theme_page_bg: read(md, "theme_page_bg"),
+      theme_page_text: read(md, "theme_page_text"),
       theme_footer_bg: read(md, "theme_footer_bg"),
       theme_logo_url: read(md, "theme_logo_url"),
       theme_hero_url: read(md, "theme_hero_url"),
@@ -64,10 +74,15 @@ export async function POST(req: MedusaRequest, res: MedusaResponse) {
 
   const body = (req.body ?? {}) as Record<string, unknown>;
   const colorKeys: (keyof ThemeSettings)[] = [
+    "theme_surface_bg",
+    "theme_border",
     "theme_primary",
     "theme_primary_hover",
     "theme_button_text",
     "theme_header_bg",
+    "theme_page_bg",
+    "theme_page_text",
+    "theme_hero_bg",
     "theme_footer_bg",
   ]
   const urlKeys: (keyof ThemeSettings)[] = ["theme_logo_url", "theme_hero_url"]
