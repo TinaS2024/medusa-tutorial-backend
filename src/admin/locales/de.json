@@ -92,6 +92,8 @@
     "logo_hint": "Wird in Kopf- und Fußzeile angezeigt. Ohne Logo erscheint der Shop-Name als Text. Am besten PNG oder SVG mit transparentem Hintergrund.",
     "hero": "Startseiten-Bild",
     "hero_hint": "Das große Bild auf der Startseite. Ohne eigenes Bild wird das Standardbild verwendet.",
+    "hover_bg": "Farbe beim Überfahren",
+    "hover_bg_hint": "Hintergrund von Zeilen und Eingabefeldern, solange die Maus darüber liegt",
     "preview": "Vorschau",
     "preview_button": "In den Warenkorb",
     "upload": "Bild hochladen",

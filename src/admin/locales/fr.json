@@ -92,6 +92,8 @@
     "logo_hint": "Affiché dans l'en-tête et le pied de page. Sans logo, le nom de la boutique apparaît en texte. Préférez un PNG ou SVG à fond transparent.",
     "hero": "Image de la page d'accueil",
     "hero_hint": "La grande image de la page d'accueil. Sans image personnalisée, l'image par défaut est utilisée.",
+    "hover_bg": "Couleur au survol",
+    "hover_bg_hint": "Fond des lignes et des champs lorsque la souris les survole",
     "preview": "Aperçu",
     "preview_button": "Ajouter au panier",
     "upload": "Téléverser une image",

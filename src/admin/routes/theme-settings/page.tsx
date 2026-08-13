@@ -2,11 +2,10 @@ import { defineRouteConfig } from "@medusajs/admin-sdk";
 import { CubeSolid } from "@medusajs/icons";
 import { Button, Container, Heading, Input, Label, Text, toast } from "@medusajs/ui";
 import { useMutation, useQuery } from "@tanstack/react-query";
-import { useEffect, useRef, useState, type ChangeEvent, type ReactNode } from "react";
+import { useEffect, useRef, useState, type ChangeEvent } from "react";
 import { sdk } from "../../lib/sdk";
 import { getClientLanguage } from "../../lib/i18n";
 import { getMessages, type Lang } from "../../lib/messages";
-import { RelationNullableModifier } from "@medusajs/utils";
 
 type ThemeTexts = ReturnType<typeof getMessages>["theme_settings"]
 
@@ -24,6 +23,7 @@ type ThemeSettings = {
   theme_footer_bg: string | null
   theme_logo_url: string | null
   theme_hero_url: string | null
+  theme_hover_bg: string | null
 }
 
 const DEFAULTS = {
@@ -39,6 +39,7 @@ const DEFAULTS = {
   theme_footer_bg: "#431407",
   theme_logo_url: "",
   theme_hero_url: "",
+  theme_hover_bg: "F4F4F5"
 }
 const Section = ({
   title, hint, children, defaultOpen = false,
@@ -199,6 +200,7 @@ const ThemeSettingsPage = () => {
       theme_footer_bg: s.theme_footer_bg ?? DEFAULTS.theme_footer_bg,
       theme_logo_url: s.theme_logo_url ?? "",
       theme_hero_url: s.theme_hero_url ?? "",
+      theme_hover_bg: s.theme_hover_bg ?? DEFAULTS.theme_hover_bg,
     })
 
   }, [data])
@@ -232,6 +234,7 @@ const ThemeSettingsPage = () => {
         <div className="mt-6 grid gap-y-5">
           
           <Section title={t.group_basics} hint={t.group_basics_hint} defaultOpen>
+            
             <ColorField label={t.page_bg} hint={t.page_bg_hint} value={values.theme_page_bg} onChange={set("theme_page_bg")} disabled={isLoading} />
             
             <ColorField label={t.page_text} hint={t.page_text_hint} value={values.theme_page_text} onChange={set("theme_page_text")} disabled={isLoading} />
@@ -239,7 +242,9 @@ const ThemeSettingsPage = () => {
             <ColorField label={t.surface_bg} hint={t.surface_bg_hint} value={values.theme_surface_bg} onChange={set("theme_surface_bg")} disabled={isLoading} />
             
             <ColorField label={t.border} hint={t.border_hint} value={values.theme_border} onChange={set("theme_border")} disabled={isLoading} />
-          
+            
+            <ColorField label={t.hover_bg} hint={t.hover_bg_hint} value={values.theme_hover_bg} onChange={set("theme_hover_bg")} disabled={isLoading} />
+
           </Section>
 
           <Section title={t.group_actions} hint={t.group_actions_hint}>

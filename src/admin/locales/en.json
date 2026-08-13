@@ -92,6 +92,8 @@
     "logo_hint": "Shown in the header and footer. Without a logo the shop name appears as text. PNG or SVG with a transparent background works best.",
     "hero": "Home page image",
     "hero_hint": "The large image on the home page. Without your own image the default one is used.",
+    "hover_bg": "Hover colour",
+    "hover_bg_hint": "Background of rows and input fields while the mouse is over them",
     "preview": "Preview",
     "preview_button": "Add to cart",
     "upload": "Upload image",

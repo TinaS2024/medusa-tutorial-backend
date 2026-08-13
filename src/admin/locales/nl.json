@@ -92,6 +92,8 @@
     "logo_hint": "Wordt in de kop- en voettekst getoond. Zonder logo verschijnt de winkelnaam als tekst. Bij voorkeur PNG of SVG met transparante achtergrond.",
     "hero": "Afbeelding startpagina",
     "hero_hint": "De grote afbeelding op de startpagina. Zonder eigen afbeelding wordt de standaardafbeelding gebruikt.",
+    "hover_bg": "Kleur bij muisaanwijzer",
+    "hover_bg_hint": "Achtergrond van rijen en invoervelden zolang de muis erboven staat",
     "preview": "Voorbeeld",
     "preview_button": "In winkelwagen",
     "upload": "Afbeelding uploaden",

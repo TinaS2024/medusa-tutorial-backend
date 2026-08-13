@@ -16,6 +16,7 @@ type ThemeSettings = {
   theme_footer_bg: string | null
   theme_logo_url: string | null
   theme_hero_url: string | null
+  theme_hover_bg: string | null
 }
 
 const isHex = (s: string) => /^#[0-9a-fA-F]{6}$/.test(s);
@@ -59,6 +60,7 @@ export async function GET(req: MedusaRequest, res: MedusaResponse) {
       theme_footer_bg: read(md, "theme_footer_bg"),
       theme_logo_url: read(md, "theme_logo_url"),
       theme_hero_url: read(md, "theme_hero_url"),
+      theme_hover_bg: read(md, "theme_hover_bg")
     },
   })
 }
@@ -84,6 +86,7 @@ export async function POST(req: MedusaRequest, res: MedusaResponse) {
     "theme_page_text",
     "theme_hero_bg",
     "theme_footer_bg",
+    "theme_hover_bg"
   ]
   const urlKeys: (keyof ThemeSettings)[] = ["theme_logo_url", "theme_hero_url"]
 
