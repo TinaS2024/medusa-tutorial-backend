@@ -1,5 +1,6 @@
 import type { SubscriberArgs, SubscriberConfig } from "@medusajs/framework";
 import { Modules, ContainerRegistrationKeys } from "@medusajs/framework/utils";
+import { getEmailTemplate } from "../lib/email-templates";
 
 import de from "../admin/locales/de.json";
 import en from "../admin/locales/en.json";
@@ -51,7 +52,7 @@ export default async function orderConfirmationEmailSubscriber({
   const md = (store?.metadata as Record<string, any> | null) ?? {};
 
   const locale = toSupportedLocale(md.email_locale);
-  const tpl = templatesByLocale[locale]?.email_templates?.order_confirmation;
+  const tpl = getEmailTemplate(store?.metadata, locale, "order_confirmation");
 
   console.log("[OrderMail] locale:", locale, "| tpl?", !!tpl, "| email_locale:", md.email_locale);
 

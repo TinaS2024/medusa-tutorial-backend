@@ -166,6 +166,25 @@
     "save_info": "E-mail settings saved",
     "save_error": "Saving failed"
   },
+  "email_texts": {
+    "menu": "E-mail texts",
+    "title": "E-mail texts",
+    "intro": "Subject and content of the automatic e-mails. Empty fields use the supplied text, shown as a preview inside the field.",
+    "language": "Edit language",
+    "tpl_password_reset": "Password reset",
+    "tpl_order_confirmation": "Order confirmation",
+    "tpl_production_status_update": "Production status change",
+    "f_subject": "Subject",
+    "f_default_from_name": "Sender name",
+    "f_text": "Text",
+    "f_prepayment_section": "Prepayment section",
+    "placeholders": "Available placeholders",
+    "placeholders_hint": "Write them exactly like this, including the braces. They are replaced when sending.",
+    "reload": "Reload",
+    "save": "Save",
+    "save_info": "E-mail texts saved",
+    "save_error": "Saving failed"
+  },
     "bundled_products": {
     "menu": "Bundled products",
     "title": "Bundled products",

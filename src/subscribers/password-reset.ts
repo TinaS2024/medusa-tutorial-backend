@@ -1,6 +1,7 @@
 import type { SubscriberArgs, SubscriberConfig } from "@medusajs/framework";
 import { Modules } from "@medusajs/framework/utils";
 import { sendMail } from "../lib/send-mail";
+import { getEmailTemplate } from "../lib/email-templates";
 
 import de from "../admin/locales/de.json";
 import en from "../admin/locales/en.json";
@@ -61,7 +62,7 @@ export default async function passwordResetSubscriber({event: { data },container
   const smtpSecure = smtpPort === 465;
 
   const locale = toSupportedLocale(metadata?.email_locale);
-  const tpl = templatesByLocale[locale]?.email_templates?.password_reset;
+  const tpl = getEmailTemplate(store?.metadata, locale, "password_reset");
 
   const email = data.entity_id;
   const token = data.token;

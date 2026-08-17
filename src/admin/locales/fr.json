@@ -166,6 +166,25 @@
     "save_info": "Paramètres e-mail enregistrés",
     "save_error": "Échec de l'enregistrement"
   },
+  "email_texts": {
+    "menu": "Textes des e-mails",
+    "title": "Textes des e-mails",
+    "intro": "Objet et contenu des e-mails automatiques. Les champs vides utilisent le texte fourni, affiché en aperçu dans le champ.",
+    "language": "Langue à modifier",
+    "tpl_password_reset": "Réinitialisation du mot de passe",
+    "tpl_order_confirmation": "Confirmation de commande",
+    "tpl_production_status_update": "Changement de statut en production",
+    "f_subject": "Objet",
+    "f_default_from_name": "Nom de l'expéditeur",
+    "f_text": "Texte",
+    "f_prepayment_section": "Section paiement anticipé",
+    "placeholders": "Variables disponibles",
+    "placeholders_hint": "À écrire exactement ainsi, accolades comprises. Elles sont remplacées à l'envoi.",
+    "reload": "Recharger",
+    "save": "Enregistrer",
+    "save_info": "Textes enregistrés",
+    "save_error": "Échec de l'enregistrement"
+  },
     "bundled_products": {
     "menu": "Produits groupés",
     "title": "Produits groupés",

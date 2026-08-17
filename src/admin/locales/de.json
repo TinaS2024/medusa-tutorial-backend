@@ -166,6 +166,25 @@
     "save_info": "E-Mail Einstellungen gespeichert",
     "save_error": "Speichern fehlgeschlagen"
   },
+  "email_texts": {
+    "menu": "E-Mail Texte",
+    "title": "E-Mail Texte",
+    "intro": "Betreff und Inhalt der automatischen E-Mails. Leere Felder verwenden den mitgelieferten Text, der jeweils als Vorschau im Feld steht.",
+    "language": "Sprache bearbeiten",
+    "tpl_password_reset": "Passwort zurücksetzen",
+    "tpl_order_confirmation": "Bestellbestätigung",
+    "tpl_production_status_update": "Statusänderung in der Produktion",
+    "f_subject": "Betreff",
+    "f_default_from_name": "Absendername",
+    "f_text": "Text",
+    "f_prepayment_section": "Abschnitt bei Vorauszahlung",
+    "placeholders": "Verfügbare Platzhalter",
+    "placeholders_hint": "Genau so schreiben, samt geschweifter Klammern. Sie werden beim Versand ersetzt.",
+    "reload": "Neu laden",
+    "save": "Speichern",
+    "save_info": "E-Mail Texte gespeichert",
+    "save_error": "Speichern fehlgeschlagen"
+  },
     "bundled_products": {
     "menu": "Gebündelte Produkte",
     "title": "Gebündelte Produkte",

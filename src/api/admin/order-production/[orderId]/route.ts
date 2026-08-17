@@ -3,6 +3,7 @@ import { Modules, ContainerRegistrationKeys } from "@medusajs/framework/utils";
 import { ORDER_PRODUCTION_MODULE } from "../../../../modules/order-production";
 import { PRODUCTION_STATUSES } from "../../../../modules/order-production/models/order-production";
 import { sendMail } from "../../../../lib/send-mail";
+import { getEmailTemplate } from "../../../../lib/email-templates";
 
 import de from "../../../../admin/locales/de.json";
 import en from "../../../../admin/locales/en.json";
@@ -87,7 +88,7 @@ async function notifyCustomer(req: MedusaRequest, orderId: string, status: strin
   }
 
   const locale = ["de", "en", "fr", "nl"].includes(md.email_locale) ? md.email_locale : "de";
-  const tpl = templatesByLocale[locale]?.email_templates?.production_status_update;
+  const tpl = getEmailTemplate(store?.metadata, locale, "production_status_update");
   if (!tpl) return;
 
   const fromName = (typeof md.email_from_name === "string" && md.email_from_name) || tpl.default_from_name || "";

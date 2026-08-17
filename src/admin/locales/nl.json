@@ -165,6 +165,25 @@
     "save": "Opslaan",
     "save_info": "E-mailinstellingen opgeslagen",
     "save_error": "Opslaan mislukt"
+  },  
+  "email_texts": {
+    "menu": "E-mailteksten",
+    "title": "E-mailteksten",
+    "intro": "Onderwerp en inhoud van de automatische e-mails. Lege velden gebruiken de meegeleverde tekst, die als voorbeeld in het veld staat.",
+    "language": "Taal bewerken",
+    "tpl_password_reset": "Wachtwoord opnieuw instellen",
+    "tpl_order_confirmation": "Orderbevestiging",
+    "tpl_production_status_update": "Statuswijziging in de productie",
+    "f_subject": "Onderwerp",
+    "f_default_from_name": "Naam afzender",
+    "f_text": "Tekst",
+    "f_prepayment_section": "Gedeelte vooruitbetaling",
+    "placeholders": "Beschikbare variabelen",
+    "placeholders_hint": "Precies zo schrijven, inclusief accolades. Ze worden bij het verzenden vervangen.",
+    "reload": "Opnieuw laden",
+    "save": "Opslaan",
+    "save_info": "E-mailteksten opgeslagen",
+    "save_error": "Opslaan mislukt"
   },
     "bundled_products": {
     "menu": "Gebundelde producten",
