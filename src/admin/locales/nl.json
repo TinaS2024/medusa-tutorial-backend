@@ -105,7 +105,15 @@
     "reload": "Opnieuw laden",
     "save": "Opslaan",
     "save_info": "Design opgeslagen",
-    "save_error": "Opslaan mislukt"
+    "save_error": "Opslaan mislukt",
+    "group_typo": "Lettertype",
+    "font": "Lettertype",
+    "font_hint": "Geldt voor de hele winkel",
+    "font_default": "Standaard",
+    "font_serif": "Met schreef (klassiek)",
+    "font_sans": "Schreefloos (zakelijk)",
+    "font_mono": "Schrijfmachine",
+    "font_rounded": "Rond (vriendelijk)"
   },
    "designs":
   {

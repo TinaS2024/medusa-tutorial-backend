@@ -105,7 +105,15 @@
     "reload": "Reload",
     "save": "Save",
     "save_info": "Design saved",
-    "save_error": "Saving failed"
+    "save_error": "Saving failed",
+    "group_typo": "Typography",
+    "font": "Typeface",
+    "font_hint": "Applies to the whole shop",
+    "font_default": "Default",
+    "font_serif": "Serif (classic)",
+    "font_sans": "Sans-serif (plain)",
+    "font_mono": "Typewriter",
+    "font_rounded": "Rounded (friendly)"
   },
     "designs":
   {

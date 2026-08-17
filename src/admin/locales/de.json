@@ -105,7 +105,15 @@
     "reload": "Neu laden",
     "save": "Speichern",
     "save_info": "Design gespeichert",
-    "save_error": "Speichern fehlgeschlagen"
+    "save_error": "Speichern fehlgeschlagen",
+    "group_typo": "Schrift",
+    "font": "Schriftart",
+    "font_hint": "Gilt für den ganzen Shop",
+    "font_default": "Standard",
+    "font_serif": "Serifen (klassisch)",
+    "font_sans": "Serifenlos (nüchtern)",
+    "font_mono": "Schreibmaschine",
+    "font_rounded": "Rundlich (freundlich)"
   },
     "designs":
   {

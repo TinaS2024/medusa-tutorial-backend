@@ -105,7 +105,15 @@
     "reload": "Recharger",
     "save": "Enregistrer",
     "save_info": "Design enregistré",
-    "save_error": "Échec de l'enregistrement"
+    "save_error": "Échec de l'enregistrement",
+    "group_typo": "Typographie",
+    "font": "Police",
+    "font_hint": "S'applique à toute la boutique",
+    "font_default": "Par défaut",
+    "font_serif": "Avec empattements (classique)",
+    "font_sans": "Sans empattements (sobre)",
+    "font_mono": "Machine à écrire",
+    "font_rounded": "Arrondie (chaleureuse)"
   },
    "designs":
   {

@@ -22,7 +22,8 @@ export async function GET(req: MedusaRequest, res: MedusaResponse) {
       theme_footer_bg: str("theme_footer_bg"),
       theme_logo_url: str("theme_logo_url"),
       theme_hero_url: str("theme_hero_url"),
-      theme_hover_bg: str("theme_hover_bg")
+      theme_hover_bg: str("theme_hover_bg"),
+      theme_font: str("theme_font")
     },
   })
 }

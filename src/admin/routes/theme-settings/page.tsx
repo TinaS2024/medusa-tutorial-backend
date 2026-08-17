@@ -1,6 +1,6 @@
 import { defineRouteConfig } from "@medusajs/admin-sdk";
 import { CubeSolid } from "@medusajs/icons";
-import { Button, Container, Heading, Input, Label, Text, toast } from "@medusajs/ui";
+import { Button, Container, Heading, Input, Label, Text, toast, Select } from "@medusajs/ui";
 import { useMutation, useQuery } from "@tanstack/react-query";
 import { useEffect, useRef, useState, type ChangeEvent } from "react";
 import { sdk } from "../../lib/sdk";
@@ -24,6 +24,7 @@ type ThemeSettings = {
   theme_logo_url: string | null
   theme_hero_url: string | null
   theme_hover_bg: string | null
+  theme_font: string | null
 }
 
 const DEFAULTS = {
@@ -39,7 +40,8 @@ const DEFAULTS = {
   theme_footer_bg: "#431407",
   theme_logo_url: "",
   theme_hero_url: "",
-  theme_hover_bg: "F4F4F5"
+  theme_hover_bg: "F4F4F5",
+  theme_font: "default",
 }
 const Section = ({
   title, hint, children, defaultOpen = false,
@@ -201,6 +203,7 @@ const ThemeSettingsPage = () => {
       theme_logo_url: s.theme_logo_url ?? "",
       theme_hero_url: s.theme_hero_url ?? "",
       theme_hover_bg: s.theme_hover_bg ?? DEFAULTS.theme_hover_bg,
+      theme_font: s.theme_font ?? DEFAULTS.theme_font,
     })
 
   }, [data])
@@ -279,6 +282,26 @@ const ThemeSettingsPage = () => {
             <ImageField label={t.hero} hint={t.hero_hint} value={values.theme_hero_url} onChange={set("theme_hero_url")}
               disabled={isLoading} t={t} />
           
+          </Section>
+
+          
+          <Section title={t.group_typo}>
+            <div>
+              <Label>{t.font}</Label>
+              <Text size="small" className="text-ui-fg-subtle mb-1">{t.font_hint}</Text>
+              <Select value={values.theme_font} onValueChange={(v) => set("theme_font")(v)}>
+                <Select.Trigger>
+                  <Select.Value />
+                </Select.Trigger>
+                <Select.Content>
+                  <Select.Item value="default">{t.font_default}</Select.Item>
+                  <Select.Item value="serif">{t.font_serif}</Select.Item>
+                  <Select.Item value="sans">{t.font_sans}</Select.Item>
+                  <Select.Item value="mono">{t.font_mono}</Select.Item>
+                  <Select.Item value="rounded">{t.font_rounded}</Select.Item>
+                </Select.Content>
+              </Select>
+            </div>
           </Section>
 
           <div className="rounded-lg border border-ui-border-base p-4">

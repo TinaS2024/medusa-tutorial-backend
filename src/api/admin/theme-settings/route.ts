@@ -17,6 +17,7 @@ type ThemeSettings = {
   theme_logo_url: string | null
   theme_hero_url: string | null
   theme_hover_bg: string | null
+  theme_font: string | null
 }
 
 const isHex = (s: string) => /^#[0-9a-fA-F]{6}$/.test(s);
@@ -60,7 +61,8 @@ export async function GET(req: MedusaRequest, res: MedusaResponse) {
       theme_footer_bg: read(md, "theme_footer_bg"),
       theme_logo_url: read(md, "theme_logo_url"),
       theme_hero_url: read(md, "theme_hero_url"),
-      theme_hover_bg: read(md, "theme_hover_bg")
+      theme_hover_bg: read(md, "theme_hover_bg"),
+      theme_font: read(md, "theme_font"),
     },
   })
 }
@@ -111,6 +113,12 @@ export async function POST(req: MedusaRequest, res: MedusaResponse) {
     }
     values[key] = v
   }
+
+  // Schriftart: keine Farbe, sondern eine feste Auswahl. 
+  // Unbekannte Werte fallen auf die Vorgabe zurück, statt das Speichern abzubrechen.
+  const erlaubteSchriften = ["default", "serif", "sans", "mono", "rounded"];
+  const fontRaw = typeof body.theme_font === "string" ? body.theme_font.trim() : ";"
+  values.theme_font = erlaubteSchriften.includes(fontRaw) ? fontRaw : "default";
 
   const prev = (store.metadata as Record<string, unknown> | null) ?? {};
   await storeModuleService.updateStores(
