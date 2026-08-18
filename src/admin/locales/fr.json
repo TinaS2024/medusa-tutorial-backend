@@ -207,5 +207,33 @@
     "error_item_product": "Chaque article du lot doit avoir un produit sélectionné.",
     "created": "Produit groupé créé",
     "create_failed": "Échec de la création du produit groupé"
+  },
+  "legal": {
+    "menu": "Informations légales",
+    "title": "Informations légales",
+    "intro": "Ces informations apparaissent sur la page des mentions légales, accessible depuis le pied de page. En Allemagne, elles sont obligatoires.",
+    "company": "Société / vendeur",
+    "address": "Adresse",
+    "address_hint": "Rue, numéro, code postal et ville – sur plusieurs lignes",
+    "represented_by": "Représenté par",
+    "represented_by_hint": "Direction ou propriétaire",
+    "phone": "Téléphone",
+    "email": "E-mail",
+    "register": "Immatriculation",
+    "register_hint": "Tribunal et numéro, le cas échéant",
+    "vat_id": "Numéro de TVA intracommunautaire",
+    "extra": "Informations complémentaires",
+    "extra_hint": "Autorité de surveillance, titre professionnel ou responsable du contenu",
+    "reload": "Recharger",
+    "save": "Enregistrer",
+    "save_info": "Mentions légales enregistrées",
+    "save_error": "Échec de l'enregistrement",
+    "section_imprint": "Mentions légales",
+    "language": "Langue des textes juridiques",
+    "language_hint": "Les langues non renseignées affichent la version allemande",
+    "terms": "Conditions générales de vente",
+    "privacy": "Politique de confidentialité",
+    "withdrawal": "Droit de rétractation",
+    "texts_hint": "Les paragraphes s'affichent tels qu'ils sont saisis ici."
   }
 }

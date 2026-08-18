@@ -185,7 +185,7 @@
     "save_info": "E-Mail Texte gespeichert",
     "save_error": "Speichern fehlgeschlagen"
   },
-    "bundled_products": {
+  "bundled_products": {
     "menu": "Gebündelte Produkte",
     "title": "Gebündelte Produkte",
     "col_title": "Titel",
@@ -207,5 +207,33 @@
     "error_item_product": "Für jeden Bundle-Artikel muss ein Produkt ausgewählt sein.",
     "created": "Gebündeltes Produkt erstellt",
     "create_failed": "Erstellen fehlgeschlagen"
+  },
+  "legal": {
+    "menu": "Rechtliches",
+    "title": "Rechtliches",
+    "intro": "Diese Angaben erscheinen im Shop auf der Impressumsseite, verlinkt aus der Fußzeile. In Deutschland sind sie gesetzlich vorgeschrieben.",
+    "company": "Firma / Anbieter",
+    "address": "Anschrift",
+    "address_hint": "Straße, Hausnummer, Postleitzahl und Ort – mehrzeilig",
+    "represented_by": "Vertreten durch",
+    "represented_by_hint": "Geschäftsführung oder Inhaber",
+    "phone": "Telefon",
+    "email": "E-Mail",
+    "register": "Registereintrag",
+    "register_hint": "Registergericht und Nummer, sofern vorhanden",
+    "vat_id": "Umsatzsteuer-Identifikationsnummer",
+    "extra": "Weitere Angaben",
+    "extra_hint": "Etwa Aufsichtsbehörde, Berufsbezeichnung oder Verantwortlicher für den Inhalt",
+    "reload": "Neu laden",
+    "save": "Speichern",
+    "save_info": "Impressum gespeichert",
+    "save_error": "Speichern fehlgeschlagen",
+    "section_imprint": "Impressum",
+    "language": "Sprache der Rechtstexte",
+    "language_hint": "Nicht ausgefüllte Sprachen zeigen im Shop die deutsche Fassung",
+    "terms": "Allgemeine Geschäftsbedingungen",
+    "privacy": "Datenschutzerklärung",
+    "withdrawal": "Widerrufsbelehrung",
+    "texts_hint": "Absätze werden im Shop so dargestellt, wie sie hier eingegeben sind."
   }
 }

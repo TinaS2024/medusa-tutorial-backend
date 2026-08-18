@@ -185,7 +185,7 @@
     "save_info": "E-mail texts saved",
     "save_error": "Saving failed"
   },
-    "bundled_products": {
+  "bundled_products": {
     "menu": "Bundled products",
     "title": "Bundled products",
     "col_title": "Title",
@@ -207,5 +207,33 @@
     "error_item_product": "Every bundle item needs a selected product.",
     "created": "Bundled product created",
     "create_failed": "Creating the bundled product failed"
+  },
+  "legal": {
+    "menu": "Legal",
+    "title": "Legal",
+    "intro": "These details appear on the shop's legal notice page, linked from the footer. In Germany they are required by law.",
+    "company": "Company / provider",
+    "address": "Address",
+    "address_hint": "Street, number, postcode and town – multiple lines",
+    "represented_by": "Represented by",
+    "represented_by_hint": "Management or owner",
+    "phone": "Phone",
+    "email": "E-mail",
+    "register": "Register entry",
+    "register_hint": "Court and number, if applicable",
+    "vat_id": "VAT identification number",
+    "extra": "Further details",
+    "extra_hint": "Such as supervisory authority, professional title or person responsible for content",
+    "reload": "Reload",
+    "save": "Save",
+    "save_info": "Legal notice saved",
+    "save_error": "Saving failed",
+    "section_imprint": "Legal notice",
+    "language": "Language of the legal texts",
+    "language_hint": "Languages left empty show the German version in the shop",
+    "terms": "Terms and conditions",
+    "privacy": "Privacy policy",
+    "withdrawal": "Right of withdrawal",
+    "texts_hint": "Paragraphs appear in the shop exactly as entered here."
   }
 }

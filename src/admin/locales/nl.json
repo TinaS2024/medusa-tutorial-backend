@@ -207,5 +207,33 @@
     "error_item_product": "Elk bundelartikel moet een gekozen product hebben.",
     "created": "Gebundeld product aangemaakt",
     "create_failed": "Aanmaken van het gebundelde product mislukt"
+  },
+  "legal": {
+    "menu": "Juridisch",
+    "title": "Juridisch",
+    "intro": "Deze gegevens verschijnen op de colofonpagina van de winkel, gelinkt vanuit de voettekst. In Duitsland zijn ze wettelijk verplicht.",
+    "company": "Bedrijf / aanbieder",
+    "address": "Adres",
+    "address_hint": "Straat, nummer, postcode en plaats – meerdere regels",
+    "represented_by": "Vertegenwoordigd door",
+    "represented_by_hint": "Directie of eigenaar",
+    "phone": "Telefoon",
+    "email": "E-mail",
+    "register": "Registerinschrijving",
+    "register_hint": "Rechtbank en nummer, indien van toepassing",
+    "vat_id": "Btw-identificatienummer",
+    "extra": "Overige gegevens",
+    "extra_hint": "Bijvoorbeeld toezichthouder, beroepstitel of verantwoordelijke voor de inhoud",
+    "reload": "Opnieuw laden",
+    "save": "Opslaan",
+    "save_info": "Colofon opgeslagen",
+    "save_error": "Opslaan mislukt",
+    "section_imprint": "Colofon",
+    "language": "Taal van de juridische teksten",
+    "language_hint": "Niet ingevulde talen tonen in de winkel de Duitse versie",
+    "terms": "Algemene voorwaarden",
+    "privacy": "Privacyverklaring",
+    "withdrawal": "Herroepingsrecht",
+    "texts_hint": "Alinea's verschijnen in de winkel zoals ze hier zijn ingevoerd."
   }
 }
