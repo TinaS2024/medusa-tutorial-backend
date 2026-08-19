@@ -234,6 +234,7 @@
     "terms": "Conditions générales de vente",
     "privacy": "Politique de confidentialité",
     "withdrawal": "Droit de rétractation",
-    "texts_hint": "Les paragraphes s'affichent tels qu'ils sont saisis ici."
+    "texts_hint": "Les paragraphes s'affichent tels qu'ils sont saisis ici.",
+    "shipping": "Expédition et livraison"
   }
 }

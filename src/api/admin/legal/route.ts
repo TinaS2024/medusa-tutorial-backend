@@ -13,7 +13,7 @@ const FELDER = [
 ] as const;
 
 const SPRACHEN = ["de", "en", "fr", "nl"] as const;
-const DOKUMENTE = ["terms", "privacy", "withdrawal"] as const;
+const DOKUMENTE = ["terms", "privacy", "withdrawal", "shipping"] as const;
 
 const text = (v: unknown) => {
   if (typeof v !== "string") return null;
@@ -54,7 +54,7 @@ export async function POST(req: MedusaRequest, res: MedusaResponse)
     werte[feld] = text(body[feld]);
   }
 
-   // Rechtstexte je Sprache. Leere Einträge werden nicht gespeichert, damit
+  // Rechtstexte je Sprache. Leere Einträge werden nicht gespeichert, damit
   // sie im Shop auf die deutsche Fassung zurückfallen.
   const eingang = (body.texts ?? {}) as Record<string, any>
   const texte: Record<string, any> = {}

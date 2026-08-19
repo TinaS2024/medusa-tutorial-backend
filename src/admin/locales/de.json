@@ -234,6 +234,7 @@
     "terms": "Allgemeine Geschäftsbedingungen",
     "privacy": "Datenschutzerklärung",
     "withdrawal": "Widerrufsbelehrung",
-    "texts_hint": "Absätze werden im Shop so dargestellt, wie sie hier eingegeben sind."
+    "texts_hint": "Absätze werden im Shop so dargestellt, wie sie hier eingegeben sind.",
+    "shipping": "Versand und Lieferung"
   }
 }

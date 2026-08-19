@@ -135,6 +135,8 @@ const LegalPage = () => {
           <HtmlFeld label={t.terms} hint={t.texts_hint} wert={textWert("terms")} onChange={setzeText("terms")} disabled={isLoading} />
           <HtmlFeld label={t.privacy} wert={textWert("privacy")} onChange={setzeText("privacy")} disabled={isLoading} />
           <HtmlFeld label={t.withdrawal} wert={textWert("withdrawal")} onChange={setzeText("withdrawal")} disabled={isLoading} />
+          <HtmlFeld label={t.shipping} wert={textWert("shipping")} onChange={setzeText("shipping")} disabled={isLoading} />
+
 
           <div className="flex justify-end gap-x-2">
             <Button variant="secondary" disabled={isPending} onClick={() => refetch()}>{t.reload}</Button>
