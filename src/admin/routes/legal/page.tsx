@@ -2,7 +2,7 @@ import { defineRouteConfig } from "@medusajs/admin-sdk";
 import { CubeSolid } from "@medusajs/icons";
 import { Button, Container, Heading, Input, Label, Text, Textarea, toast, Select } from "@medusajs/ui";
 import { useMutation, useQuery } from "@tanstack/react-query";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { sdk } from "../../lib/sdk";
 import { getClientLanguage } from "../../lib/i18n";
 import { getMessages, type Lang } from "../../lib/messages";
@@ -132,9 +132,9 @@ const LegalPage = () => {
             </div>
           </div>
 
-          <Feld label={t.terms} hint={t.texts_hint} wert={textWert("terms")} onChange={setzeText("terms")} mehrzeilig disabled={isLoading} />
-          <Feld label={t.privacy} wert={textWert("privacy")} onChange={setzeText("privacy")} mehrzeilig disabled={isLoading} />
-          <Feld label={t.withdrawal} wert={textWert("withdrawal")} onChange={setzeText("withdrawal")} mehrzeilig disabled={isLoading} />
+          <HtmlFeld label={t.terms} hint={t.texts_hint} wert={textWert("terms")} onChange={setzeText("terms")} disabled={isLoading} />
+          <HtmlFeld label={t.privacy} wert={textWert("privacy")} onChange={setzeText("privacy")} disabled={isLoading} />
+          <HtmlFeld label={t.withdrawal} wert={textWert("withdrawal")} onChange={setzeText("withdrawal")} disabled={isLoading} />
 
           <div className="flex justify-end gap-x-2">
             <Button variant="secondary" disabled={isPending} onClick={() => refetch()}>{t.reload}</Button>
@@ -150,5 +150,81 @@ export const config = defineRouteConfig({
   label: getMessages(getClientLanguage()).legal.menu,
   icon: CubeSolid,
 })
+
+const AUSZEICHNUNGEN = [
+  { text: "Überschrift", vorne: "<h2>", hinten: "</h2>" },
+  { text: "Zwischentitel", vorne: "<h3>", hinten: "</h3>" },
+  { text: "Absatz", vorne: "<p>", hinten: "</p>" },
+  { text: "Fett", vorne: "<strong>", hinten: "</strong>" },
+  { text: "Kursiv", vorne: "<em>", hinten: "</em>" },
+  { text: "Unterstrichen", vorne: "<u>", hinten: "</u>" },
+  { text: "Liste", vorne: "<ul>\n  <li>", hinten: "</li>\n</ul>" },
+]
+
+/**
+ * Textfeld für Rechtstexte mit einfachen Auszeichnungen.
+ *
+ * Die Knöpfe legen die gewählte Auszeichnung um den markierten Text – wer
+ * nichts markiert hat, bekommt ein leeres Paar an der Schreibmarke.
+ */
+const HtmlFeld = ({
+  label, hint, wert, onChange, disabled = false,
+}: {
+  label: string
+  hint?: string
+  wert: string
+  onChange: (v: string) => void
+  disabled?: boolean
+}) => {
+  const ref = useRef<HTMLTextAreaElement>(null)
+
+  const umschliessen = (vorne: string, hinten: string) => {
+    const el = ref.current
+    if (!el) return
+
+    const start = el.selectionStart
+    const ende = el.selectionEnd
+    const markiert = wert.slice(start, ende)
+
+    onChange(wert.slice(0, start) + vorne + markiert + hinten + wert.slice(ende))
+
+    // Markierung nach dem Einfügen erhalten, damit man weitertippen kann
+    requestAnimationFrame(() => {
+      el.focus()
+      el.setSelectionRange(start + vorne.length, ende + vorne.length)
+    })
+  }
+
+  return (
+    <div>
+      <Label>{label}</Label>
+      {hint && <Text size="small" className="text-ui-fg-subtle mb-1">{hint}</Text>}
+
+      <div className="flex flex-wrap gap-1 mb-2">
+        {AUSZEICHNUNGEN.map((a) => (
+          <Button
+            key={a.text}
+            type="button"
+            variant="secondary"
+            size="small"
+            disabled={disabled}
+            onClick={() => umschliessen(a.vorne, a.hinten)}
+          >
+            {a.text}
+          </Button>
+        ))}
+      </div>
+
+      <textarea
+        ref={ref}
+        rows={16}
+        value={wert}
+        onChange={(e) => onChange(e.target.value)}
+        disabled={disabled}
+        className="w-full rounded-md border border-ui-border-base bg-ui-bg-field p-3 font-mono text-sm"
+      />
+    </div>
+  )
+}
 
 export default LegalPage;
