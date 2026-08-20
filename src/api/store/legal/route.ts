@@ -19,6 +19,8 @@ export async function GET(req: MedusaRequest, res: MedusaResponse)
       imprint_register: str("imprint_register"),
       imprint_vat_id: str("imprint_vat_id"),
       imprint_extra: str("imprint_extra"),
+      cookie_banner_enabled: str("cookie_banner_enabled"),
+      cookie_baner_text: str("cookie_baner_text"),
     },
     texts: (md as any)?.legal_texts ?? {},
   })

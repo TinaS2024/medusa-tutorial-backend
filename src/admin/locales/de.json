@@ -236,5 +236,10 @@
     "withdrawal": "Widerrufsbelehrung",
     "texts_hint": "Absätze werden im Shop so dargestellt, wie sie hier eingegeben sind.",
     "shipping": "Versand und Lieferung"
+  },
+  "cookie": {
+    "cookie_enabled": "Cookie-Hinweis anzeigen",
+    "cookie_enabled_hint": "Nur einschalten, wenn Dienste eingebunden sind, die eine Einwilligung brauchen – etwa Statistik oder Werbung. Für Warenkorb und Anmeldung ist keine nötig.",
+    "cookie_text": "Text des Hinweises"
   }
 }

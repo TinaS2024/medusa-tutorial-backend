@@ -10,6 +10,8 @@ const FELDER = [
   "imprint_register",
   "imprint_vat_id",
   "imprint_extra",
+  "cookie_banner_enabled",
+  "cookie_baner_text"
 ] as const;
 
 const SPRACHEN = ["de", "en", "fr", "nl"] as const;

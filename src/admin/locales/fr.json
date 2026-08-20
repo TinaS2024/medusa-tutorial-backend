@@ -236,5 +236,10 @@
     "withdrawal": "Droit de rétractation",
     "texts_hint": "Les paragraphes s'affichent tels qu'ils sont saisis ici.",
     "shipping": "Expédition et livraison"
+  },
+  "cookie": {
+    "cookie_enabled": "Afficher l'avis sur les cookies",
+    "cookie_enabled_hint": "N'activez cette option que si des services nécessitant un consentement — tels que l'analyse de données ou la publicité — sont intégrés. Aucun consentement n'est requis pour le panier ou la connexion.",
+    "cookie_text": "Texte de l'avis"
   }
 }

@@ -236,5 +236,10 @@
     "withdrawal": "Herroepingsrecht",
     "texts_hint": "Alinea's verschijnen in de winkel zoals ze hier zijn ingevoerd.",
     "shipping": "Versand en levering"
+  },
+  "cookie": {
+    "cookie_enabled": "Cookie-melding weergeven",
+    "cookie_enabled_hint": "Schakel dit alleen in als er diensten zijn geïntegreerd waarvoor toestemming vereist is, zoals analytics of advertenties. Voor de winkelwagen of het inloggen is geen toestemming nodig.",
+    "cookie_text": "Tekst van de kennisgeving"
   }
 }

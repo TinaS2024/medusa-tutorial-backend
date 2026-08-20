@@ -236,5 +236,10 @@
     "withdrawal": "Right of withdrawal",
     "texts_hint": "Paragraphs appear in the shop exactly as entered here.",
     "shipping": "Shipping and delivery"
+  },
+  "cookie": {
+    "cookie_enabled": "Show cookie notice",
+    "cookie_enabled_hint": "Only enable this if services requiring consent—such as analytics or advertising—are integrated. No consent is needed for the shopping cart or login.",
+    "cookie_text": "Text of the notice"
   }
 }

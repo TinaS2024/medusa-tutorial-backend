@@ -1,6 +1,6 @@
 import { defineRouteConfig } from "@medusajs/admin-sdk";
 import { CubeSolid } from "@medusajs/icons";
-import { Button, Container, Heading, Input, Label, Text, Textarea, toast, Select } from "@medusajs/ui";
+import { Button, Container, Heading, Input, Label, Text, Textarea, toast, Select, Switch } from "@medusajs/ui";
 import { useMutation, useQuery } from "@tanstack/react-query";
 import { useEffect, useState, useRef } from "react";
 import { sdk } from "../../lib/sdk";
@@ -16,6 +16,8 @@ const LEER = {
   imprint_register: "",
   imprint_vat_id: "",
   imprint_extra: "",
+  cookie_banner_enabled: "",
+  cookie_banner_text: ""
 }
 
 const Feld = ({
@@ -42,6 +44,7 @@ const Feld = ({
 const LegalPage = () => {
   const [lang, setLang] = useState<Lang>("de");
   const t = getMessages(lang).legal;
+  const c = getMessages(lang).cookie;
   const [werte, setWerte] = useState(LEER);
 
   useEffect(() => {
@@ -136,7 +139,28 @@ const LegalPage = () => {
           <HtmlFeld label={t.privacy} wert={textWert("privacy")} onChange={setzeText("privacy")} disabled={isLoading} />
           <HtmlFeld label={t.withdrawal} wert={textWert("withdrawal")} onChange={setzeText("withdrawal")} disabled={isLoading} />
           <HtmlFeld label={t.shipping} wert={textWert("shipping")} onChange={setzeText("shipping")} disabled={isLoading} />
+          
+          <div className="pt-6 border-t border-ui-border-base grid gap-y-4">
+            <div className="flex items-start gap-x-3">
+              <Switch
+                checked={werte.cookie_banner_enabled === "1"}
+                onCheckedChange={(an) => set("cookie_banner_enabled")(an ? "1" : "")}
+                disabled={isLoading}
+              />
+              <div>
+                <Label>{c.cookie_enabled}</Label>
+                <Text size="small" className="text-ui-fg-subtle">{c.cookie_enabled_hint}</Text>
+              </div>
+            </div>
 
+            <Feld
+              label={c.cookie_text}
+              wert={werte.cookie_banner_text}
+              onChange={set("cookie_banner_text")}
+              mehrzeilig
+              disabled={isLoading}
+            />
+          </div>
 
           <div className="flex justify-end gap-x-2">
             <Button variant="secondary" disabled={isPending} onClick={() => refetch()}>{t.reload}</Button>
