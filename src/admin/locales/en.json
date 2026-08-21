@@ -241,5 +241,32 @@
     "cookie_enabled": "Show cookie notice",
     "cookie_enabled_hint": "Only enable this if services requiring consent—such as analytics or advertising—are integrated. No consent is needed for the shopping cart or login.",
     "cookie_text": "Text of the notice"
+  },
+  "newsletter": {
+    "menu": "Newsletter",
+    "title": "Newsletter",
+    "intro": "List of subscribers.Only confirmed addresses are contacted.",
+    "email": "Email",
+    "status": "Status",
+    "language": "Language",
+    "registered":  "Subscribed",
+    "confirmed": "Confirmed",
+    "pending": "Unconfirmed",
+    "unsubscribed": "Unsubscribed",
+    "empty": "No subscriptions yet.",
+    "reload": "Reload",
+    "compose": "Compose message",
+    "subject": "Subject",
+    "message": "Text",
+    "message_hint": "The unsubscribe link is automatically appended.",
+    "test_to": "Test address",
+    "test_to_hint": "Send a test message to yourself first before everyone receives it.",
+    "send_test": "Send test email",
+    "send_all": "Send to all confirmed recipients",
+    "confirm_send": "Really send to {count} recipients?",
+    "sent": "{sent} sent, {failed} failed",
+    "test_sent": "Test message sent",
+    "send_error": "Sending failed",
+    "show_unsubscribed": "Show unsubscribed"
   }
 }

@@ -241,5 +241,32 @@
     "cookie_enabled": "Afficher l'avis sur les cookies",
     "cookie_enabled_hint": "N'activez cette option que si des services nécessitant un consentement — tels que l'analyse de données ou la publicité — sont intégrés. Aucun consentement n'est requis pour le panier ou la connexion.",
     "cookie_text": "Texte de l'avis"
+  },
+  "newsletter": {
+    "menu": "Newsletter",
+    "title": "Newsletter",
+    "intro": "Personnes inscrites pour recevoir les actualités.Seules les adresses confirmées sont contactées.",
+    "email": "E-mail",
+    "status": "Statut",
+    "language": "Langue",
+    "registered": "Inscrit",
+    "confirmed": "Confirmé",
+    "pending": "Unconfirmé",
+    "unsubscribed": "Désinscrit",
+    "empty": "Aucune inscription pour le moment.",
+    "reload": "Actualiser",
+    "compose": "Rédiger un message",
+    "subject": "Objet",
+    "message": "Texte",
+    "message_hint": "Le lien de désinscription est ajouté automatiquement.",
+    "test_to": "Adresse de test",
+    "test_to_hint": "Envoyez d'abord un message de test à vous-même avant de l'envoyer à tout le monde.",
+    "send_test": "Envoyer le test par e-mail",
+    "send_all": "Envoyer à tous les destinataires confirmés",
+    "confirm_send": "Vraiment envoyer à {anzahl} destinataires ?",
+    "sent": "{gesendet} envoyé(s), {fehler} échec(s)",
+    "test_sent": "Message de test envoyé",
+    "send_error": "Échec de l'envoi",
+    "show_unsubscribed": "Afficher les désabbonnés"
   }
 }

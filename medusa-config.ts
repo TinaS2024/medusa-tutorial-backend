@@ -53,6 +53,9 @@ const modules: any[] = [
   {
   resolve: "./src/modules/erp",
 },
+{
+  resolve: "./src/modules/newsletter",
+},
 ];
 
 // Stripe nur registrieren, wenn ein Key gesetzt ist (sonst inaktiv – keine echte Zahlung)

@@ -7,7 +7,7 @@
     "select": "Variante auswählen",
     "saving": "Speichere..."
   },
-   "variant_thickness": {
+  "variant_thickness": {
     "heading": "Dicke",
     "description": "Hinterlege die Materialdicke dieser Variante in Millimetern (wird als metadata.thickness gespeichert).",
     "label": "Dicke (mm)",
@@ -21,7 +21,7 @@
     "password_reset": {
       "subject": "Passwort zurücksetzen – Ihr Bestätigungscode",
       "default_from_name": "Dein Shop-Team",
-      "text":"Hallo,\n\nwir haben eine Anfrage zum Zurücksetzen deines Passworts für dein Konto ({email}) erhalten.\n\nBitte klicke auf den folgenden Link, um ein neues Passwort festzulegen:\n{reset_url}\n\nWenn du das Passwort nicht zurücksetzen wolltest, kannst du diese E-Mail ignorieren.\n\nViele Grüße\n{from_name}"
+      "text": "Hallo,\n\nwir haben eine Anfrage zum Zurücksetzen deines Passworts für dein Konto ({email}) erhalten.\n\nBitte klicke auf den folgenden Link, um ein neues Passwort festzulegen:\n{reset_url}\n\nWenn du das Passwort nicht zurücksetzen wolltest, kannst du diese E-Mail ignorieren.\n\nViele Grüße\n{from_name}"
     },
     "production_status_update": {
       "subject": "Ihre Bestellung {reference}: {status_label}",
@@ -34,10 +34,10 @@
         "in_production": "In Produktion",
         "ready_to_ship": "Versandbereit",
         "shipped": "Versendet",
-        "completed":"Abgeschlossen",
+        "completed": "Abgeschlossen",
         "cancelled": "Storniert"
       }
-  },
+    },
     "order_confirmation": {
       "subject": "Bestellbestätigung – Bestellung {reference}",
       "default_from_name": "Dein Shop-Team",
@@ -46,19 +46,19 @@
     }
   },
   "bank_settings": {
-    "bank":"Bankverbindung",
-    "bank_connect":"Bankverbindung (Vorauszahlung)",
-    "bank_info":"Diese Bankdaten werden dem Kunden bei Vorauszahlung auf der Bestellbestätigung angezeigt.",
-    "account_holder":"Kontoinhaber",
-    "bank_name":"Bank / Kreditinstitut",
-    "iban":"IBAN",
-    "bic":"BIC",
-    "note":"Hinweis (optional)",
-    "load":"Neu laden",
-    "save":"Speichern",
-    "save_info":"Bankverbindung gespeichert",
-    "save_error":"Speichern fehlgeschlagen",
-    "info":"Bitte innerhalb von 14 Tagen unter Angabe der Bestellnummer überweisen."
+    "bank": "Bankverbindung",
+    "bank_connect": "Bankverbindung (Vorauszahlung)",
+    "bank_info": "Diese Bankdaten werden dem Kunden bei Vorauszahlung auf der Bestellbestätigung angezeigt.",
+    "account_holder": "Kontoinhaber",
+    "bank_name": "Bank / Kreditinstitut",
+    "iban": "IBAN",
+    "bic": "BIC",
+    "note": "Hinweis (optional)",
+    "load": "Neu laden",
+    "save": "Speichern",
+    "save_info": "Bankverbindung gespeichert",
+    "save_error": "Speichern fehlgeschlagen",
+    "info": "Bitte innerhalb von 14 Tagen unter Angabe der Bestellnummer überweisen."
   },
   "theme_settings": {
     "menu": "Design",
@@ -115,9 +115,8 @@
     "font_mono": "Schreibmaschine",
     "font_rounded": "Rundlich (freundlich)"
   },
-    "designs":
-  {
-    "cus_design":"Kundendesign"
+  "designs": {
+    "cus_design": "Kundendesign"
   },
   "customer_gpe": {
     "heading": "GPE-Kunde",
@@ -139,7 +138,7 @@
     "address": "Adresse",
     "discount": "Kundenrabatt"
   },
-    "auth_cleanup": {
+  "auth_cleanup": {
     "menu": "E-Mail freigeben",
     "title": "E-Mail / Login freigeben",
     "intro": "Löscht die Login-Identität (emailpass) einer E-Mail, damit sie erneut registriert werden kann. Nur nutzen, wenn der zugehörige Kunde nicht mehr existiert.",
@@ -148,7 +147,7 @@
     "success": "Freigegeben: {customers} Kunde(n), {identities} Login-Identität(en) gelöscht.",
     "error": "Löschen fehlgeschlagen"
   },
-    "email_settings": {
+  "email_settings": {
     "menu": "E-Mail Einstellungen",
     "title": "E-Mail Einstellungen",
     "intro": "Diese Werte werden für Passwort-Reset E-Mails verwendet (Absender/Link).",
@@ -241,5 +240,32 @@
     "cookie_enabled": "Cookie-Hinweis anzeigen",
     "cookie_enabled_hint": "Nur einschalten, wenn Dienste eingebunden sind, die eine Einwilligung brauchen – etwa Statistik oder Werbung. Für Warenkorb und Anmeldung ist keine nötig.",
     "cookie_text": "Text des Hinweises"
+  },
+  "newsletter": {
+    "menu": "Newsletter",
+    "title": "Newsletter",
+    "intro": "Wer sich für Neuigkeiten eingetragen hat. Angeschrieben werden ausschließlich bestätigte Adressen.",
+    "email": "E-Mail",
+    "status": "Status",
+    "language": "Sprache",
+    "registered": "Eingetragen",
+    "confirmed": "Bestätigt",
+    "pending": "Unbestätigt",
+    "unsubscribed": "Abgemeldet",
+    "empty": "Noch keine Anmeldungen vorhanden.",
+    "reload": "Neu laden",
+    "compose": "Nachricht verfassen",
+    "subject": "Betreff",
+    "message": "Text",
+    "message_hint": "Der Abmeldelink wird automatisch angehängt.",
+    "test_to": "Testadresse",
+    "test_to_hint": "Erst eine Testnachricht an sich selbst schicken, bevor alle sie bekommen.",
+    "send_test": "Test-E-Mail senden",
+    "send_all": "An alle bestätigten senden",
+    "confirm_send": "Wirklich an {anzahl} Empfänger senden?",
+    "sent": "{gesendet} versendet, {fehler} fehlgeschlagen",
+    "test_sent": "Testnachricht versendet",
+    "send_error": "Versand fehlgeschlagen",
+    "show_unsubscribed": "Abgemeldete anzeigen"
   }
 }

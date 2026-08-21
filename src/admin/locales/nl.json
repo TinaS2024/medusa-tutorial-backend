@@ -241,5 +241,32 @@
     "cookie_enabled": "Cookie-melding weergeven",
     "cookie_enabled_hint": "Schakel dit alleen in als er diensten zijn geïntegreerd waarvoor toestemming vereist is, zoals analytics of advertenties. Voor de winkelwagen of het inloggen is geen toestemming nodig.",
     "cookie_text": "Tekst van de kennisgeving"
+  },
+  "newsletter": {
+    "menu": "Nieuwsbrief",
+    "title": "Nieuwsbrief",
+    "intro": "Lijst met abonnees.Alleen bevestigde adressen worden benaderd.",
+    "email": "E-mail",
+    "status": "Status",
+    "language": "Taal",
+    "registered": "Geabonneerd",
+    "confirmed": "Bevestigd",
+    "pending": "Unbevestigd",
+    "unsubscribed": "Uitgeschreven",
+    "empty": "Nog geen abonnementen..",
+    "reload": "Neu laden",
+    "compose": "Nieuws opstellen",
+    "subject": "Onderwerp",
+    "message": "Tekst",
+    "message_hint": "De afmeldlink wordt automatisch toegevoegd.",
+    "test_to": "Testadres",
+    "test_to_hint": "Stuur eerst een testbericht naar jezelf voordat iedereen het ontvangt.",
+    "send_test": "Test e-mail versturen",
+    "send_all": "Versturen naar alle bevestigde ontvangers",
+    "confirm_send": "Echt versturen naar {count} ontvangers?",
+    "sent": "{sent} verzonden, {failed} mislukt",
+    "test_sent": "Testnieuws verzonden",
+    "send_error": "Verzenden mislukt",
+    "show_unsubscribed": "Afgemelde tonen"
   }
 }
