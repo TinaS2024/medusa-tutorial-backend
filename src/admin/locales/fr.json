@@ -263,8 +263,8 @@
     "test_to_hint": "Envoyez d'abord un message de test à vous-même avant de l'envoyer à tout le monde.",
     "send_test": "Envoyer le test par e-mail",
     "send_all": "Envoyer à tous les destinataires confirmés",
-    "confirm_send": "Vraiment envoyer à {anzahl} destinataires ?",
-    "sent": "{gesendet} envoyé(s), {fehler} échec(s)",
+    "confirm_send": "Vraiment envoyer à {count} destinataires ?",
+    "sent": "{gesendet} envoyé(s), {error} échec(s)",
     "test_sent": "Message de test envoyé",
     "send_error": "Échec de l'envoi",
     "show_unsubscribed": "Afficher les désabbonnés"

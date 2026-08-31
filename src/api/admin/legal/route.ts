@@ -49,35 +49,35 @@ export async function POST(req: MedusaRequest, res: MedusaResponse)
   }
 
   const body = (req.body ?? {}) as Record<string, unknown>;
-  const werte: Record<string, string | null> = {}
+  const values: Record<string, string | null> = {}
 
   for (const feld of FELDER) 
 {
-    werte[feld] = text(body[feld]);
+    values[feld] = text(body[feld]);
   }
 
   // Rechtstexte je Sprache. Leere Einträge werden nicht gespeichert, damit
   // sie im Shop auf die deutsche Fassung zurückfallen.
   const eingang = (body.texts ?? {}) as Record<string, any>
-  const texte: Record<string, any> = {}
+  const texts: Record<string, any> = {}
 
   for (const sprache of SPRACHEN) 
   {
     for (const dok of DOKUMENTE) 
     {
-      const wert = eingang?.[sprache]?.[dok];
-      if (typeof wert !== "string" || !wert.trim()) continue;
+      const value = eingang?.[sprache]?.[dok];
+      if (typeof value !== "string" || !value.trim()) continue;
 
-      texte[sprache] ??= {};
-      texte[sprache][dok] = wert;
+      texts[sprache] ??= {};
+      texts[sprache][dok] = value;
     }
   }
 
   const prev = (store.metadata as Record<string, unknown> | null) ?? {};
     await storeModuleService.updateStores(
     { id: store.id },
-    { metadata: { ...prev, ...werte, legal_texts: texte } }
+    { metadata: { ...prev, ...values, legal_texts: texts } }
   )
 
-  res.json({ legal: werte, texts: texte })
+  res.json({ legal: values, texts: texts })
 }

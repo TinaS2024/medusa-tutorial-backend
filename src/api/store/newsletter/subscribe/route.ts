@@ -22,11 +22,11 @@ export async function POST(req: MedusaRequest, res: MedusaResponse)
   const [store] = await storeModuleService.listStores({}, { take: 1 });
   const md = (store?.metadata as Record<string, any>) ?? {};
 
-  const [vorhanden] = await service.listNewsletterSubscribers({ email }, { take: 1 });
+  const [avaiable] = await service.listNewsletterSubscribers({ email }, { take: 1 });
 
   // Bereits bestätigt? Dann nichts tun – und trotzdem dieselbe Antwort geben,
   // damit über diese Route nicht herausgefunden werden kann, wer eingetragen ist.
-  if (vorhanden?.status === "confirmed") 
+  if (avaiable?.status === "confirmed") 
 {
     res.json({ ok: true });
     return;
@@ -34,10 +34,10 @@ export async function POST(req: MedusaRequest, res: MedusaResponse)
 
   const token = randomUUID();
 
-  if (vorhanden) 
+  if (avaiable) 
 {
     await service.updateNewsletterSubscribers({
-      id: vorhanden.id,
+      id: avaiable.id,
       token,
       status: "pending",
       locale: locale ?? "de",
@@ -54,15 +54,15 @@ export async function POST(req: MedusaRequest, res: MedusaResponse)
   const shopUrl = md.storefront_url || process.env.NEXT_PUBLIC_STOREFRONT_URL || "";
   const link = `${shopUrl}/newsletter/confirm?token=${token}`;
 
-   const zugang = smtpAusStore(md)
+   const access = smtpAusStore(md)
 
-  if (!zugang) 
+  if (!access) 
 {
     console.warn("[Newsletter] SMTP nicht konfiguriert – Bestätigungsmail übersprungen.");
   } else {
     try {
       await sendMail({
-        ...zugang,
+        ...access,
         to: email,
         subject: md.newsletter_confirm_subject || "Bitte bestätigen Sie Ihre Anmeldung",
         text: (

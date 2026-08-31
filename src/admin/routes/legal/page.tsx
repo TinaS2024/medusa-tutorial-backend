@@ -21,11 +21,11 @@ const LEER = {
 }
 
 const Feld = ({
-  label, hint, wert, onChange, mehrzeilig = false, disabled = false,
+  label, hint, value, onChange, mehrzeilig = false, disabled = false,
 }: {
   label: string
   hint?: string
-  wert: string
+  value: string
   onChange: (v: string) => void
   mehrzeilig?: boolean
   disabled?: boolean
@@ -34,9 +34,9 @@ const Feld = ({
     <Label>{label}</Label>
     {hint && <Text size="small" className="text-ui-fg-subtle mb-1">{hint}</Text>}
     {mehrzeilig ? (
-      <Textarea rows={14} value={wert} onChange={(e) => onChange(e.target.value)} disabled={disabled} />
+      <Textarea rows={14} value={value} onChange={(e) => onChange(e.target.value)} disabled={disabled} />
     ) : (
-      <Input value={wert} onChange={(e) => onChange(e.target.value)} disabled={disabled} />
+      <Input value={value} onChange={(e) => onChange(e.target.value)} disabled={disabled} />
     )}
   </div>
 )
@@ -45,7 +45,7 @@ const LegalPage = () => {
   const [lang, setLang] = useState<Lang>("de");
   const t = getMessages(lang).legal;
   const c = getMessages(lang).cookie;
-  const [werte, setWerte] = useState(LEER);
+  const [values, setValues] = useState(LEER);
 
   useEffect(() => {
     setLang(getClientLanguage());
@@ -60,34 +60,34 @@ const LegalPage = () => {
   })
 
   const [sprache, setSprache] = useState("de");
-  const [texte, setTexte] = useState<Record<string, any>>({});
+  const [texts, setTexts] = useState<Record<string, any>>({});
 
 
     useEffect(() => {
     if (!data) return;
     if (data.legal) {
-      const neu = { ...LEER };
+      const newKey = { ...LEER };
       for (const k of Object.keys(LEER) as (keyof typeof LEER)[]) 
       {
-        neu[k] = data.legal[k] ?? "";
+        newKey[k] = data.legal[k] ?? "";
       }
-      setWerte(neu);
+      setValues(newKey);
     }
-    if (data.texts) setTexte(data.texts);
+    if (data.texts) setTexts(data.texts);
   }, [data])
 
-  const textWert = (dok: string): string => texte?.[sprache]?.[dok] ?? "";
+  const textValue = (dok: string): string => texts?.[sprache]?.[dok] ?? "";
 
-  const setzeText = (dok: string) => (v: string) =>
-    setTexte((prev) => ({
+  const setText = (dok: string) => (v: string) =>
+    setTexts((prev) => ({
       ...prev,
       [sprache]: { ...prev?.[sprache], [dok]: v },
     }));
 
 
-  const set = (k: keyof typeof LEER) => (v: string) => setWerte((prev) => ({ ...prev, [k]: v }));
+  const set = (k: keyof typeof LEER) => (v: string) => setValues((prev) => ({ ...prev, [k]: v }));
 
-  const { mutateAsync, isPending } = useMutation({mutationFn: async () => sdk.client.fetch("/admin/legal", { method: "POST", body: { ...werte, texts: texte } }), });
+  const { mutateAsync, isPending } = useMutation({mutationFn: async () => sdk.client.fetch("/admin/legal", { method: "POST", body: { ...values, texts: texts } }), });
 
   const onSave = async () => {
     try {
@@ -108,15 +108,15 @@ const LegalPage = () => {
 
           <div className="mt-6 grid gap-y-4 max-w-2xl">
           <Heading level="h2" className="text-base">{t.section_imprint}</Heading>
-          <Feld label={t.company} wert={werte.imprint_company} onChange={set("imprint_company")} />
-          <Feld label={t.company} wert={werte.imprint_company} onChange={set("imprint_company")} />
-          <Feld label={t.address} hint={t.address_hint} wert={werte.imprint_address} onChange={set("imprint_address")} mehrzeilig />
-          <Feld label={t.represented_by} hint={t.represented_by_hint} wert={werte.imprint_represented_by} onChange={set("imprint_represented_by")} />
-          <Feld label={t.phone} wert={werte.imprint_phone} onChange={set("imprint_phone")} />
-          <Feld label={t.email} wert={werte.imprint_email} onChange={set("imprint_email")} />
-          <Feld label={t.register} hint={t.register_hint} wert={werte.imprint_register} onChange={set("imprint_register")} />
-          <Feld label={t.vat_id} wert={werte.imprint_vat_id} onChange={set("imprint_vat_id")} />
-          <Feld label={t.extra} hint={t.extra_hint} wert={werte.imprint_extra} onChange={set("imprint_extra")} mehrzeilig />
+          <Feld label={t.company} value={values.imprint_company} onChange={set("imprint_company")} />
+          <Feld label={t.company} value={values.imprint_company} onChange={set("imprint_company")} />
+          <Feld label={t.address} hint={t.address_hint} value={values.imprint_address} onChange={set("imprint_address")} mehrzeilig />
+          <Feld label={t.represented_by} hint={t.represented_by_hint} value={values.imprint_represented_by} onChange={set("imprint_represented_by")} />
+          <Feld label={t.phone} value={values.imprint_phone} onChange={set("imprint_phone")} />
+          <Feld label={t.email} value={values.imprint_email} onChange={set("imprint_email")} />
+          <Feld label={t.register} hint={t.register_hint} value={values.imprint_register} onChange={set("imprint_register")} />
+          <Feld label={t.vat_id} value={values.imprint_vat_id} onChange={set("imprint_vat_id")} />
+          <Feld label={t.extra} hint={t.extra_hint} value={values.imprint_extra} onChange={set("imprint_extra")} mehrzeilig />
 
           <div className="pt-6 border-t border-ui-border-base">
             <Label>{t.language}</Label>
@@ -135,15 +135,15 @@ const LegalPage = () => {
             </div>
           </div>
 
-          <HtmlFeld label={t.terms} hint={t.texts_hint} wert={textWert("terms")} onChange={setzeText("terms")} disabled={isLoading} />
-          <HtmlFeld label={t.privacy} wert={textWert("privacy")} onChange={setzeText("privacy")} disabled={isLoading} />
-          <HtmlFeld label={t.withdrawal} wert={textWert("withdrawal")} onChange={setzeText("withdrawal")} disabled={isLoading} />
-          <HtmlFeld label={t.shipping} wert={textWert("shipping")} onChange={setzeText("shipping")} disabled={isLoading} />
+          <HtmlFeld label={t.terms} hint={t.texts_hint} value={textValue("terms")} onChange={setText("terms")} disabled={isLoading} />
+          <HtmlFeld label={t.privacy} value={textValue("privacy")} onChange={setText("privacy")} disabled={isLoading} />
+          <HtmlFeld label={t.withdrawal} value={textValue("withdrawal")} onChange={setText("withdrawal")} disabled={isLoading} />
+          <HtmlFeld label={t.shipping} value={textValue("shipping")} onChange={setText("shipping")} disabled={isLoading} />
           
           <div className="pt-6 border-t border-ui-border-base grid gap-y-4">
             <div className="flex items-start gap-x-3">
               <Switch
-                checked={werte.cookie_banner_enabled === "1"}
+                checked={values.cookie_banner_enabled === "1"}
                 onCheckedChange={(an) => set("cookie_banner_enabled")(an ? "1" : "")}
                 disabled={isLoading}
               />
@@ -155,7 +155,7 @@ const LegalPage = () => {
 
             <Feld
               label={c.cookie_text}
-              wert={werte.cookie_banner_text}
+              value={values.cookie_banner_text}
               onChange={set("cookie_banner_text")}
               mehrzeilig
               disabled={isLoading}
@@ -194,11 +194,11 @@ const AUSZEICHNUNGEN = [
  * nichts markiert hat, bekommt ein leeres Paar an der Schreibmarke.
  */
 const HtmlFeld = ({
-  label, hint, wert, onChange, disabled = false,
+  label, hint, value, onChange, disabled = false,
 }: {
   label: string
   hint?: string
-  wert: string
+  value: string
   onChange: (v: string) => void
   disabled?: boolean
 }) => {
@@ -210,9 +210,9 @@ const HtmlFeld = ({
 
     const start = el.selectionStart
     const ende = el.selectionEnd
-    const markiert = wert.slice(start, ende)
+    const markiert = value.slice(start, ende)
 
-    onChange(wert.slice(0, start) + vorne + markiert + hinten + wert.slice(ende))
+    onChange(value.slice(0, start) + vorne + markiert + hinten + value.slice(ende))
 
     // Markierung nach dem Einfügen erhalten, damit man weitertippen kann
     requestAnimationFrame(() => {
@@ -244,7 +244,7 @@ const HtmlFeld = ({
       <textarea
         ref={ref}
         rows={16}
-        value={wert}
+        value={value}
         onChange={(e) => onChange(e.target.value)}
         disabled={disabled}
         className="w-full rounded-md border border-ui-border-base bg-ui-bg-field p-3 font-mono text-sm"

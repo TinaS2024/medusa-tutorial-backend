@@ -37,11 +37,11 @@ export function getEmailTemplate(
 
   const ergebnis: Record<string, any> = { ...standard };
 
-  for (const [feld, wert] of Object.entries(eigene)) 
+  for (const [feld, value] of Object.entries(eigene)) 
   {
-    if (typeof wert === "string" && wert.trim().length > 0) 
+    if (typeof value === "string" && value.trim().length > 0) 
     {
-      ergebnis[feld] = wert;
+      ergebnis[feld] = value;
     }
   }
 

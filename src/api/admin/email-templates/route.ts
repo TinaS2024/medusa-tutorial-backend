@@ -63,12 +63,12 @@ export async function POST(req: MedusaRequest, res: MedusaResponse)
 
       for (const feld of FELDER[name]) 
     {
-        const wert = proVorlage[feld];
-        if (typeof wert !== "string" || !wert.trim()) continue;
+        const value = proVorlage[feld];
+        if (typeof value !== "string" || !value.trim()) continue;
 
         sauber[sprache] ??= {};
         sauber[sprache][name] ??= {};
-        sauber[sprache][name][feld] = wert;
+        sauber[sprache][name][feld] = value;
       }
     }
   }

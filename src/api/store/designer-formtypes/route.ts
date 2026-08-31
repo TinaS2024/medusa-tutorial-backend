@@ -2,7 +2,7 @@ import { MedusaRequest, MedusaResponse } from "@medusajs/framework/http";
 
 type DesignerFormType = {
   name: string,
-  kind: string,
+  child: string,
   width: number,
   height: number,
   medusa_product_id: string,
@@ -185,7 +185,7 @@ export async function GET(req: MedusaRequest, res: MedusaResponse<DesignerFormTy
 
     const baseInfo = baseById.get(String(product.id));
 
-    const kind = categoryToKind(firstString(metadata.designer_category));
+    const child = categoryToKind(firstString(metadata.designer_category));
 
     const metaWidth = parseNumber((metadata as any)?.width ?? (metadata as any)?.default_width);
     const metaHeight = parseNumber((metadata as any)?.height ?? (metadata as any)?.default_height);
@@ -278,7 +278,7 @@ export async function GET(req: MedusaRequest, res: MedusaResponse<DesignerFormTy
       let material = baseMaterial;
       if (!material) 
       {
-        if (kind === "shield") 
+        if (child === "shield") 
         {
           material = "Alu";
         } else {
@@ -288,7 +288,7 @@ export async function GET(req: MedusaRequest, res: MedusaResponse<DesignerFormTy
 
       formTypes.push({
         name,
-        kind,
+        child,
         width,
         height,
         medusa_product_id: product.id,

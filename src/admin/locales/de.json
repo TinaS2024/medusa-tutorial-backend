@@ -262,8 +262,8 @@
     "test_to_hint": "Erst eine Testnachricht an sich selbst schicken, bevor alle sie bekommen.",
     "send_test": "Test-E-Mail senden",
     "send_all": "An alle bestätigten senden",
-    "confirm_send": "Wirklich an {anzahl} Empfänger senden?",
-    "sent": "{gesendet} versendet, {fehler} fehlgeschlagen",
+    "confirm_send": "Wirklich an {count} Empfänger senden?",
+    "sent": "{gesendet} versendet, {error} fehlgeschlagen",
     "test_sent": "Testnachricht versendet",
     "send_error": "Versand fehlgeschlagen",
     "show_unsubscribed": "Abgemeldete anzeigen"

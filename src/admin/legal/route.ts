@@ -45,15 +45,15 @@ export async function POST(req: MedusaRequest, res: MedusaResponse)
   }
 
   const body = (req.body ?? {}) as Record<string, unknown>;
-  const werte: Record<string, string | null> = {}
+  const value: Record<string, string | null> = {}
 
   for (const feld of FELDER) 
 {
-    werte[feld] = text(body[feld]);
+    value[feld] = text(body[feld]);
   }
 
   const prev = (store.metadata as Record<string, unknown> | null) ?? {};
-  await storeModuleService.updateStores({ id: store.id }, { metadata: { ...prev, ...werte } });
+  await storeModuleService.updateStores({ id: store.id }, { metadata: { ...prev, ...value } });
 
-  res.json({ legal: werte });
+  res.json({ legal: value });
 }

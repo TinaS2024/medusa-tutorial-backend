@@ -23,9 +23,9 @@ export async function POST(req: MedusaRequest, res: MedusaResponse) {
   const [store] = await storeModuleService.listStores({}, { take: 1 });
   const md = (store?.metadata as Record<string, any>) ?? {};
 
-  const zugang = smtpAusStore(md);
+  const access = smtpAusStore(md);
 
-  if (!zugang) 
+  if (!access) 
 {
     res.status(400).json({ message: "Es ist kein Postausgang eingerichtet." });
     return;
@@ -37,7 +37,7 @@ export async function POST(req: MedusaRequest, res: MedusaResponse) {
   if (testTo) 
   {
     await sendMail({
-      ...zugang,
+      ...access,
       to: testTo,
       subject: `[Test] ${subject}`,
       text: `${text}\n\n---\nAbmelden: ${shopUrl}/newsletter/unsubscribe?token=BEISPIEL`,
@@ -48,7 +48,7 @@ export async function POST(req: MedusaRequest, res: MedusaResponse) {
   }
 
   const service = req.scope.resolve(NEWSLETTER_MODULE) as any;
-  const empfaenger = await service.listNewsletterSubscribers(
+  const receiver = await service.listNewsletterSubscribers(
     { status: "confirmed" },
     { take: 1000 }
   )
@@ -56,18 +56,18 @@ export async function POST(req: MedusaRequest, res: MedusaResponse) {
   let gesendet = 0
   let fehlgeschlagen = 0
 
-  for (const e of empfaenger) {
+  for (const e of receiver) {
     // Der Abmeldelink wird angehängt, nicht dem Text überlassen: Ohne ihn
     // wäre der Versand unzulässig, und ein Betreiber könnte ihn versehentlich
     // aus der Vorlage löschen.
-    const abmelden = `${shopUrl}/newsletter/unsubscribe?token=${e.token}`
+    const cancel = `${shopUrl}/newsletter/unsubscribe?token=${e.token}`
 
     try {
       await sendMail({
-        ...zugang,
+        ...access,
         to: e.email,
         subject,
-        text: `${text}\n\n---\nSie erhalten diese Nachricht, weil Sie sich für unseren Newsletter angemeldet haben.\nAbmelden: ${abmelden}`,
+        text: `${text}\n\n---\nSie erhalten diese Nachricht, weil Sie sich für unseren Newsletter angemeldet haben.\nAbmelden: ${cancel}`,
       })
       gesendet++
     } catch (err) {
@@ -79,5 +79,5 @@ export async function POST(req: MedusaRequest, res: MedusaResponse) {
     await warte(250)
   }
 
-  res.json({ gesendet, fehlgeschlagen, empfaenger: empfaenger.length })
+  res.json({ gesendet, fehlgeschlagen, receiver: receiver.length })
 }

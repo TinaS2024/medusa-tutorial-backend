@@ -21,19 +21,19 @@ const NewsletterPage = () => {
   const [betreff, setBetreff] = useState("");
   const [nachricht, setNachricht] = useState("");
   const [testAdresse, setTestAdresse] = useState("");
-  const [sendet, setSendet] = useState(false);
-  const [zeigeAbgemeldete, setZeigeAbgemeldete] = useState(false);
+  const [sent, setSent] = useState(false);
+  const [showUnsubscribed, setShowUnsubscribed] = useState(false);
 
 
   const senden = async (nurTest: boolean) => {
     if (!nurTest) {
-      const anzahl = z?.confirmed ?? 0
-      if (!window.confirm(t.confirm_send.replace("{anzahl}", String(anzahl)))) return
+      const count = z?.confirmed ?? 0
+      if (!window.confirm(t.confirm_send.replace("{count}", String(count)))) return
     }
 
-    setSendet(true)
+    setSent(true)
     try {
-      const antwort: any = await sdk.client.fetch("/admin/newsletter/send", {
+      const response: any = await sdk.client.fetch("/admin/newsletter/send", {
         method: "POST",
         body: {
           subject: betreff,
@@ -46,13 +46,13 @@ const NewsletterPage = () => {
         nurTest
           ? t.test_sent
           : t.sent
-              .replace("{gesendet}", String(antwort.gesendet))
-              .replace("{fehler}", String(antwort.fehlgeschlagen))
+              .replace("{gesendet}", String(response.gesendet))
+              .replace("{error}", String(response.fehlgeschlagen))
       )
     } catch (e: any) {
       toast.error(e?.message || t.send_error)
     } finally {
-      setSendet(false)
+      setSent(false)
     }
   }
 
@@ -65,18 +65,18 @@ const NewsletterPage = () => {
 
   const { data, isLoading, refetch } = useQuery<{
     subscribers: Eintrag[]
-    zaehler: Record<string, number>
+    counter: Record<string, number>
   }>({
     queryKey: ["newsletter"],
     queryFn: () => sdk.client.fetch("/admin/newsletter", { method: "GET" }),
   })
 
-  const eintraege = data?.subscribers ?? [];
+  const entries = data?.subscribers ?? [];
 
   // Abgemeldete bleiben gespeichert, stören in der Übersicht aber nur.
-  const sichtbar = zeigeAbgemeldete ? eintraege : eintraege.filter((e) => e.status !== "unsubscribed")
+  const visible = showUnsubscribed ? entries : entries.filter((e) => e.status !== "unsubscribed")
 
-  const z = data?.zaehler;
+  const z = data?.counter;
 
   return (
     <Container className="divide-y p-0">
@@ -92,7 +92,7 @@ const NewsletterPage = () => {
 
           <div>
             <Label>{t.subject}</Label>
-            <Input value={betreff} onChange={(e) => setBetreff(e.target.value)} disabled={sendet} />
+            <Input value={betreff} onChange={(e) => setBetreff(e.target.value)} disabled={sent} />
           </div>
 
           <div>
@@ -102,7 +102,7 @@ const NewsletterPage = () => {
               rows={12}
               value={nachricht}
               onChange={(e) => setNachricht(e.target.value)}
-              disabled={sendet}
+              disabled={sent}
               className="w-full rounded-md border border-ui-border-base bg-ui-bg-field p-3 text-sm"
             />
           </div>
@@ -115,12 +115,12 @@ const NewsletterPage = () => {
                 value={testAdresse}
                 onChange={(e) => setTestAdresse(e.target.value)}
                 placeholder="ich@firma.de"
-                disabled={sendet}
+                disabled={sent}
               />
               <Button
                 variant="secondary"
                 onClick={() => senden(true)}
-                disabled={sendet || !testAdresse || !betreff || !nachricht}
+                disabled={sent || !testAdresse || !betreff || !nachricht}
               >
                 {t.send_test}
               </Button>
@@ -130,7 +130,7 @@ const NewsletterPage = () => {
           <div className="flex justify-end">
             <Button
               variant="primary"
-              isLoading={sendet}
+              isLoading={sent}
               onClick={() => senden(false)}
               disabled={!betreff || !nachricht || !(z?.confirmed)}
             >
@@ -149,8 +149,8 @@ const NewsletterPage = () => {
             <div className="flex items-center gap-x-3">
                 <div className="flex items-center gap-x-2">
                   <Switch
-                    checked={zeigeAbgemeldete}
-                    onCheckedChange={setZeigeAbgemeldete}
+                    checked={showUnsubscribed}
+                    onCheckedChange={setShowUnsubscribed}
                   />
                   <Text size="small" className="text-ui-fg-subtle">{t.show_unsubscribed}</Text>
                 </div>
@@ -162,7 +162,7 @@ const NewsletterPage = () => {
           </div>
         )}
           <Text className="text-ui-fg-subtle mt-2">{t.intro}</Text>
-          {sichtbar.length === 0 ? (
+          {visible.length === 0 ? (
             <Text className="text-ui-fg-subtle">{t.empty}</Text>
           ) : (
             <Table>
@@ -175,7 +175,7 @@ const NewsletterPage = () => {
                 </Table.Row>
               </Table.Header>
               <Table.Body>
-                {sichtbar.map((e) => (
+                {visible.map((e) => (
                   <Table.Row key={e.id}>
                     <Table.Cell>{e.email}</Table.Cell>
                     <Table.Cell>

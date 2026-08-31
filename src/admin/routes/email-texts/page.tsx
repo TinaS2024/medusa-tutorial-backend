@@ -31,7 +31,7 @@ const Section = ({
 )
 
 /** Liest die Platzhalter aus einem Text, damit die Liste nie veraltet. */
-const platzhalterAus = (text: unknown): string[] => {
+const extractPlaceholders = (text: unknown): string[] => {
   if (typeof text !== "string") return []
   return Array.from(new Set(text.match(/\{\w+\}/g) ?? []))
 }
@@ -41,7 +41,7 @@ const EmailTextsPage = () => {
   const t = getMessages(lang).email_texts;
 
   const [sprache, setSprache] = useState<string>("de");
-  const [werte, setWerte] = useState<Record<string, any>>({});
+  const [values, setValues] = useState<Record<string, any>>({});
 
   useEffect(() => {
     setLang(getClientLanguage());
@@ -53,14 +53,14 @@ const EmailTextsPage = () => {
   })
 
   useEffect(() => {
-    if (data?.custom) setWerte(data.custom)
+    if (data?.custom) setValues(data.custom)
   }, [data])
 
-  const wert = (vorlage: string, feld: string): string =>
-    werte?.[sprache]?.[vorlage]?.[feld] ?? ""
+  const value = (vorlage: string, feld: string): string =>
+    values?.[sprache]?.[vorlage]?.[feld] ?? ""
 
   const setzeFeld = (vorlage: string, feld: string) => (v: string) =>
-    setWerte((prev) => ({
+    setValues((prev) => ({
       ...prev,
       [sprache]: {
         ...prev?.[sprache],
@@ -72,7 +72,7 @@ const EmailTextsPage = () => {
     mutationFn: async () =>
       sdk.client.fetch("/admin/email-templates", {
         method: "POST",
-        body: { custom: werte },
+        body: { custom: values },
       }),
   })
 
@@ -112,7 +112,7 @@ const EmailTextsPage = () => {
         <div className="mt-6 grid gap-y-5">
           {Object.keys(felder).map((vorlage, i) => {
             const vorgabe = vorgaben?.[vorlage] ?? {}
-            const marken = platzhalterAus(vorgabe.text)
+            const marken = extractPlaceholders(vorgabe.text)
 
             return (
               <Section
@@ -129,14 +129,14 @@ const EmailTextsPage = () => {
                       {mehrzeilig ? (
                         <Textarea
                           rows={8}
-                          value={wert(vorlage, feld)}
+                          value={value(vorlage, feld)}
                           onChange={(e) => setzeFeld(vorlage, feld)(e.target.value)}
                           placeholder={vorgabe[feld] ?? ""}
                           disabled={isLoading}
                         />
                       ) : (
                         <Input
-                          value={wert(vorlage, feld)}
+                          value={value(vorlage, feld)}
                           onChange={(e) => setzeFeld(vorlage, feld)(e.target.value)}
                           placeholder={vorgabe[feld] ?? ""}
                           disabled={isLoading}
