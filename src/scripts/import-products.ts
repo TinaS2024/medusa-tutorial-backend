@@ -3,8 +3,10 @@ import { createProductsWorkflow, createProductCategoriesWorkflow } from "@medusa
 import { promises as fs } from "fs";
 import { join } from "path";
 
-// Wohin die Bild-URLs zeigen sollen (Server-Backend). Bei Bedarf anpassen.
-const SERVER_BACKEND_URL = "https://shop-api.bolasys.de";
+// Wohin die Bild-URLs zeigen sollen: dieselbe Adresse, aus der auch der
+// Datei-Provider in medusa-config.ts die Bild-URLs baut.
+const SERVER_BACKEND_URL = (process.env.NEXT_PUBLIC_BACKEND_URL || "http://localhost:9000").replace(/\/+$/, "");
+
 
 const rewriteUrl = (url?: string | null): string | undefined => {
   if (!url) return undefined;
