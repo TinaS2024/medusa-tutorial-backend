@@ -26,7 +26,7 @@ export default async function orderPlacedGpeSubscriber({event: { data }, contain
       "billing_address.first_name", "billing_address.last_name",
       "billing_address.address_1", "billing_address.postal_code",
       "billing_address.city", "billing_address.country_code",
-      "items.id", "items.title", "items.quantity", "items.unit_price",
+      "items.id", "items.title", "items.quantity", "items.unit_price", "items.detail.quantity",
       "items.metadata", "items.product_id", "items.variant_id",
       "items.product.title", "items.product.metadata",
       "items.variant.title", "items.variant.metadata",
@@ -46,6 +46,9 @@ export default async function orderPlacedGpeSubscriber({event: { data }, contain
 
   const items = (order.items ?? [])
     .map((item: any) => {
+
+      console.log("[GPE] item roh:", JSON.stringify(item, null, 2));
+      
       const meta = item.metadata ?? {};
       const productMeta = item.product?.metadata ?? {};
       const variantMeta = item.variant?.metadata ?? {};
@@ -56,7 +59,9 @@ export default async function orderPlacedGpeSubscriber({event: { data }, contain
 
       return {
         line_item_id: item.id,
-        quantity: item.quantity,
+        quantity: item.detail?.quantity ?? item.quantity ?? 1,
+        unit_price: item.unit_price ?? null,
+
         product: {
           product_id: item.product_id,
           variant_id: item.variant_id,

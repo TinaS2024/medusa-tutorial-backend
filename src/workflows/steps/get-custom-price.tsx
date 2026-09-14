@@ -155,7 +155,7 @@ export const getCustomPriceStep = createStep("get-custom-price",
           "GPE liefert für diese Optionskombination keinen Preis – vermutlich ist sie ungültig."
         )
       }
-      return new StepResponse(extractPrice(info))
+        return new StepResponse(Math.round(extractPrice(info) * 100) / 100)
     }
 
     // ------------------------------------------------- bisheriger Pfad
@@ -191,7 +191,12 @@ export const getCustomPriceStep = createStep("get-custom-price",
     const priceFromArea = areaInCm2 * dimensionPriceFactor;
 
     const originalPrice = variant.calculated_price?.calculated_amount || 0;
-    const customPrice = originalPrice + priceFromArea;
+    
+    // Auf Cent runden: der Flächenfaktor erzeugt sonst Bruchteile von Cent
+    // (0,001 €/cm² × 25 cm² = 0,025 €), die sich bis in die Bestellsumme
+    // fortpflanzen – dort tauchte zuletzt 17.87975 auf.
+    const customPrice = Math.round((originalPrice + priceFromArea) * 100) / 100;
+
 
     return new StepResponse(customPrice);
 
