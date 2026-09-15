@@ -44,20 +44,47 @@ export default async function orderPlacedGpeSubscriber({event: { data }, contain
     return;
   }
 
-  const items = (order.items ?? [])
-    .map((item: any) => {
+  // Bündel nachschlagen: welches Bündel-Produkt besteht aus welchen Bestandteilen?
+  // Abgefragt von der Bündel-Seite aus (bundle -> product, items -> product) –
+  // denselben Weg nutzen add-bundl-to-cart und die Store-Route bereits.
+  // Eigener try/catch: klappt die Abfrage nicht, entsteht das Manifest trotzdem,
+  // nur ohne Auflösung der Bündel.
+  const bundleByProductId = new Map<string, any>();
+  try 
+  {
+    const { data: bundles } = await query.graph({
+      entity: "bundle",
+      fields: [
+        "id", "title", "product.id",
+        "items.quantity", "items.product.id", "items.product.title", "items.product.metadata",
+      ],
+    });
 
-      console.log("[GPE] item roh:", JSON.stringify(item, null, 2));
-      
+    for (const bundle of bundles as any[]) 
+    {
+      if (bundle.product?.id && bundle.items?.length) 
+      {
+        bundleByProductId.set(bundle.product.id, bundle);
+      }
+    }
+    console.log("[GPE] Bündel geladen:", [...bundleByProductId.keys()]);
+  } 
+  catch (error) 
+  {
+    console.error("[GPE] Bündel konnten nicht geladen werden – Positionen werden nicht aufgelöst:", error);
+  }
+
+    const items = (order.items ?? [])
+    .flatMap((item: any) => {
       const meta = item.metadata ?? {};
       const productMeta = item.product?.metadata ?? {};
       const variantMeta = item.variant?.metadata ?? {};
 
       const svgUrl = firstString(meta.svg_url);
       // Nur Positionen mit Design sind für die GPE relevant
-      if (!svgUrl && !firstString(meta.design_image)) return null;
+      if (!svgUrl && !firstString(meta.design_image)) return [];
 
-      return {
+      const entry = {
         line_item_id: item.id,
         quantity: item.detail?.quantity ?? item.quantity ?? 1,
         unit_price: item.unit_price ?? null,
@@ -83,8 +110,49 @@ export default async function orderPlacedGpeSubscriber({event: { data }, contain
           png_url: firstString(meta.design_image) ?? null,
         },
       };
-    })
-    .filter(Boolean);
+
+      // Kein Bündel-Produkt -> eine Position wie bisher
+      const bundle = bundleByProductId.get(item.product_id);
+      if (!bundle) return [entry];
+
+      // Bündel-Produkt -> eine Position je Bestandteil. Design, Form und Maße
+      // kommen vom bestellten Bündel-Produkt; der Setpreis wird gleichmäßig
+      // auf alle Einzelstücke verteilt.
+      const unitsPerSet = bundle.items.reduce(
+        (sum: number, part: any) => sum + (part.quantity ?? 1), 0
+      );
+      const unitShare = entry.unit_price != null
+        ? Math.round((entry.unit_price / unitsPerSet) * 100) / 100
+        : null;
+
+      if (unitShare != null && Math.abs(unitShare * unitsPerSet - entry.unit_price) > 0.001) 
+      {
+        console.warn(
+          `[GPE] Setpreis ${entry.unit_price} ist nicht glatt durch ${unitsPerSet} teilbar – ` +
+          `die Summe der Positionen weicht um Cent-Beträge ab.`
+        );
+      }
+
+      return bundle.items.map((part: any) => {
+        const partMeta = part.product?.metadata ?? {};
+        return {
+          ...entry,
+          quantity: (part.quantity ?? 1) * entry.quantity,
+          unit_price: unitShare,
+          bundle: { product_id: item.product_id, title: bundle.title },
+          product: {
+            ...entry.product,
+            product_id: part.product?.id ?? null,
+            variant_id: null,
+            title: part.product?.title ?? null,
+            variant_title: null,
+            gpe_id: partMeta.gpe_id ?? null,
+            gpe_name: partMeta.gpe_name ?? null,
+            gpe_external_id: partMeta.gpe_external_id ?? null,
+          },
+        };
+      });
+    });
 
   if (items.length === 0) {
     console.log(`[GPE] Bestellung ${order.display_id}: keine Design-Positionen, übersprungen.`);
