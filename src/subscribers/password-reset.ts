@@ -3,11 +3,6 @@ import { Modules } from "@medusajs/framework/utils";
 import { sendMail } from "../lib/send-mail";
 import { getEmailTemplate } from "../lib/email-templates";
 
-import de from "../admin/locales/de.json";
-import en from "../admin/locales/en.json";
-import fr from "../admin/locales/fr.json";
-import nl from "../admin/locales/nl.json";
-
 type PasswordResetEvent = {
   entity_id: string
   token: string
@@ -16,12 +11,6 @@ type PasswordResetEvent = {
 
 type SupportedLocale = "de" | "en" | "fr" | "nl"
 
-const templatesByLocale: Record<SupportedLocale, any> = {
-  de,
-  en,
-  fr,
-  nl,
-}
 
 const interpolate = (template: string, vars: Record<string, string>) => {
   return template.replace(/\{(\w+)\}/g, (match, key: string) => {

@@ -14,7 +14,7 @@
   ],
   "scripts": {
     "build": "medusa build",
-    "postbuild":"node src/scripts/link-static.mjs",
+    "postbuild": "node src/scripts/link-static.mjs",
     "seed": "medusa exec ./src/scripts/seed.ts",
     "start": "cross-env NODE_EXTRA_CA_CERTS=certs/gpe-ca.pem medusa start",
     "dev": "cross-env NODE_EXTRA_CA_CERTS=certs/gpe-ca.pem medusa develop",
@@ -36,10 +36,12 @@
     "@mikro-orm/knex": "6.6.12",
     "@mikro-orm/migrations": "6.6.12",
     "@mikro-orm/postgresql": "6.6.12",
+    "adm-zip": "^0.6.1",
     "awilix": "^8.0.1",
     "medusa-plugin-category-images": "^1.0.18",
     "medusa-storage-supabase": "^0.1.7",
     "nodemailer": "^9.0.3",
+    "pdfmake": "^0.3.11",
     "pg": "^8.13.0"
   },
   "devDependencies": {

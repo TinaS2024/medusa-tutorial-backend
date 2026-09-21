@@ -63,5 +63,18 @@ export default defineMiddlewares({
         validateAndTransformBody(PostAddCustomLineItemSchema),
       ],
     },
+      {
+      // Rechnungen sind nur für angemeldete Kunden. Ohne
+      // allowUnauthenticated antwortet Medusa Gästen selbst mit 401 –
+      // die Route wird gar nicht erst aufgerufen.
+      matcher: "/store/orders/:id/invoices",
+      methods: ["GET"],
+      middlewares: [authenticate("customer", ["session", "bearer"])],
+    },
+    {
+      matcher: "/store/invoices/:id/pdf",
+      methods: ["GET"],
+      middlewares: [authenticate("customer", ["session", "bearer"])],
+    },
   ],
 })
