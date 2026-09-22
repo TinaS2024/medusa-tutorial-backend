@@ -216,6 +216,19 @@ zur selben Bestellung eine neue, korrigierte Rechnung erstellen.
 
 Damit Sie nicht davon überrascht werden:
 
+- **Geprüft für vier Sitzländer.** Pflichtangaben und Bezeichnungen der
+  Kennnummern sind für Verkäufer in Deutschland, Frankreich, den
+  Niederlanden und Großbritannien hinterlegt, die Texte in Deutsch,
+  Englisch, Französisch und Niederländisch. Sitzt Ihr Unternehmen in einem
+  anderen Land, muss die Rechnung vorher für dieses Land ergänzt und von
+  Ihrer Steuerberatung geprüft werden. Außerhalb der EU können zudem
+  eigene staatliche Rechnungssysteme vorgeschrieben sein, die ein PDF nicht
+  ersetzt.
+- **Nur westeuropäische Schriftzeichen.** Das PDF verwendet eine
+  eingebaute Schrift ohne Zeichen für Chinesisch, Japanisch, Arabisch,
+  Kyrillisch und Ähnliches. Enthält eine Kundenanschrift solche Zeichen,
+  fehlen sie auf der Rechnung.
+
 - **Kein Reverse Charge.** Rechnungen an Unternehmen im EU-Ausland mit
   USt-IdNr. werden wie Rechnungen an Verbraucher behandelt. Es gibt kein
   Feld für die USt-IdNr. des Kunden und keine Steuerbefreiung.
