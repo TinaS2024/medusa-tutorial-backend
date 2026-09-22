@@ -31,8 +31,9 @@ wenden Sie sich dafür an Ihren technischen Ansprechpartner.
 
 ## 2. Angaben, die eingetragen sein müssen
 
-Die Rechnung setzt sich aus drei Admin-Bereichen zusammen. Fehlt eine
-Angabe, fehlt sie auch auf dem Dokument — ohne Warnung.
+Die Rechnung setzt sich aus drei Admin-Bereichen zusammen, für den Versand
+kommt ein vierter dazu. Fehlt eine Angabe, fehlt sie auch auf dem
+Dokument — ohne Warnung.
 
 ### Admin → Impressum
 
@@ -50,9 +51,54 @@ Angabe, fehlt sie auch auf dem Dokument — ohne Warnung.
 |---|---|
 | Kontoinhaber, Bank, IBAN, BIC | Block „Bankverbindung" unter dem Zahlungsziel |
 
+Tragen Sie bei IBAN und BIC **nur die Nummer** ein, ohne „IBAN:" oder
+„BIC:" davor. Die Rechnung setzt die Bezeichnung selbst davor — sonst steht
+auf dem Dokument `IBAN: IBAN: DE02…`.
+
+| Richtig | Falsch |
+|---|---|
+| `DE02120300000000202051` | `IBAN: DE02120300000000202051` |
+| `BYLADEM1001` | `BIC: BYLADEM1001` |
+
 > **Achtung:** Zum Testen ist hier möglicherweise ein Testkonto hinterlegt.
 > Ersetzen Sie es vor der ersten echten Rechnung. Dieselben Angaben
 > erscheinen auch in der Bestellbestätigung bei Vorkasse.
+>
+> Erscheinen die Felder beim Öffnen leer, obwohl Sie schon etwas
+> eingetragen hatten, ist meist die Admin-Sitzung abgelaufen. Laden Sie die
+> Seite neu oder melden Sie sich neu an — und drücken Sie auf der leeren
+> Seite **nicht** auf Speichern, sonst werden die Bankdaten gelöscht.
+
+### Admin → E-Mail-Einstellungen
+
+Ohne Postausgang entstehen Rechnungen zwar, werden aber nicht verschickt.
+Im Admin erscheint dann bei jeder Rechnung *noch nicht verschickt*.
+
+| Feld | Hinweis |
+|---|---|
+| SMTP-Server, Port, Benutzer, Passwort | Die Zugangsdaten des Postfachs, von dem aus verschickt wird. |
+| Absender-E-Mail | **Muss zum Konto aus „Benutzer" gehören.** |
+| Absender-Name | Erscheint beim Kunden als Absender, zum Beispiel Ihr Firmenname. |
+
+**Die Absenderadresse muss zum SMTP-Konto passen.** Mailanbieter
+erlauben nur den Versand unter der eigenen Adresse. Melden Sie sich zum
+Beispiel mit einem privaten GMX-Konto an und tragen als Absender
+`info@ihre-firma.de` ein, lehnt der Server jede Mail ab. Im Admin erscheint
+dann eine Meldung wie:
+
+```
+keine Mail: 550 5.7.1 <info@ihre-firma.de> is not an authorized sender …
+```
+
+Verwenden Sie deshalb den **Mailserver Ihrer eigenen Domain** — also das
+Postfach, zu dem die Absenderadresse gehört. Die Zugangsdaten nennt Ihnen
+Ihr Domain- oder Mailanbieter. Selbst wenn ein fremder Server die Mail
+durchließe, würden viele Empfänger sie als verdächtig einstufen und im
+Spam ablegen.
+
+Rechnungen, die wegen eines Fehlers nicht verschickt wurden, müssen Sie
+nicht neu erstellen: Nach der Korrektur im Admin an der Bestellung auf
+**Senden** klicken.
 
 ### Admin → Rechnungen
 
@@ -64,6 +110,12 @@ Angabe, fehlt sie auch auf dem Dokument — ohne Warnung.
 | Steuernummer | Fußzeile. In Deutschland genügt Steuernummer **oder** USt-IdNr. |
 | Zahlungsziel in Tagen | Ergibt das Datum hinter „Zahlbar ohne Abzug bis zum". |
 | Fußzeile der Rechnung | Freitext, zum Beispiel ein Hinweis auf das OSS-Verfahren. |
+
+> **Wichtig:** Klicken Sie hier nach der Installation **einmal auf
+> Speichern**, auch wenn Sie nichts ändern. Erst dabei werden die beiden
+> Nummernkreise angelegt. Ohne diesen Schritt bricht jede
+> Rechnungserstellung ab, im Browser erscheint dann nur
+> „Rechnung konnte nicht erstellt werden".
 
 ---
 
@@ -95,7 +147,15 @@ PDFs, `adm-zip` für den Export). `db:migrate` legt die beiden Tabellen an.
 Ein `db:generate` ist **nicht** nötig — die Migrationsdateien liegen im
 Quellcode.
 
-Danach den Dienst neu starten.
+Läuft der Shop im gebauten Zustand (`medusa start`), danach neu bauen und
+den Dienst neu starten:
+
+```
+npm run build
+```
+
+Erst dann sind die neuen Programmteile aktiv. Anschließend im Admin unter
+**Rechnungen** einmal speichern (siehe Abschnitt 2).
 
 **Optional:** Mit der Umgebungsvariablen `INVOICE_STORAGE_DIR` lässt sich
 der Ablageort der PDFs verlegen. Ohne Angabe ist es `private/invoices` im

@@ -38,8 +38,6 @@
     "@mikro-orm/postgresql": "6.6.12",
     "adm-zip": "^0.6.1",
     "awilix": "^8.0.1",
-    "medusa-plugin-category-images": "^1.0.18",
-    "medusa-storage-supabase": "^0.1.7",
     "nodemailer": "^9.0.3",
     "pdfmake": "^0.3.11",
     "pg": "^8.13.0"
