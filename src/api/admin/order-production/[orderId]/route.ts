@@ -7,7 +7,7 @@ import { getEmailTemplate } from "../../../../lib/email-templates";
 import { createInvoice } from "../../../../lib/invoice/create-invoice";
 import { readInvoicePdf } from "../../../../lib/invoice/invoice-storage";
 import { INVOICE_MODULE } from "../../../../modules/invoice";
-import { toLanguage } from "../../../../lib/invoice/build-invoice-data";
+import { contentLanguage } from "../../../../lib/language";
 
 const interpolate = (t: string, v: Record<string, string>) =>
   t.replace(/\{(\w+)\}/g, (m, k: string) => (k in v ? v[k] : m));
@@ -157,8 +157,7 @@ async function notifyCustomer(
   // Storefront in lib/data/cart.ts.
   const orderLocale = (order as { locale?: string })?.locale;
 
-  const locale = toLanguage(orderLocale ?? md.email_locale);
-
+  const locale = contentLanguage(orderLocale, md);
 
   const tpl = getEmailTemplate(store?.metadata, locale, "production_status_update");
   if (!tpl) return;

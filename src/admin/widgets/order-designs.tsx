@@ -13,7 +13,7 @@ const safeDecode = (v?: string) => {
 
 const OrderDesignsWidget = ({ data: order }: DetailWidgetProps<AdminOrder>) => 
 {
-    const [lang, setLang] = useState<Lang>("de");
+    const [lang, setLang] = useState<Lang>(getClientLanguage);
     const t = getMessages(lang);
     
     useEffect(() => {

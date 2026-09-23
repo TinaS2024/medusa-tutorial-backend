@@ -66,7 +66,8 @@ export function renderInvoicePdf(args: {
   const { data, number, issuedAt, serviceDate } = args;
   
   // Sprache des Käufers für die Beschriftungen …
-  const t = INVOICE_TEXTS[data.language] ?? INVOICE_TEXTS.de;
+  const t = INVOICE_TEXTS[data.language] ?? INVOICE_TEXTS.en;
+
 
   // … Sitzland des Verkäufers für die Kennnummern.
   const labels = sellerLabels(data.seller.country);

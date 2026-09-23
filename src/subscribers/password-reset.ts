@@ -2,6 +2,7 @@ import type { SubscriberArgs, SubscriberConfig } from "@medusajs/framework";
 import { Modules } from "@medusajs/framework/utils";
 import { sendMail } from "../lib/send-mail";
 import { getEmailTemplate } from "../lib/email-templates";
+import { shopLanguage } from "../lib/language";
 
 type PasswordResetEvent = {
   entity_id: string
@@ -9,23 +10,12 @@ type PasswordResetEvent = {
   actor_type: string
 }
 
-type SupportedLocale = "de" | "en" | "fr" | "nl"
-
 
 const interpolate = (template: string, vars: Record<string, string>) => {
   return template.replace(/\{(\w+)\}/g, (match, key: string) => {
     return key in vars ? vars[key] : match
   })
 }
-
-const toSupportedLocale = (raw: unknown): SupportedLocale => {
-  if (raw === "de" || raw === "en" || raw === "fr" || raw === "nl") {
-    return raw
-  }
-
-  return "de";
-}
-
 
 export default async function passwordResetSubscriber({event: { data },container}: SubscriberArgs<PasswordResetEvent>) {
 
@@ -50,7 +40,10 @@ export default async function passwordResetSubscriber({event: { data },container
   const smtpPort = Number(metadata?.smtp_port) || 587;
   const smtpSecure = smtpPort === 465;
 
-  const locale = toSupportedLocale(metadata?.email_locale);
+  // Eine Passwort-Mail gehört zu keiner Bestellung – hier zählt die
+  // Hauptsprache des Shops.
+  const locale = shopLanguage(metadata);
+
   const tpl = getEmailTemplate(store?.metadata, locale, "password_reset");
 
   const email = data.entity_id;

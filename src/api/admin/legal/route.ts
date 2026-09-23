@@ -1,5 +1,6 @@
 import type { MedusaRequest, MedusaResponse } from "@medusajs/framework/http";
 import { Modules } from "@medusajs/framework/utils";
+import { LANGUAGES } from "../../../lib/language";
 
 const FELDER = [
   "imprint_company",
@@ -14,7 +15,7 @@ const FELDER = [
   "cookie_baner_text"
 ] as const;
 
-const SPRACHEN = ["de", "en", "fr", "nl"] as const;
+const SPRACHEN = LANGUAGES.map((language) => language.code);
 const DOKUMENTE = ["terms", "privacy", "withdrawal", "shipping"] as const;
 
 const text = (v: unknown) => {

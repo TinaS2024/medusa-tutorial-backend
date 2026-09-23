@@ -6,13 +6,14 @@ import { useEffect, useState } from "react";
 import { sdk } from "../../lib/sdk";
 import { getClientLanguage } from "../../lib/i18n";
 import { getMessages, type Lang } from "../../lib/messages";
+import { LANGUAGES } from "../../lib/languages";
 
 
 type EmailSettings = {
   email_from: string | null
   email_from_name: string | null
   storefront_url: string | null
-  email_locale: "de" | "en" | "fr" | "nl" | null
+  email_locale: Lang | null
   smtp_host: string | null
   smtp_port: number | null
   smtp_user: string | null
@@ -24,13 +25,13 @@ const EmailSettingsPage = () => {
   const [emailFrom, setEmailFrom] = useState("");
   const [emailFromName, setEmailFromName] = useState("");
   const [storefrontUrl, setStorefrontUrl] = useState("");
-  const [emailLocale, setEmailLocale] = useState<"de" | "en" | "fr" | "nl">("de");
+  const [emailLocale, setEmailLocale] = useState<Lang>("de");
   const [smtpHost, setSmtpHost] = useState("");
   const [smtpPort, setSmtpPort] = useState("");
   const [smtpUser, setSmtpUser] = useState("");
   const [smtpPass, setSmtpPass] = useState("");
 
-  const [lang, setLang] = useState<Lang>("de");
+  const [lang, setLang] = useState<Lang>(getClientLanguage);
   const t = getMessages(lang).email_settings;
 
   useEffect(() => {
@@ -135,14 +136,17 @@ const EmailSettingsPage = () => {
             <Label>{t.locale}</Label>
             <Select value={emailLocale} onValueChange={(v) => setEmailLocale(v as any)}>
               <Select.Trigger>
-                <Select.Value placeholder="Sprache auswählen" />
+              
+              <Select.Value placeholder={t.locale_placeholder} />
               </Select.Trigger>
               <Select.Content>
-                <Select.Item value="de">Deutsch</Select.Item>
-                <Select.Item value="en">English</Select.Item>
-                <Select.Item value="fr">Français</Select.Item>
-                <Select.Item value="nl">Nederlands</Select.Item>
+                {LANGUAGES.map((language) => (
+                  <Select.Item key={language.code} value={language.code}>
+                    {language.label}
+                  </Select.Item>
+                ))}
               </Select.Content>
+
             </Select>
           </div>
 

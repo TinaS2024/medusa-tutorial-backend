@@ -7,7 +7,7 @@ import { getClientLanguage } from "../../lib/i18n";
 import { getMessages, type Lang } from "../../lib/messages";
 
 const AuthCleanupPage = () => {
-  const [lang, setLang] = useState<Lang>("de");
+  const [lang, setLang] = useState<Lang>(getClientLanguage);
   const t = getMessages(lang).auth_cleanup;
 
   useEffect(() => {

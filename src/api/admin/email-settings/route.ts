@@ -1,12 +1,13 @@
 import type { MedusaRequest, MedusaResponse } from "@medusajs/framework/http";
 import { Modules } from "@medusajs/framework/utils";
+import { isLang, type Lang } from "../../../lib/language";
 
 type EmailSettingsResponse = {
   email_settings: {
     email_from: string | null
     email_from_name: string | null
     storefront_url: string | null
-    email_locale: "de" | "en" | "fr" | "nl" | null
+    email_locale: Lang | null
     smtp_host: string | null
     smtp_port: number | null
     smtp_user: string | null
@@ -31,10 +32,8 @@ export async function GET(
 
   const md = (store?.metadata as Record<string, unknown> | null) ?? null;
 
-  const rawLocale = typeof md?.email_locale === "string" ? md.email_locale : null;
-  const email_locale = rawLocale === "de" || rawLocale === "en" || rawLocale === "fr" || rawLocale === "nl"
-      ? rawLocale
-      : null;
+  const rawLocale = md?.email_locale;
+  const email_locale = isLang(rawLocale) ? rawLocale : null;
 
    res.json({
     email_settings: {
@@ -78,16 +77,10 @@ export async function POST(
   const smtp_port = smtp_port_raw ? Number(smtp_port_raw) : null;
 
 
-  const email_locale =
-    email_locale_raw === "de" ||
-    email_locale_raw === "en" ||
-    email_locale_raw === "fr" ||
-    email_locale_raw === "nl"
-      ? email_locale_raw
-      : null;
+  const email_locale = isLang(email_locale_raw) ? email_locale_raw : null;
 
   if (email_locale_raw && !email_locale) 
-{
+  {
     res.status(400).json({ message: "Invalid email locale" });
     return;
   }

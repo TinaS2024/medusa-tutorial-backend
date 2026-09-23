@@ -6,6 +6,7 @@ import { useEffect, useState, useRef } from "react";
 import { sdk } from "../../lib/sdk";
 import { getClientLanguage } from "../../lib/i18n";
 import { getMessages, type Lang } from "../../lib/messages";
+import { LANGUAGES } from "../../lib/languages";
 
 const LEER = {
   imprint_company: "",
@@ -42,7 +43,7 @@ const Feld = ({
 )
 
 const LegalPage = () => {
-  const [lang, setLang] = useState<Lang>("de");
+  const [lang, setLang] = useState<Lang>(getClientLanguage);
   const t = getMessages(lang).legal;
   const c = getMessages(lang).cookie;
   const [values, setValues] = useState(LEER);
@@ -127,8 +128,10 @@ const LegalPage = () => {
                   <Select.Value />
                 </Select.Trigger>
                 <Select.Content>
-                  {["de", "en", "fr", "nl"].map((s) => (
-                    <Select.Item key={s} value={s}>{s.toUpperCase()}</Select.Item>
+                  {LANGUAGES.map((language) => (
+                    <Select.Item key={language.code} value={language.code}>
+                      {language.label}
+                    </Select.Item>
                   ))}
                 </Select.Content>
               </Select>

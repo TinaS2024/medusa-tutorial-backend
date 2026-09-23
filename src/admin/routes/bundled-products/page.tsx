@@ -69,7 +69,7 @@ const limit = 15;
 
 const BundledProductsPage = () => {
 
-  const [lang, setLang] = useState<Lang>("de");
+  const [lang, setLang] = useState<Lang>(getClientLanguage);
   const t = getMessages(lang).bundled_products;
 
   useEffect(() => {

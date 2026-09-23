@@ -1,5 +1,10 @@
-/** Die vier Sprachen, für die es Rechnungstexte gibt. */
-export type SupportedLanguage = "de" | "en" | "fr" | "nl";
+import { contentLanguage, langToLocale, type Lang } from "../language";
+
+/**
+ * Der Name bleibt, damit texts.ts und alles Weitere unverändert läuft –
+ * dahinter steckt jetzt die gemeinsame Liste aus admin/lib/languages.ts.
+ */
+export type SupportedLanguage = Lang;
 
 
 /** Ein Steuersatz mit den Summen, die darauf entfallen. */
@@ -105,20 +110,6 @@ const addressLines = (address: any): string[] => {
 };
 
 /**
- * Aus einem Gebietsschema wie "de-DE" die Sprache "de" machen.
- *
- * Wir brauchen beides: "de-DE" für Datums- und Geldformate (daraus wird
- * 16.09.2026 statt 9/16/2026), und "de" für die Auswahl der Textbausteine.
- */
-export const toLanguage = (raw: unknown): SupportedLanguage => {
-  const value = typeof raw === "string" ? raw.toLowerCase() : "";
-  if (value.startsWith("en")) return "en";
-  if (value.startsWith("fr")) return "fr";
-  if (value.startsWith("nl")) return "nl";
-  return "de";
-};
-
-/**
  * Die Variantenbezeichnung – aber nur, wenn sie etwas Neues sagt.
  *
  * Hat eine Variante keinen eigenen Namen, trägt sie in Medusa denselben
@@ -211,13 +202,16 @@ export function buildInvoiceData(args: {
   const total_tax = round2(allLines.reduce((s, l) => s + l.tax, 0));
 
   const billing = order.billing_address ?? order.shipping_address ?? null;
+  // Sprache der Bestellung, sonst Hauptsprache des Shops.
+  const language = contentLanguage(order.locale, md);
+
 
   return {
     order_id: order.id,
     order_reference: String(order.display_id ?? order.id),
     order_date: new Date(order.created_at),
-    locale: toTextOrNull(order.locale) ?? "de-DE",
-    language: toLanguage(order.locale),
+    locale: toTextOrNull(order.locale) ?? langToLocale(language),
+    language,
     currency_code: String(order.currency_code ?? "eur").toUpperCase(),
 
 

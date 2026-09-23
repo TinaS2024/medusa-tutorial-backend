@@ -1,11 +1,9 @@
-import de from "../admin/locales/de.json";
-import en from "../admin/locales/en.json";
-import fr from "../admin/locales/fr.json";
-import nl from "../admin/locales/nl.json";
+import { getMessages } from "../admin/lib/messages";
+import { LANGUAGES, localeToLang } from "../admin/lib/languages";
 
-const vorlagenNachSprache: Record<string, any> = { de, en, fr, nl };
+/** Die Sprachkürzel – für Schleifen über alle Sprachen. */
+export const SPRACHEN = LANGUAGES.map((language) => language.code);
 
-export const SPRACHEN = ["de", "en", "fr", "nl"] as const;
 export const VORLAGEN = [
   "password_reset",
   "order_confirmation",
@@ -14,10 +12,20 @@ export const VORLAGEN = [
 
 export type Vorlage = (typeof VORLAGEN)[number];
 
-/** Die mitgelieferte Vorlage aus den Sprachdateien. */
-export function standardVorlage(locale: string, name: Vorlage) 
-{
-  return vorlagenNachSprache[locale]?.email_templates?.[name] ?? {};
+/**
+ * Die mitgelieferte Vorlage aus den Sprachdateien.
+ *
+ * Über getMessages statt über einen eigenen Zugriff auf die JSON-Dateien:
+ * Fehlt ein Feld in einer Sprache, kommt es aus der englischen Vorlage,
+ * statt leer zu bleiben.
+ */
+export function standardVorlage(locale: string, name: Vorlage) {
+  const templates = getMessages(localeToLang(locale)).email_templates as Record<
+    string,
+    any
+  >;
+
+  return templates?.[name] ?? {};
 }
 
 /**

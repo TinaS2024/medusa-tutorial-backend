@@ -1,6 +1,7 @@
 import type { SubscriberArgs, SubscriberConfig } from "@medusajs/framework";
 import { Modules, ContainerRegistrationKeys } from "@medusajs/framework/utils";
 import { getEmailTemplate } from "../lib/email-templates";
+import { contentLanguage } from "../lib/language";
 
 
 type OrderPlacedEvent = { id: string };
@@ -29,7 +30,7 @@ export default async function orderConfirmationEmailSubscriber({
   const { data: [order] } = await query.graph({
     entity: "order",
     fields: [
-      "id", "display_id", "email", "currency_code", "total",
+      "id", "display_id", "email", "currency_code", "total", "locale",
       "customer.email",
       "items.*",
       "payment_collections.payments.provider_id",
@@ -45,7 +46,11 @@ export default async function orderConfirmationEmailSubscriber({
   const [store] = await storeModuleService.listStores({}, { take: 1 });
   const md = (store?.metadata as Record<string, any> | null) ?? {};
 
-  const locale = toSupportedLocale(md.email_locale);
+  // Sprache der Bestellung, sonst Hauptsprache des Shops. Das Feld kennen
+  // die Typen von query.graph noch nicht, es gibt es aber zur Laufzeit.
+  const orderLocale = (order as { locale?: string })?.locale;
+  const locale = contentLanguage(orderLocale, md);
+
   const tpl = getEmailTemplate(store?.metadata, locale, "order_confirmation");
 
   console.log("[OrderMail] locale:", locale, "| tpl?", !!tpl, "| email_locale:", md.email_locale);

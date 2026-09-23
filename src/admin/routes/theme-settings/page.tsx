@@ -174,7 +174,7 @@ const ImageField = ({
 
 const ThemeSettingsPage = () => {
   const [values, setValues] = useState(DEFAULTS);
-  const [lang, setLang] = useState<Lang>("de");
+  const [lang, setLang] = useState<Lang>(getClientLanguage);
   const t = getMessages(lang).theme_settings;
 
   useEffect(() => {

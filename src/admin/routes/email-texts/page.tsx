@@ -6,14 +6,13 @@ import { useEffect, useState, type ReactNode } from "react";
 import { sdk } from "../../lib/sdk";
 import { getClientLanguage } from "../../lib/i18n";
 import { getMessages, type Lang } from "../../lib/messages";
+import { LANGUAGES } from "../../lib/languages";
 
 type Antwort = {
   custom: Record<string, any>
   defaults: Record<string, any>
   felder: Record<string, string[]>
 }
-
-const SPRACHEN = ["de", "en", "fr", "nl"] as const;
 
 const Section = ({
   title, children, defaultOpen = false,
@@ -37,7 +36,7 @@ const extractPlaceholders = (text: unknown): string[] => {
 }
 
 const EmailTextsPage = () => {
-  const [lang, setLang] = useState<Lang>("de");
+  const [lang, setLang] = useState<Lang>(getClientLanguage);
   const t = getMessages(lang).email_texts;
 
   const [sprache, setSprache] = useState<string>("de");
@@ -102,8 +101,8 @@ const EmailTextsPage = () => {
               <Select.Value />
             </Select.Trigger>
             <Select.Content>
-              {SPRACHEN.map((s) => (
-                <Select.Item key={s} value={s}>{s.toUpperCase()}</Select.Item>
+              {LANGUAGES.map((language) => (
+                <Select.Item key={language.code} value={language.code}>{language.label}</Select.Item>
               ))}
             </Select.Content>
           </Select>

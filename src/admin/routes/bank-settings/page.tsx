@@ -17,7 +17,7 @@ type BankSettings = {
 
 const BankSettingsPage = () => {
 
-    const [lang, setLang] = useState<Lang>("de");
+    const [lang, setLang] = useState<Lang>(getClientLanguage);
     const t = getMessages(lang);
     
     useEffect(() => {

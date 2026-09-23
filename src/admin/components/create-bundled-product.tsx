@@ -11,7 +11,7 @@ type BundleTexts = Messages["bundled_products"]
 
 const CreateBundledProduct = () =>
 {
-    const [lang, setLang] = useState<Lang>("de");
+    const [lang, setLang] = useState<Lang>(getClientLanguage);
     const t = getMessages(lang).bundled_products;
 
     useEffect(() => {

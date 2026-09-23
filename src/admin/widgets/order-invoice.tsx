@@ -5,6 +5,8 @@ import { useEffect, useState } from "react";
 
 import { getClientLanguage } from "../lib/i18n";
 import { getMessages, type Lang } from "../lib/messages";
+import { langToLocale } from "../lib/languages";
+
 
 /** Eine Position aus der eingefrorenen Kopie einer Rechnung. */
 type SnapshotLine = {
@@ -30,14 +32,6 @@ type Invoice = {
   };
 };
 
-/** Sprachkürzel zu vollem Gebietsschema – für Datums- und Geldformate. */
-const LOCALES: Record<string, string> = {
-  de: "de-DE",
-  en: "en-GB",
-  fr: "fr-FR",
-  nl: "nl-NL",
-};
-
 /** Setzt {platzhalter} in einem Text ein. */
 const interpolate = (template: string, values: Record<string, string>) =>
   template.replace(/\{(\w+)\}/g, (match, key: string) =>
@@ -45,7 +39,7 @@ const interpolate = (template: string, values: Record<string, string>) =>
   );
 
 const OrderInvoiceWidget = ({ data: order }: DetailWidgetProps<AdminOrder>) => {
-  const [lang, setLang] = useState<Lang>("de");
+  const [lang, setLang] = useState<Lang>(getClientLanguage);
   const t = getMessages(lang);
 
   useEffect(() => {
@@ -75,7 +69,7 @@ const OrderInvoiceWidget = ({ data: order }: DetailWidgetProps<AdminOrder>) => {
     load();
   }, [order.id]);
 
-  const locale = LOCALES[lang] ?? "de-DE";
+  const locale = langToLocale(lang);
 
   const money = (value: number | string, currency: string) =>
     new Intl.NumberFormat(locale, { style: "currency", currency }).format(Number(value));

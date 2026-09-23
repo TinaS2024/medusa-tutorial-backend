@@ -4,6 +4,7 @@ import { randomUUID } from "crypto";
 import { NEWSLETTER_MODULE } from "../../../../modules/newsletter";
 import { sendMail } from "../../../../lib/send-mail";
 import { smtpAusStore } from "../../../../lib/smtp-from-store";
+import { contentLanguage } from "../../../../lib/language";
 
 const istEmail = (s: string) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(s);
 
@@ -40,13 +41,13 @@ export async function POST(req: MedusaRequest, res: MedusaResponse)
       id: avaiable.id,
       token,
       status: "pending",
-      locale: locale ?? "de",
+      locale: contentLanguage(locale, md),
     })
   } else {
     await service.createNewsletterSubscribers({
       email,
       token,
-      locale: locale ?? "de",
+      locale: contentLanguage(locale, md),
       source: "storefront",
     })
   }

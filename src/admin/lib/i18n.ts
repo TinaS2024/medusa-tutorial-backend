@@ -1,21 +1,12 @@
-const FALLBACK_LANG = "de" as const;
+import { localeToLang, type Lang } from "./languages";
 
-const localeToLang = (locale?: string): "de" | "en" | "fr" | "nl" => {
-  if (!locale) return FALLBACK_LANG;
+export const getClientLanguage = (): Lang => {
+  if (typeof window === "undefined") return localeToLang(null);
 
-  if (locale.startsWith("de")) return "de";
-  if (locale.startsWith("en")) return "en";
-  if (locale.startsWith("fr")) return "fr";
-  if (locale.startsWith("nl")) return "nl";
+  // lng ist Medusas eigener Sprachschlüssel – er folgt der Sprache, die
+  // oben rechts im Admin eingestellt ist.
+  const stored =
+    window.localStorage.getItem("lng") ?? window.localStorage.getItem("ui_locale");
 
-  return FALLBACK_LANG;
-}
-
-export const getClientLanguage = (): "de" | "en" | "fr" | "nl" => {
-  if (typeof window === "undefined") return FALLBACK_LANG;
-  
-  /* lng ist Medusas eigener Sprachschlüssel*/
-    const stored = window.localStorage.getItem("lng") ?? window.localStorage.getItem("ui_locale");
-
-  return localeToLang(stored ?? undefined);
+  return localeToLang(stored);
 };

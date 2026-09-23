@@ -84,7 +84,7 @@ export async function sendInvoiceMail(args: {
 
     // invoice.locale trägt schon das reine Sprachkürzel (de/en/fr/nl),
     // gesetzt beim Erstellen aus data.language.
-    const mailTexts = INVOICE_MAIL_TEXTS[invoice.locale] ?? INVOICE_MAIL_TEXTS.de;
+    const mailTexts = INVOICE_MAIL_TEXTS[invoice.locale] ?? INVOICE_MAIL_TEXTS.en;
     const texts = mailTexts[invoice.type] ?? mailTexts.invoice;
 
 

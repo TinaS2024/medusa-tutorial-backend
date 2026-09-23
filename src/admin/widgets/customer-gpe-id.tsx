@@ -30,7 +30,7 @@ const readGpeId = (customer: AdminCustomer): string => {
 
 const CustomerGpeIdWidget = ({ data: customer }: DetailWidgetProps<AdminCustomer>) => 
 {
-  const [lang, setLang] = useState<Lang>("de")
+  const [lang, setLang] = useState<Lang>(getClientLanguage)
   const t = getMessages(lang).customer_gpe
 
   useEffect(() => {
