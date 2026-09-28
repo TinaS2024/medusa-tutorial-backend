@@ -194,6 +194,45 @@ if (r && r.dataPresent === true && Array.isArray(r.data.Products)) { ... }
 Mutations gehen an eine **andere URL** (`/webresources/graphql/mutation`) und werden
 mit `.text()` gelesen, nicht `.json()`.
 
+### 3f. Produktdateien lesen (Bilder, SVGs, Produktionsdateien)
+
+Nicht GraphQL, sondern ein normaler GET — und in keinem Referenzprojekt dokumentiert,
+gefunden am 28.09.2026 durch Abklopfen der Dienste aus der globalen Konfiguration:
+
+```http
+GET ${baseURLs.PRODUCTINFO}/product/${gpe_id}/file/${fileKey}
+Authorization: Bearer <token>
+Company-ID: ${gpe_company_id}
+```
+
+Beispiel: `.../ProductInfoServer/webresources/product/22796/file/image` → HTTP 200,
+86 946 Bytes, ein JPEG. `${baseURLs.PRODUCTINFO}/product/${gpe_id}/image` liefert dieselbe
+Datei, ist aber nur die Abkürzung fürs Bild; die Form mit `fileKey` holt jede Datei.
+
+Die verfügbaren Dateien stehen am Produkt im Feld `files`:
+
+```json
+"files": {
+  "image":                { "fileKey": "image",                "fileName": "031100040A.jpg" },
+  "indexCardSVGFile":     { "fileKey": "indexCardSVGFile",     "fileName": "IndexCard.svg" },
+  "indexCardContentFile": { "fileKey": "indexCardContentFile", "fileName": "IndexCardContent.json" }
+}
+```
+
+`fileKey` ist nur der Name des Fachs (weitere: `cutLinesSVGFile`, `cutLinesContentFile`,
+`backgroundImage`, `design`, `designerBackground`, `indexCardBackground`,
+`productionFile___1..N`), `fileName` die Datei.
+
+Drei Punkte, die beim Nachbau Zeit sparen:
+
+1. **`fileName` taugt nicht als Kennung.** Außer beim Bild ist der Name bei allen
+   Produkten gleich (`IndexCard.svg`). Die Adresse braucht zwingend die `gpe_id`.
+2. **Der Content-Type ist `application/octet-stream`**, nicht `image/jpeg`. Wer den Typ
+   braucht (etwa für einen Upload ins Medusa-Datei-Modul), leitet ihn aus der Endung von
+   `fileName` ab.
+3. **GPE antwortet auf unbekannte Pfade mit HTTP 500**, nicht 404. Beim Suchen nach
+   Endpunkten heißt 500 also „gibt es nicht" und 401 „Dienst existiert, Rechte fehlen".
+
 ---
 
 ## 4. Fallstricke — bitte nicht mitkopieren
