@@ -233,6 +233,18 @@ Drei Punkte, die beim Nachbau Zeit sparen:
 3. **GPE antwortet auf unbekannte Pfade mit HTTP 500**, nicht 404. Beim Suchen nach
    Endpunkten heißt 500 also „gibt es nicht" und 401 „Dienst existiert, Rechte fehlen".
 
+Umgesetzt in `GpeClient.downloadProductFile(gpeId, fileKey)` (bewusst `authedFetch`, damit
+ein fehlendes Bild `null` liefert statt zu werfen) und im Skript
+`src/scripts/import-gpe-images.ts`, das das Bild ins Datei-Modul hochlädt und als
+`thumbnail` setzt. Den Bildtyp erkennt es an den Kennbytes, weil GPE keinen brauchbaren
+Content-Type schickt.
+
+> ⚠️ **Skripte, die GPE aufrufen, brauchen die interne CA.** `npx medusa exec …` scheitert
+> sonst mit dem nichtssagenden `fetch failed` — die TLS-Verbindung kommt gar nicht zustande.
+> Deshalb läuft der Bild-Import über `npm run images:gpe`, das wie `dev` und `start` per
+> `cross-env NODE_EXTRA_CA_CERTS=certs/gpe-ca.pem` startet. Skripte, die nur die Datenbank
+> anfassen (`show-ids.ts`, `set-gpe-metadata.ts`), sind davon nicht betroffen.
+
 ---
 
 ## 4. Fallstricke — bitte nicht mitkopieren

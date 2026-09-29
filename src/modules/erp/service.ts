@@ -75,6 +75,19 @@ export default class ErpModuleService extends MedusaService({}) {
   }
 
   /**
+   * Produktdatei aus GPE holen (siehe RECIPE 3f).
+   * @param gpeId  aus product.metadata.gpe_id
+   * @param fileKey z. B. "image"
+   * @returns Dateibytes, oder null wenn das Produkt diese Datei nicht hat
+   */
+  async downloadProductFile(
+    gpeId: string | number,
+    fileKey: string
+  ): Promise<Buffer | null> {
+    return this.client.downloadProductFile(gpeId, fileKey)
+  }
+
+  /**
    * Adresse an einen bestehenden GPE-Kunden anhängen (nicht überschreiben).
    * Der Kunde muss über customer.metadata.gpe_id verknüpft sein (Weg 1).
    */

@@ -509,6 +509,38 @@ export class GpeClient {
     return data?.ProductInfoJson ?? null
   }
 
+    /**
+   * Eine Produktdatei herunterladen (Bild, SVG, Produktionsdatei).
+   *
+   *   GET {ProductInfoServer}/webresources/product/{gpeId}/file/{fileKey}
+   *
+   * Kein GraphQL, ein normaler GET mit Token und Company-ID. Steht in keinem
+   * Referenzprojekt – siehe RECIPE 3f.
+   *
+   * `fileKey` ist der Name des Fachs am Produkt: "image", "indexCardSVGFile",
+   * "cutLinesSVGFile", "productionFile___1" und so weiter.
+   *
+   * Absichtlich authedFetch statt fetchWithToken: Hat das Produkt die Datei
+   * nicht, antwortet GPE mit HTTP 500 (nicht 404). Ein fehlendes Bild ist aber
+   * kein Fehler, sondern der Normalfall – deshalb null statt Exception.
+   */
+  async downloadProductFile(
+    gpeId: string | number,
+    fileKey: string
+  ): Promise<Buffer | null> {
+    const url =
+      `https://${this.options.server}/${GRAPHQL_SERVERS.production}` +
+      `/webresources/product/${gpeId}/file/${fileKey}`
+
+    const res = await this.authedFetch(url)
+    if (!res.ok) {
+      return null
+    }
+    const bytes = Buffer.from(await res.arrayBuffer())
+    return bytes.length > 0 ? bytes : null
+  }
+
+
     /** Erreichbarkeitstest – holt nur ein Token. */
   async ping(): Promise<boolean> {
     try {
