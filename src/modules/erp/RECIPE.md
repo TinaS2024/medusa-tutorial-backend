@@ -150,6 +150,28 @@ Query (aus `getProductsByNames`):
 Schlüssel ist also die Artikelnummer (`"4911"`), `id` ist der GPE-interne Surrogat-Key.
 Beides brauchst du (siehe Teil 4).
 
+**Die vollständigen Parameter** (per Selbstauskunft ermittelt, 29.09.2026 — der
+ProductInfoServer beantwortet `{ __schema { queryType { fields { name args { name } } } } }`):
+
+```
+Products(nameStartsWith, isActive, ids, names)
+ProductSearch(id, nameSearch, productGroup, isActive, limit, offset, equalNameFirst)
+ProductCount(id, nameSearch, productGroup, isActive)
+```
+
+Zwei Dinge daran sind wichtig:
+
+- **`productGroup` filtert serverseitig.** Damit lässt sich die Produktpalette nach Sortiment
+  einschränken, ohne den ganzen Bestand zu holen. Je Aufruf ist nur **eine** Gruppe möglich.
+- **Ein Produkt kennt keinen Kundenbezug.** Es gibt keinen `customerID`- oder
+  `companyID`-Parameter. Die Trennung nach Unternehmen läuft ausschließlich über den
+  `Company-ID`-Header, also den Mandanten; innerhalb eines Mandanten bleibt nur die
+  Produktgruppe oder eine Liste von Artikelnummern.
+
+`ProductCount` nimmt `isActive` zwar an, **ignoriert es aber** und meldet immer den
+Gesamtbestand (bei Mandant 999: 23013, davon 22982 aktiv). Als Abbruchbedingung beim Blättern
+taugt es deshalb nicht — dafür gilt: die erste nicht mehr volle Seite war die letzte.
+
 ### 3d. Preis + gültige Kombination — der dynamische Teil
 
 ```graphql
@@ -244,6 +266,74 @@ Content-Type schickt.
 > Deshalb läuft der Bild-Import über `npm run images:gpe`, das wie `dev` und `start` per
 > `cross-env NODE_EXTRA_CA_CERTS=certs/gpe-ca.pem` startet. Skripte, die nur die Datenbank
 > anfassen (`show-ids.ts`, `set-gpe-metadata.ts`), sind davon nicht betroffen.
+
+---
+
+### 3g. Bestellungen lesen — OrderDatabaseServer
+
+Bisher haben wir den OrderDatabaseServer nur **schreibend** benutzt (`/graphql/mutation`,
+siehe 6f). Er beantwortet aber auch Abfragen, unter `/graphql`, und gibt sogar
+**Selbstauskunft** — anders als vieles andere an GPE:
+
+```graphql
+{ __schema { queryType { fields { name } } } }
+```
+
+Damit muss man die Abfragen nicht raten. Vorhanden sind unter anderem:
+
+```
+Order, Orders, countOrders, orderID, orderSettingsFields, HistoricOrderSettings
+Position, Positions, countPositions
+Design, Designs
+Page, Pages, countPages, PagePreviews, pagePreviewExists
+ItemGroup(s), Delivery/Deliveries, Invoice(s), Collection(s)
+Template(s), TemplateChain, ItemStates, Events, DailyRevenues, lastUsedCustomer
+sendOrderImageToTempStorage, sendPositionImageToTempStorage, …
+```
+
+Die wichtigsten Parameter:
+
+```
+Orders(searchText, ids, refs, otherID(s), orderDateStart/End, shippingDateStart/End,
+       orderPriceFrom/To, settingFilters, propertyFilter,
+       hasPositionMatchingSettingFilters, hasPositionMatchingPropertyFilter,
+       hasState, orderBy, orderAsc, limit, offset, …)
+Position(id, orderID, positionNumber)
+Positions(ids, otherID(s), propertyFilters, filesPresent, orderDateStart/End, limit, offset, …)
+Design(id, positionID, orderID, positionNumber, pageGroup)
+```
+
+`Order` trägt die Positionen als Unterobjekt (`Positions`), man braucht also keine zweite
+Abfrage. `Position` und `Design` haben beide `settings`, `properties`, `searchText` und
+`Files`; `Design` zusätzlich `cutlines`. Der Typ `File` hat `id`, `propertyID`, `fileKey`,
+`fileName`.
+
+**So sieht eine gestaltete Position aus** (`Order(id:…){ Positions { positionNumber searchText
+Files { fileKey fileName } } }`):
+
+```
+Position 1: "4911 Test 2. Zeile 4911 Test Zeile"
+  adobeillustrator      20300405_pos-1.ai
+  designcreationinput   20-0000-0583-p-1.zip
+  designtext            designtext.txt
+  textplate             GPSfixedShapeImage11325867077972091356.png
+```
+
+Diese vier `fileKey`s sind der Fingerabdruck eines Design-Vorgangs. Zum Umfang: `countOrders`
+meldet für Mandant 999 **5134** Bestellungen (29.09.2026).
+
+Zwei Vorbehalte, bevor jemand darauf Schlüsse baut:
+
+1. **Unklar, was `searchText` durchsucht.** Die Suche nach `4911` fand eine Bestellung, deren
+   Positions-`searchText` „4911 Test 2. Zeile" lautete — der Treffer kann also der eingetippte
+   Designtext gewesen sein und nicht die Artikelnummer. Wer zuverlässig nach einem Produkt
+   filtern will, sollte `hasPositionMatchingSettingFilters` benutzen statt `searchText`.
+2. **Ein Design in GPE heißt nicht, dass ein Kunde es gestaltet hat.** GPE dient auch
+   Betrieben, die es rein als ERP für die eigene Gestaltung und Fertigung nutzen. Ein
+   `defaultDesignWorkflow` an einer Produktgruppe oder Design-Dateien an einer Position
+   belegen nur, dass es einen Gestaltungsschritt gab — nicht, wer ihn gemacht hat. Ob ein
+   Produkt in einen Kunden-Designer gehört, ist eine Produktentscheidung und aus GPE nicht
+   ablesbar.
 
 ---
 
