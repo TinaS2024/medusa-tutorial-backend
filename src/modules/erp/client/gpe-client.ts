@@ -454,7 +454,7 @@ export class GpeClient {
         }
         ProductGroup {
           name description settings
-          options { id defaultValue values { id name rgb } }
+          options { id name defaultValue values { id name rgb } }
         }
       }
     }`

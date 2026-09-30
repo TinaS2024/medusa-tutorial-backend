@@ -10,7 +10,7 @@ import type ErpModuleService from "../modules/erp/service";
  * der Dateiname nicht mitkommt. Medusas Datei-Modul braucht aber einen echten
  * mimeType, sonst liefert der Browser das Bild später nicht als Bild aus.
  */
-function bildTyp(bytes: Buffer): { ext: string; mimeType: string } | null {
+function imageType(bytes: Buffer): { ext: string; mimeType: string } | null {
   if (bytes.length > 3 && bytes[0] === 0xff && bytes[1] === 0xd8 && bytes[2] === 0xff) {
     return { ext: "jpg", mimeType: "image/jpeg" };
   }
@@ -28,10 +28,13 @@ function bildTyp(bytes: Buffer): { ext: string; mimeType: string } | null {
  * das Skript ist damit beliebig oft wiederholbar und macht nur die Arbeit, die
  * noch offen ist.
  *
- * Aufruf (im Ordner medusa-backend):
- *   npx medusa exec ./src/scripts/import-gpe-images.ts 5     (nur 5 Produkte, zum Testen)
- *   npx medusa exec ./src/scripts/import-gpe-images.ts       (alle offenen)
+ * Aufruf (im Ordner medusa-backend) – der Umweg über npm ist nötig, weil GPE eine
+ * interne Zertifizierungsstelle benutzt, die Node nur über NODE_EXTRA_CA_CERTS lädt.
+ * Ein nacktes "medusa exec" scheitert mit "fetch failed":
+ *   npm run images:gpe -- 5     (nur 5 Produkte, zum Testen)
+ *   npm run images:gpe          (alle offenen)
  */
+
 export default async function importGpeImages(
   { container, args }: { container: any; args: string[] }
 ) {
@@ -43,7 +46,7 @@ export default async function importGpeImages(
   const maximum = args?.[0] ? Number(args[0]) : Number.POSITIVE_INFINITY;
 
   // Seitenweise lesen – ohne Begrenzung liefert query.graph nur die erste Seite
-  const alle: any[] = [];
+  const allProducts: any[] = [];
   const take = 500;
   let skip = 0;
   while (true) {
@@ -52,50 +55,50 @@ export default async function importGpeImages(
       fields: ["id", "title", "thumbnail", "metadata"],
       pagination: { skip, take },
     });
-    alle.push(...data);
+    allProducts.push(...data);
     if (data.length < take) break;
     skip += take;
   }
 
-  const kandidaten = alle
+  const candidates = allProducts
     .filter((p: any) => p.metadata?.gpe_id && !p.thumbnail)
     .slice(0, maximum);
 
-  logger.info(`[bilder] ${alle.length} Produkt(e) in Medusa, ${kandidaten.length} ohne Bild mit GPE-Kennung`);
+  logger.info(`[bilder] ${allProducts.length} Produkt(e) in Medusa, ${candidates.length} ohne Bild mit GPE-Kennung`);
 
   const updates: any[] = [];
-  let ohneBild = 0;
-  let fehler = 0;
+  let withoutImageCount = 0;
+  let failedCount = 0;
 
-  for (const produkt of kandidaten) {
-    const gpeId = String(produkt.metadata.gpe_id);
+  for (const product of candidates) {
+    const gpeId = String(product.metadata.gpe_id);
     try {
       const bytes = await erp.downloadProductFile(gpeId, "image");
       if (!bytes) {
-        ohneBild++;
+        withoutImageCount++;
         continue;
       }
-      const typ = bildTyp(bytes);
-      if (!typ) {
-        logger.warn(`[bilder] ${produkt.title}: unbekanntes Dateiformat (${bytes.length} Bytes), übersprungen`);
-        fehler++;
+      const fileType = imageType(bytes);
+      if (!fileType) {
+        logger.warn(`[bilder] ${product.title}: unbekanntes Dateiformat (${bytes.length} Bytes), übersprungen`);
+        failedCount++;
         continue;
       }
 
       // Dateiname aus der GPE-Kennung, nicht aus der Artikelnummer: Die kann
       // Sterne, Leerzeichen und Anführungszeichen enthalten (*** 100004577).
-      const [datei] = await fileModule.createFiles([{
-        filename: `gpe-${gpeId}.${typ.ext}`,
-        mimeType: typ.mimeType,
+      const [uploadedFile] = await fileModule.createFiles([{
+        filename: `gpe-${gpeId}.${fileType.ext}`,
+        mimeType: fileType.mimeType,
         content: bytes.toString("base64"),
         access: "public",
       }]);
 
-      updates.push({ id: produkt.id, thumbnail: datei.url, images: [{ url: datei.url }] });
-      logger.info(`[bilder] ${produkt.title} → ${datei.url} (${bytes.length} Bytes)`);
+      updates.push({ id: product.id, thumbnail: uploadedFile.url, images: [{ url: uploadedFile.url }] });
+      logger.info(`[bilder] ${product.title} → ${uploadedFile.url} (${bytes.length} Bytes)`);
     } catch (e: any) {
-      fehler++;
-      logger.error(`[bilder] ${produkt.title}: ${e?.message ?? e}`);
+      failedCount++;
+      logger.error(`[bilder] ${product.title}: ${e?.message ?? e}`);
     }
   }
 
@@ -109,6 +112,6 @@ export default async function importGpeImages(
 
   logger.info(
     `[bilder] fertig: ${updates.length} Bild(er) gesetzt, ` +
-    `${ohneBild} Produkt(e) ohne Bild in GPE, ${fehler} Fehler`
+    `${withoutImageCount} Produkt(e) ohne Bild in GPE, ${failedCount} Fehler`
   );
 }
