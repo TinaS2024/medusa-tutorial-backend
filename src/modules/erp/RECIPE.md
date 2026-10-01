@@ -541,6 +541,23 @@ stehen `gpe_option_values` und `gpe_additional_fields` dort jetzt drin. Wer spä
 weitere GPE-Felder durchreichen will, muss sie hier ergänzen, sonst kommen sie nie
 im Step an.
 
+> **Stand 01.10.2026: `gpe_option_values` wird von niemandem gefüllt.** Der Kanal ist
+> vorbereitet, aber weder Storefront noch Designer senden das Feld — `get-custom-price.tsx`
+> übergibt an GPE also immer `optionValues: []`, dazu `useDefaultOptionValues: false`. GPE
+> erfährt die Optionsauswahl des Kunden derzeit nicht und setzt auch keine Vorgabewerte ein.
+>
+> Geprüft, was das kostet: Die Farboptionen in GPE (`VordergrundfarbeSchilder`,
+> `HintergrundfarbeSchilder`, `KissenfarbeStempel*`) tragen **keine Aufpreise** — ihre Werte
+> enthalten nur ein Farbobjekt und die Kennzeichen `isTextColor` bzw. `isBackgroundColor`.
+> Insoweit ist der leere Kanal harmlos.
+>
+> Zwei Stellen mit Preisbezug bleiben zu prüfen: `KissenfarbeStempel2` deklariert in
+> `settingsFields` ein `priceDifference` (`availableIn: ["product"]`), je Produkt wäre ein
+> Aufpreis also möglich. Und die Option `area` deklariert `pricePerArea` und
+> `sizeDiscountPricePerArea` — GPE hat damit eine **eigene Flächenpreisrechnung**, während
+> `get-custom-price.tsx` den Flächenpreis selbst rechnet (`areaInCm2 * dimensionPriceFactor`).
+> Zwei Quellen für denselben Preis; wer sie nicht gegenrechnet, riskiert Abweichungen.
+
 ### 6c. Offen: TLS-Zertifikat vor dem Livegang klären
 
 > **GELÖST 17.07.2026:** Die Fachseite hat die interne CA geliefert
