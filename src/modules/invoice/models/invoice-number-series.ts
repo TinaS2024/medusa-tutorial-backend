@@ -1,7 +1,7 @@
 import { model } from "@medusajs/framework/utils";
 
 /**
- * Ein Nummernkreis. In dieser Tabelle stehen genau zwei Zeilen:
+ * Ein Nummernkreis. In dieser Tabelle stehen genau drei Zeilen:
  *   "invoice"    – für Rechnungen
  *   "correction" – für Stornos und Gutschriften
  *   "customer"   – für Kundennummern aus Medusa
