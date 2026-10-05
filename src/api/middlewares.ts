@@ -6,7 +6,8 @@ import { PostCartsBundledLineItemsSchema} from "./store/carts/[id]/line-item-bun
 import { PostCustomPriceSchema } from "./store/variants/[id]/price/route";
 import { PostAddCustomLineItemSchema } from "./store/carts/[id]/line-items-custom/route";
 import { authenticate } from "@medusajs/framework/http";
-import { json } from "body-parser";
+import { protectCustomerMetadata } from "../lib/protect-customer-metadata";
+
 
 
 export default defineMiddlewares({
@@ -76,5 +77,19 @@ export default defineMiddlewares({
       methods: ["GET"],
       middlewares: [authenticate("customer", ["session", "bearer"])],
     },
+    {
+      // Kunden dürfen ihre Metadaten ändern (z. B. Designs), aber nicht die
+      // Verknüpfung mit GPE. Siehe src/lib/protect-customer-metadata.ts.
+      matcher: "/store/customers/me",
+      methods: ["POST"],
+      middlewares: [protectCustomerMetadata],
+    },
+    {
+      // Registrierung: Ein neuer Kunde darf sich nichts Geschütztes mitgeben.
+      matcher: "/store/customers",
+      methods: ["POST"],
+      middlewares: [protectCustomerMetadata],
+    },
+
   ],
 })

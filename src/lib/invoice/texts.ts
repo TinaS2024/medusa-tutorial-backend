@@ -18,6 +18,7 @@ export type InvoiceTexts = {
   document_date: string;
   service_date: string;
   order_no: string;
+  customer_no: string;
   pos: string;
   description: string;
   quantity: string;
@@ -30,6 +31,7 @@ export type InvoiceTexts = {
   total_net: string;
   total_gross: string;
   payment_terms: string;
+  paid_note: string;
   bank_details: string;
   cancels: string;
   refers_to: string;
@@ -49,6 +51,7 @@ export const INVOICE_TEXTS: Record<SupportedLanguage, InvoiceTexts> = {
     document_date: "Belegdatum",
     service_date: "Leistungsdatum",
     order_no: "Bestellnummer",
+    customer_no: "Kundennummer",
     pos: "Pos.",
     description: "Bezeichnung",
     quantity: "Menge",
@@ -61,6 +64,7 @@ export const INVOICE_TEXTS: Record<SupportedLanguage, InvoiceTexts> = {
     total_net: "Summe netto",
     total_gross: "Gesamtbetrag",
     payment_terms: "Zahlbar ohne Abzug bis zum",
+    paid_note: "Der Rechnungsbetrag wurde am {date} beglichen. Vielen Dank.",
     bank_details: "Bankverbindung",
     cancels: "Storniert Rechnung",
     refers_to: "Bezieht sich auf Rechnung",
@@ -79,6 +83,7 @@ export const INVOICE_TEXTS: Record<SupportedLanguage, InvoiceTexts> = {
     document_date: "Document date",
     service_date: "Date of supply",
     order_no: "Order number",
+    customer_no: "Customer number",
     pos: "No.",
     description: "Description",
     quantity: "Qty",
@@ -91,6 +96,7 @@ export const INVOICE_TEXTS: Record<SupportedLanguage, InvoiceTexts> = {
     total_net: "Net total",
     total_gross: "Total amount",
     payment_terms: "Payable without deduction by",
+    paid_note: "The invoice amount was paid on {date}. Thank you.",
     bank_details: "Bank details",
     cancels: "Cancels invoice",
     refers_to: "Refers to invoice",
@@ -109,6 +115,7 @@ export const INVOICE_TEXTS: Record<SupportedLanguage, InvoiceTexts> = {
     document_date: "Date du document",
     service_date: "Date de livraison",
     order_no: "Numéro de commande",
+    customer_no: "Numéro de client",
     pos: "N°",
     description: "Désignation",
     quantity: "Qté",
@@ -121,6 +128,7 @@ export const INVOICE_TEXTS: Record<SupportedLanguage, InvoiceTexts> = {
     total_net: "Total HT",
     total_gross: "Montant total",
     payment_terms: "Payable sans escompte avant le",
+    paid_note: "Le montant de la facture a été réglé le {date}. Merci.",
     bank_details: "Coordonnées bancaires",
     cancels: "Annule la facture",
     refers_to: "Se rapporte à la facture",
@@ -139,6 +147,7 @@ export const INVOICE_TEXTS: Record<SupportedLanguage, InvoiceTexts> = {
     document_date: "Documentdatum",
     service_date: "Leveringsdatum",
     order_no: "Bestelnummer",
+    customer_no: "Klantnummer",
     pos: "Nr.",
     description: "Omschrijving",
     quantity: "Aantal",
@@ -151,6 +160,7 @@ export const INVOICE_TEXTS: Record<SupportedLanguage, InvoiceTexts> = {
     total_net: "Totaal netto",
     total_gross: "Totaalbedrag",
     payment_terms: "Betaalbaar zonder korting vóór",
+    paid_note: "Het factuurbedrag is op {date} voldaan. Hartelijk dank.",
     bank_details: "Bankgegevens",
     cancels: "Annuleert factuur",
     refers_to: "Heeft betrekking op factuur",

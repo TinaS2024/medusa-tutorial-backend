@@ -61,25 +61,32 @@ const modules: any[] = [
 },
 ];
 
-// Stripe nur registrieren, wenn ein Key gesetzt ist (sonst inaktiv – keine echte Zahlung)
+// Zahlungsanbieter. "Auf Rechnung" ist immer dabei, Stripe nur mit Key
+// (sonst inaktiv – keine echte Zahlung). Die Vorauszahlung
+// (pp_system_default) bringt Medusa immer selbst mit.
+const paymentProviders: any[] = [
+  {
+    resolve: "./src/modules/invoice-payment",
+    id: "invoice",
+  },
+];
+
 if (process.env.STRIPE_API_KEY) {
-  modules.push({
-    resolve: "@medusajs/medusa/payment",
+  paymentProviders.push({
+    resolve: "@medusajs/payment-stripe",
+    id: "stripe",
     options: {
-      providers: [
-        {
-          resolve: "@medusajs/payment-stripe",
-          id: "stripe",
-          options: {
-            apiKey: process.env.STRIPE_API_KEY,
-            webhookSecret: process.env.STRIPE_WEBHOOK_SECRET,
-            capture: true,
-          },
-        },
-      ],
+      apiKey: process.env.STRIPE_API_KEY,
+      webhookSecret: process.env.STRIPE_WEBHOOK_SECRET,
+      capture: true,
     },
   });
 }
+
+modules.push({
+  resolve: "@medusajs/medusa/payment",
+  options: { providers: paymentProviders },
+});
 
 module.exports = defineConfig({
     projectConfig: {

@@ -18,6 +18,10 @@ export const INVOICE_ORDER_FIELDS = [
   "shipping_subtotal", "shipping_tax_total", "shipping_discount_total",
   "billing_address.*",
   "shipping_address.*",
+  // Für die Kundennummer auf der Rechnung.
+  "customer.metadata",
+  // Für "bereits beglichen am …": Wann wurde die Zahlung erfasst?
+  "payment_collections.payments.captured_at",
   "items.*",
   "items.tax_lines.*",
   "shipping_methods.*",

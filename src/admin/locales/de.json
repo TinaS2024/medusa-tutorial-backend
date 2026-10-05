@@ -147,6 +147,18 @@
     "success": "Freigegeben: {customers} Kunde(n), {identities} Login-Identität(en) gelöscht.",
     "error": "Löschen fehlgeschlagen"
   },
+  "customer_number": {
+    "heading": "Kundennummer",
+    "none": "keine",
+    "description": "Nur Kunden mit Kundennummer dürfen auf Rechnung kaufen. Die Nummer steht auch auf ihren Rechnungen.",
+    "assign": "Kundennummer vergeben",
+    "take_gpe": "GPE-Nummer übernehmen",
+    "remove": "Entfernen",
+    "remove_confirm": "Kundennummer wirklich entfernen? Der Kunde kann dann nicht mehr auf Rechnung kaufen.",
+    "assign_ok": "Kundennummer gespeichert",
+    "remove_ok": "Kundennummer entfernt",
+    "failed": "Aktion fehlgeschlagen"
+  },
   "email_settings": {
     "menu": "E-Mail Einstellungen",
     "title": "E-Mail Einstellungen",

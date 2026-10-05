@@ -148,7 +148,19 @@
     "success": "Vrijgegeven: {customers} klant(en) en {identities} login-identiteit(en) verwijderd.",
     "error": "Verwijderen mislukt"
   },
-    "email_settings": {
+  "customer_number": {
+    "heading": "Klantnummer",
+    "none": "Geen",
+    "description": "Alleen klanten met een klantnummer kunnen op rekening kopen. Het nummer staat ook op hun facturen.",
+    "assign": "Klantnummer toewijzen",
+    "take_gpe": "GPE-nummer gebruiken",
+    "remove": "Verwijderen",
+    "remove_confirm": "Klantnummer echt verwijderen? De klant kan dan niet meer op rekening kopen.",
+    "assign_ok": "Klantnummer opgeslagen",
+    "remove_ok": "Klantnummer verwijderd",
+    "failed": "Actie mislukt" 
+},
+  "email_settings": {
     "menu": "E-mailinstellingen",
     "title": "E-mailinstellingen",
     "intro": "Deze waarden worden gebruikt voor e-mails om het wachtwoord opnieuw in te stellen (afzender en link).",

@@ -148,7 +148,19 @@
     "success": "Libéré : {customers} client(s) et {identities} identifiant(s) de connexion supprimés.",
     "error": "Échec de la suppression"
   },
-    "email_settings": {
+   "customer_number": {
+    "heading": "Numéro de client",
+    "none": "aucun",
+    "description": "Seuls les clients disposant d'un numéro de client peuvent effectuer des achats sur facture. Ce numéro figure également sur leurs factures.",
+    "assign": "Attribuer un numéro de client",
+    "take_gpe": "Reprendre le numéro GPE",
+    "remove": "Supprimer",
+    "remove_confirm": "Voulez-vous vraiment supprimer le numéro de client ? Le client ne pourra plus effectuer d'achats sur facture.",
+    "assign_ok": "Numéro de client enregistré",
+    "remove_ok": "Numéro de client supprimé",
+    "failed": "Échec de l'opération"
+  },
+  "email_settings": {
     "menu": "Paramètres e-mail",
     "title": "Paramètres e-mail",
     "intro": "Ces valeurs sont utilisées pour les e-mails de réinitialisation du mot de passe (expéditeur et lien).",

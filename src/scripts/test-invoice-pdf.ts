@@ -3,6 +3,8 @@ import { ExecArgs } from "@medusajs/framework/types";
 import { buildInvoiceData } from "../lib/invoice/build-invoice-data";
 import { renderInvoicePdf } from "../lib/invoice/render-invoice-pdf";
 import { saveInvoicePdf } from "../lib/invoice/invoice-storage";
+import { INVOICE_ORDER_FIELDS } from "../lib/invoice/create-invoice";
+
 
 /**
  * Erzeugt aus der neuesten Bestellung ein Probe-PDF.
@@ -14,17 +16,7 @@ export default async function ({ container }: ExecArgs) {
 
   const { data: orders } = await query.graph({
     entity: "order",
-    fields: [
-      "id", "display_id", "email", "currency_code", "locale", "created_at",
-      "total", "subtotal", "tax_total", "discount_total",
-      "shipping_subtotal", "shipping_tax_total", "shipping_discount_total",
-      "billing_address.*",
-      "shipping_address.*",
-      "items.*",
-      "items.tax_lines.*",
-      "shipping_methods.*",
-      "shipping_methods.tax_lines.*",
-    ],
+    fields: INVOICE_ORDER_FIELDS,
     pagination: { order: { created_at: "DESC" }, take: 1 },
   });
 

@@ -74,7 +74,7 @@ const CustomerGpeIdWidget = ({ data: customer }: DetailWidgetProps<AdminCustomer
     mutationFn: async (gpeId: string | null) =>
       sdk.client.fetch(`/admin/customers/${customer.id}`, {
         method: "POST",
-        body: { metadata: { ...(customer.metadata ?? {}), gpe_id: gpeId } },
+        body: { metadata: { gpe_id: gpeId } },
       }),
     onSuccess: (_res, gpeId) => {
       setLinked(gpeId ?? "")

@@ -1,4 +1,5 @@
 import { contentLanguage, langToLocale, type Lang } from "../language";
+import { readCustomerNumber } from "../customer-number";
 
 /**
  * Der Name bleibt, damit texts.ts und alles Weitere unverändert läuft –
@@ -43,6 +44,9 @@ export type InvoiceBuyer = {
   company: string | null;
   address_lines: string[];
   email: string | null;
+  // Die Kundennummer zum Zeitpunkt der Rechnung (GPE-Nummer oder K-…).
+  // Ältere Rechnungen haben das Feld nicht – deshalb optional.
+  customer_number?: string | null;
   vat_id: string | null;
 };
 
@@ -69,6 +73,10 @@ export type InvoiceData = {
   total_tax: number;
   total_gross: number;
   payment_terms_days: number;
+  // Wann die Zahlung im Admin erfasst wurde (Text im ISO-Format), oder null.
+  // Gesetzt → "bereits beglichen", sonst Zahlungsziel und Bankverbindung.
+  // Als Text statt Date, weil die Daten als JSON im Schnappschuss landen.
+  paid_at?: string | null;
   footer_note: string | null;
   bank: InvoiceBank;
 };
@@ -201,6 +209,16 @@ export function buildInvoiceData(args: {
   const total_net = round2(allLines.reduce((s, l) => s + l.net, 0));
   const total_tax = round2(allLines.reduce((s, l) => s + l.tax, 0));
 
+  // Frühestes Erfassungsdatum aller Zahlungen. Fehlt es, ist noch nichts
+  // eingegangen (Auf Rechnung, oder Vorauszahlung noch nicht erfasst).
+  const capturedDates: string[] = (order.payment_collections ?? [])
+    .flatMap((pc: any) => pc?.payments ?? [])
+    .map((p: any) => p?.captured_at)
+    .filter((d: unknown): d is string => typeof d === "string" || d instanceof Date)
+    .map((d: string | Date) => new Date(d).toISOString())
+    .sort();
+  const paid_at = capturedDates[0] ?? null;
+
   const billing = order.billing_address ?? order.shipping_address ?? null;
   // Sprache der Bestellung, sonst Hauptsprache des Shops.
   const language = contentLanguage(order.locale, md);
@@ -233,6 +251,7 @@ export function buildInvoiceData(args: {
       company: toTextOrNull(billing?.company),
       address_lines: addressLines(billing),
       email: toTextOrNull(order.email),
+      customer_number: readCustomerNumber(order.customer?.metadata) || null,
       // Platzhalter für B2B – wird in Etappe 9 gefüllt.
       vat_id: null,
     },
@@ -245,6 +264,7 @@ export function buildInvoiceData(args: {
     total_gross: round2(total_net + total_tax),
 
     payment_terms_days: Number(md.invoice_payment_terms_days ?? 14),
+    paid_at,
     footer_note: toTextOrNull(md.invoice_footer_note),
 
     bank: {

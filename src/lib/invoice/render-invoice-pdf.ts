@@ -101,6 +101,11 @@ export function renderInvoicePdf(args: {
   const dueDate = new Date(issuedAt);
   dueDate.setDate(dueDate.getDate() + data.payment_terms_days);
 
+  
+  // Schon bezahlt? Dann kein Zahlungsziel und keine Bankverbindung –
+  // sonst überweist ein Kartenzahler womöglich ein zweites Mal.
+  const paidAt = data.paid_at ? new Date(data.paid_at) : null;
+
   const tableBody = [
     [
       { text: t.pos, style: "th" },
@@ -225,6 +230,14 @@ export function renderInvoicePdf(args: {
                   { text: t.order_no, style: "label" },
                   { text: data.order_reference, alignment: "right" },
                 ],
+                // Nur wenn der Kunde eine Kundennummer hat. Gäste und
+                // Rechnungen von vor A5 haben keine.
+                ...(data.buyer.customer_number
+                  ? [[
+                      { text: t.customer_no, style: "label" },
+                      { text: data.buyer.customer_number, alignment: "right" },
+                    ]]
+                  : []),
               ],
             },
             layout: "noBorders",
@@ -279,9 +292,11 @@ export function renderInvoicePdf(args: {
       // Hinweis auf die Erstattung, und keine Bankverbindung.
       ...(isCorrection
         ? [{ margin: [0, 24, 0, 0], text: t.refund_note }]
-        : [{ margin: [0, 24, 0, 0], text: `${t.payment_terms} ${day(dueDate)}.` }]),
+        : paidAt
+          ? [{ margin: [0, 24, 0, 0], text: t.paid_note.replace("{date}", day(paidAt)) }]
+          : [{ margin: [0, 24, 0, 0], text: `${t.payment_terms} ${day(dueDate)}.` }]),
 
-      ...(!isCorrection && bankLines.length
+      ...(!isCorrection && !paidAt && bankLines.length
 
         ? [{
             margin: [0, 14, 0, 0],

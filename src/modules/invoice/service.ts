@@ -8,8 +8,8 @@ import type { Context } from "@medusajs/framework/types";
 import { Invoice } from "./models/invoice";
 import { InvoiceNumberSeries } from "./models/invoice-number-series";
 
-/** Die beiden Nummernkreise, die es gibt. */
-export type SeriesId = "invoice" | "correction";
+/** Die Nummernkreise, die es gibt. "customer" vergibt Kundennummern. */
+export type SeriesId = "invoice" | "correction" | "customer";
 
 export default class InvoiceModuleService extends MedusaService({
   Invoice,

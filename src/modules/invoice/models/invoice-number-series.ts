@@ -4,6 +4,7 @@ import { model } from "@medusajs/framework/utils";
  * Ein Nummernkreis. In dieser Tabelle stehen genau zwei Zeilen:
  *   "invoice"    – für Rechnungen
  *   "correction" – für Stornos und Gutschriften
+ *   "customer"   – für Kundennummern aus Medusa
  *
  * Die id ist bewusst kein Zufallswert, sondern der feste Name des Kreises.
  * Dadurch kann die Nummernvergabe die Zeile direkt ansprechen, ohne sie

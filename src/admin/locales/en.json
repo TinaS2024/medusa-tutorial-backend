@@ -148,7 +148,19 @@
     "success": "Released: {customers} customer(s) and {identities} login identity/identities deleted.",
     "error": "Deletion failed"
   },
-    "email_settings": {
+  "customer_number": {
+    "heading": "Customer number",
+    "none": "none",
+    "description": "Only customers with a customer number may buy on invoice. The number is also printed on their invoices.",
+    "assign": "Assign customer number",
+    "take_gpe": "Use GPE number",
+    "remove": "Remove",
+    "remove_confirm": "Really remove the customer number? The customer can then no longer buy on invoice.",
+    "assign_ok": "Customer number saved",
+    "remove_ok": "Customer number removed",
+    "failed": "Action failed"
+  },
+  "email_settings": {
     "menu": "E-mail settings",
     "title": "E-mail settings",
     "intro": "These values are used for password reset e-mails (sender and link).",
