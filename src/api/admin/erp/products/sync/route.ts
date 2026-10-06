@@ -1,5 +1,7 @@
 import type { MedusaRequest, MedusaResponse } from "@medusajs/framework/http";
-import { runProductSync, type SyncOptions } from "../../../../../lib/sync-gpe-products";
+import type { SyncOptions } from "../../../../../lib/sync-gpe-products";
+import { runProductSyncExclusive } from "../../../../../lib/product-sync-schedule";
+
 
 /**
  * Produkt-Sync (manueller Auslöser): reichert Medusa-Produkte um die
@@ -13,8 +15,14 @@ import { runProductSync, type SyncOptions } from "../../../../../lib/sync-gpe-pr
  */
 export async function POST(req: MedusaRequest<SyncOptions>, res: MedusaResponse) 
 {
-  try {
-    const result = await runProductSync(req.scope, req.body ?? {});
+    try {
+    const result = await runProductSyncExclusive(req.scope, req.body ?? {}, "manual");
+    if (!result) 
+    {
+      // 409 = "Konflikt": Es läuft schon ein Abgleich.
+      res.status(409).json({ message: "Der Abgleich läuft gerade schon. Bitte in ein paar Minuten noch einmal versuchen." });
+      return;
+    }
     res.json(result);
   } catch (err: any) 
   {

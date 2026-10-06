@@ -24,6 +24,7 @@ export type SyncResult = {
   }[]
   not_found_in_gpe: { product_id: string; gpe_name: string }[]
   price_updates?: number
+  identity_updates?: number
   skipped_without_gpe_name?: number
 }
 
@@ -51,7 +52,7 @@ export async function runProductSync(container: MedusaContainer,options: SyncOpt
   // 1. Kandidaten: Produkte mit gpe_name (inkl. Varianten für den Preis-Sync)
   const { data: products } = await query.graph({
     entity: "product",
-    fields: ["id", "title", "metadata", "variants.id"],
+    fields: ["id", "title", "metadata", "variants.id", "variants.prices.amount", "variants.prices.currency_code"],
     ...(product_ids?.length ? { filters: { id: product_ids } } : {}),
   })
 
@@ -89,6 +90,8 @@ export async function runProductSync(container: MedusaContainer,options: SyncOpt
   const notFound: SyncResult["not_found_in_gpe"] = [];
   const priceUpdates: { variantId: string; amount: number }[] = [];
 
+  let identityUpdates = 0;
+
   for (const p of candidates) 
     {
     const meta = (p.metadata ?? {}) as Record<string, unknown>;
@@ -101,15 +104,29 @@ export async function runProductSync(container: MedusaContainer,options: SyncOpt
       continue;
     }
 
-    const nextMetadata = {
+        const nextMetadata = {
       ...meta,
       gpe_id: gpe.id,
       gpe_name: gpe.name,
       gpe_external_id: gpe.externalID ?? null,
     }
-    if (!dry_run) 
+
+    // Nur schreiben, wenn sich an der GPE-Identität etwas geändert hat.
+    // Jedes Schreiben meldet "product.updated", und darauf leert der Shop
+    // seinen Produkt-Zwischenspeicher. Bei einem Abgleich alle paar Minuten
+    // wäre der Zwischenspeicher sonst ständig leer.
+    const identityChanged =
+      String(meta.gpe_id ?? "") !== String(gpe.id) ||
+      String(meta.gpe_name ?? "") !== String(gpe.name) ||
+      (meta.gpe_external_id ?? null) !== (gpe.externalID ?? null);
+
+    if (identityChanged) 
     {
-      await productModule.updateProducts(p.id, { metadata: nextMetadata });
+      identityUpdates++;
+      if (!dry_run) 
+      {
+        await productModule.updateProducts(p.id, { metadata: nextMetadata });
+      }
     }
 
     // GPE-Basispreis (ohne Optionen, ohne Kunde) = "ab"-Preis für die Galerie
@@ -131,10 +148,15 @@ export async function runProductSync(container: MedusaContainer,options: SyncOpt
         basePrice = price;
         for (const v of p.variants ?? []) 
         {
-          priceUpdates.push({ variantId: v.id, amount: price })
-        }
+         // Nur Varianten, deren Preis wirklich abweicht.
+        const current = ((v as any).prices ?? []).find((pr: any) => pr.currency_code === currency);
+        if (Number(current?.amount) !== price) 
+          {
+            priceUpdates.push({ variantId: v.id, amount: price })
+          }
       }
     }
+  }
 
     updated.push({
       product_id: p.id,
@@ -164,5 +186,6 @@ export async function runProductSync(container: MedusaContainer,options: SyncOpt
     updated,
     not_found_in_gpe: notFound,
     price_updates: priceUpdates.length,
+    identity_updates: identityUpdates,
   }
 }
