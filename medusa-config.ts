@@ -59,6 +59,9 @@ const modules: any[] = [
 {
   resolve: "./src/modules/invoice",
 },
+{
+  resolve: "./src/modules/gift-card",
+},
 ];
 
 // Zahlungsanbieter. "Auf Rechnung" ist immer dabei, Stripe nur mit Key

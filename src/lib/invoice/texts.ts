@@ -32,6 +32,9 @@ export type InvoiceTexts = {
   total_gross: string;
   payment_terms: string;
   paid_note: string;
+  less_gift_card: string;
+  amount_due: string;
+  paid_by_gift_card_note: string;
   bank_details: string;
   cancels: string;
   refers_to: string;
@@ -65,6 +68,9 @@ export const INVOICE_TEXTS: Record<SupportedLanguage, InvoiceTexts> = {
     total_gross: "Gesamtbetrag",
     payment_terms: "Zahlbar ohne Abzug bis zum",
     paid_note: "Der Rechnungsbetrag wurde am {date} beglichen. Vielen Dank.",
+    less_gift_card: "abzüglich Geschenkkarte",
+    amount_due: "Restbetrag",
+    paid_by_gift_card_note: "Der Rechnungsbetrag wurde vollständig mit Geschenkkarte beglichen. Vielen Dank.",
     bank_details: "Bankverbindung",
     cancels: "Storniert Rechnung",
     refers_to: "Bezieht sich auf Rechnung",
@@ -97,6 +103,9 @@ export const INVOICE_TEXTS: Record<SupportedLanguage, InvoiceTexts> = {
     total_gross: "Total amount",
     payment_terms: "Payable without deduction by",
     paid_note: "The invoice amount was paid on {date}. Thank you.",
+    less_gift_card: "less gift card",
+    amount_due: "Remaining amount",
+    paid_by_gift_card_note: "The invoice amount was paid in full by gift card. Thank you.",
     bank_details: "Bank details",
     cancels: "Cancels invoice",
     refers_to: "Refers to invoice",
@@ -129,6 +138,9 @@ export const INVOICE_TEXTS: Record<SupportedLanguage, InvoiceTexts> = {
     total_gross: "Montant total",
     payment_terms: "Payable sans escompte avant le",
     paid_note: "Le montant de la facture a été réglé le {date}. Merci.",
+    less_gift_card: "moins carte cadeau",
+    amount_due: "Montant restant",
+    paid_by_gift_card_note: "Le montant de la facture a été entièrement réglé par carte cadeau. Merci.",
     bank_details: "Coordonnées bancaires",
     cancels: "Annule la facture",
     refers_to: "Se rapporte à la facture",
@@ -161,6 +173,9 @@ export const INVOICE_TEXTS: Record<SupportedLanguage, InvoiceTexts> = {
     total_gross: "Totaalbedrag",
     payment_terms: "Betaalbaar zonder korting vóór",
     paid_note: "Het factuurbedrag is op {date} voldaan. Hartelijk dank.",
+    less_gift_card: "min cadeaukaart",
+    amount_due: "Restbedrag",
+    paid_by_gift_card_note: "Het factuurbedrag is volledig voldaan met een cadeaukaart. Hartelijk dank.",
     bank_details: "Bankgegevens",
     cancels: "Annuleert factuur",
     refers_to: "Heeft betrekking op factuur",

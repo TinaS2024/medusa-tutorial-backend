@@ -106,6 +106,12 @@ export function renderInvoicePdf(args: {
   // sonst überweist ein Kartenzahler womöglich ein zweites Mal.
   const paidAt = data.paid_at ? new Date(data.paid_at) : null;
 
+  
+  // Geschenkkarten: ältere Rechnungen haben die Felder nicht – deshalb Vorgaben.
+  const giftCardPayments = data.gift_card_payments ?? [];
+  const amountDue = data.amount_due ?? data.total_gross;
+  const fullyPaidByGiftCard = giftCardPayments.length > 0 && amountDue <= 0.005;
+
   const tableBody = [
     [
       { text: t.pos, style: "th" },
@@ -133,7 +139,7 @@ export function renderInvoicePdf(args: {
   ];
 
   // Steuer je Satz ausweisen ist Pflicht – auch wenn es wie hier nur einer ist.
-  const totalsBody = [
+    const totalsBody = [
     [{ text: t.total_net }, { text: money(data.total_net), alignment: "right" }],
     ...data.tax_groups.map((g) => [
       { text: `${t.vat_at} ${g.rate} % ${t.vat} ${t.vat_on} ${money(g.net)}` },
@@ -143,6 +149,20 @@ export function renderInvoicePdf(args: {
       { text: t.total_gross, bold: true },
       { text: money(data.total_gross), bold: true, alignment: "right" },
     ],
+    // Geschenkkarten werden vom Gesamtbetrag abgezogen – sie sind eine
+    // Zahlung, kein Rabatt. Danach der Betrag, der noch offen ist.
+    ...giftCardPayments.map((p) => [
+      { text: `${t.less_gift_card} ${p.code}` },
+      // Negativ formatieren lassen statt selbst ein Minus davorzusetzen:
+      // Das typografische Minus (−) fehlt in der eingebauten Helvetica.
+      { text: money(-p.amount), alignment: "right" },
+    ]),
+    ...(giftCardPayments.length > 0
+      ? [[
+          { text: t.amount_due, bold: true },
+          { text: money(amountDue), bold: true, alignment: "right" },
+        ]]
+      : []),
   ];
 
   const sellerFooter = [
@@ -292,12 +312,13 @@ export function renderInvoicePdf(args: {
       // Hinweis auf die Erstattung, und keine Bankverbindung.
       ...(isCorrection
         ? [{ margin: [0, 24, 0, 0], text: t.refund_note }]
-        : paidAt
-          ? [{ margin: [0, 24, 0, 0], text: t.paid_note.replace("{date}", day(paidAt)) }]
-          : [{ margin: [0, 24, 0, 0], text: `${t.payment_terms} ${day(dueDate)}.` }]),
+        : fullyPaidByGiftCard
+          ? [{ margin: [0, 24, 0, 0], text: t.paid_by_gift_card_note }]
+          : paidAt
+            ? [{ margin: [0, 24, 0, 0], text: t.paid_note.replace("{date}", day(paidAt)) }]
+            : [{ margin: [0, 24, 0, 0], text: `${t.payment_terms} ${day(dueDate)}.` }]),
 
-      ...(!isCorrection && !paidAt && bankLines.length
-
+      ...(!isCorrection && !paidAt && !fullyPaidByGiftCard && bankLines.length
         ? [{
             margin: [0, 14, 0, 0],
             stack: [

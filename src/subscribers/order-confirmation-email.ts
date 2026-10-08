@@ -75,7 +75,8 @@ export default async function orderConfirmationEmailSubscriber({
   );
 
   let paymentSection = "";
-  if (usesPrepayment && md.bank_iban) {
+    // Bei 0 € (alles per Geschenkkarte bezahlt) gibt es nichts zu überweisen.
+  if (usesPrepayment && md.bank_iban && Number(order.total ?? 0) > 0.005) {
     paymentSection = interpolate(tpl.prepayment_section || "", {
       total: totalText,
       reference,

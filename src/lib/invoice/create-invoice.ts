@@ -22,6 +22,8 @@ export const INVOICE_ORDER_FIELDS = [
   "customer.metadata",
   // Für "bereits beglichen am …": Wann wurde die Zahlung erfasst?
   "payment_collections.payments.captured_at",
+  // Mit Geschenkkarte bezahlte Beträge (Gutschriften der Bestellung).
+  "credit_lines.*",
   "items.*",
   "items.tax_lines.*",
   "shipping_methods.*",

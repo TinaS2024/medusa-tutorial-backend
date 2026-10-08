@@ -1,5 +1,6 @@
 import { contentLanguage, langToLocale, type Lang } from "../language";
 import { readCustomerNumber } from "../customer-number";
+import { GIFT_CARD_CREDIT_REFERENCE } from "../gift-card";
 
 /**
  * Der Name bleibt, damit texts.ts und alles Weitere unverändert läuft –
@@ -77,6 +78,12 @@ export type InvoiceData = {
   // Gesetzt → "bereits beglichen", sonst Zahlungsziel und Bankverbindung.
   // Als Text statt Date, weil die Daten als JSON im Schnappschuss landen.
   paid_at?: string | null;
+  // Mit Geschenkkarte bezahlte Beträge, Code gekürzt. Eine Geschenkkarte
+  // (Mehrzweckgutschein) ist eine ZAHLUNG – der Gesamtbetrag bleibt deshalb
+  // der volle Warenwert, die Karte wird darunter abgezogen.
+  gift_card_payments?: { code: string; amount: number }[];
+  // Was nach Abzug der Geschenkkarten noch zu zahlen ist.
+  amount_due?: number;
   footer_note: string | null;
   bank: InvoiceBank;
 };
@@ -219,6 +226,22 @@ export function buildInvoiceData(args: {
     .sort();
   const paid_at = capturedDates[0] ?? null;
 
+    const gift_card_payments = (order.credit_lines ?? [])
+    .filter((line: any) => line?.reference === GIFT_CARD_CREDIT_REFERENCE)
+    .map((line: any) => {
+      const code = typeof line.metadata?.code === "string" ? line.metadata.code : "";
+      return {
+        // Gekürzt: Die Karte kann noch Restguthaben haben, und Rechnungen
+        // werden weitergegeben (Buchhaltung, Kollegen …).
+        code: code.length > 4 ? `GK-…-${code.slice(-4)}` : code,
+        amount: round2(toAmount(line.amount)),
+      };
+    });
+
+  const total_gross = round2(total_net + total_tax);
+  const giftCardTotal = round2(gift_card_payments.reduce((sum: number, p: { amount: number }) => sum + p.amount, 0));
+  const amount_due = round2(Math.max(0, total_gross - giftCardTotal));
+
   const billing = order.billing_address ?? order.shipping_address ?? null;
   // Sprache der Bestellung, sonst Hauptsprache des Shops.
   const language = contentLanguage(order.locale, md);
@@ -261,10 +284,12 @@ export function buildInvoiceData(args: {
     tax_groups,
     total_net,
     total_tax,
-    total_gross: round2(total_net + total_tax),
+    total_gross,
 
     payment_terms_days: Number(md.invoice_payment_terms_days ?? 14),
     paid_at,
+    gift_card_payments,
+    amount_due,
     footer_note: toTextOrNull(md.invoice_footer_note),
 
     bank: {
@@ -300,5 +325,9 @@ export function negateInvoiceData(data: InvoiceData): InvoiceData {
     total_net: -data.total_net,
     total_tax: -data.total_tax,
     total_gross: -data.total_gross,
+    // Auf Storno und Korrektur keine Geschenkkarten-Zeilen: Die Erstattung
+    // läuft über den Admin (Guthaben zurück auf die Karte), nicht übers PDF.
+    gift_card_payments: [],
+    amount_due: undefined,
   };
 }
