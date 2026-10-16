@@ -9,6 +9,7 @@ import { updateProductsWorkflow } from "@medusajs/medusa/core-flows";
  *   npx medusa exec ./src/scripts/set-colop-status.ts veroeffentlichen alle probelauf
  *   npx medusa exec ./src/scripts/set-colop-status.ts veroeffentlichen alle
  *   npx medusa exec ./src/scripts/set-colop-status.ts entwurf kissen
+ *   npx medusa exec ./src/scripts/set-colop-status.ts veroeffentlichen stempel trodat probelauf
  *
  * 1. Wort: veroeffentlichen | entwurf
  * 2. Wort: stempel | kissen | alle
@@ -21,6 +22,9 @@ export default async function setColopStatus({ container, args }: { container: a
 
   const [action, group = "alle"] = args ?? [];
   const dryRun = (args ?? []).includes("probelauf");
+
+  // Mit dem Wort "trodat" beim Aufruf gilt das Skript für Trodat statt COLOP.
+  const manufacturer = (args ?? []).includes("trodat") ? "Trodat" : "COLOP";
 
   const status =
     action === "veroeffentlichen" ? ProductStatus.PUBLISHED :
@@ -42,7 +46,7 @@ export default async function setColopStatus({ container, args }: { container: a
 
   // Kissen erkennt man an pad_type (aus import-colop-pads.ts), Stempel am Fehlen davon.
   const selected = products.filter((p: any) => {
-    if (p.metadata?.manufacturer !== "COLOP") return false;
+    if (p.metadata?.manufacturer !== manufacturer) return false;
     const isPad = !!p.metadata?.pad_type;
     if (group === "stempel") return !isPad;
     if (group === "kissen") return isPad;
@@ -52,7 +56,7 @@ export default async function setColopStatus({ container, args }: { container: a
   const toChange = selected.filter((p: any) => p.status !== status);
 
   logger.info(
-    `[colop-status] ${selected.length} COLOP-Produkt(e) in "${group}", ` +
+      `[colop-status] ${selected.length} ${manufacturer}-Produkt(e) in "${group}", ` +
       `${toChange.length} davon werden auf "${status}" gestellt` +
       `${dryRun ? " – PROBELAUF, es wird nichts geändert" : ""}.`
   );
