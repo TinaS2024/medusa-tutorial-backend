@@ -14,7 +14,9 @@ type DesignerFormType = {
   has_emboss: boolean,
   cushion_color_option: string,
   designer_shape?: string,
-  designer_category?: string
+  designer_category?: string,
+  // Sperrflächen für Datumstempel (mm ab linker oberer Plattenecke), sonst leer
+  date_windows: unknown[]
 }
 const firstString = (value: unknown): string | undefined => {
   if (typeof value === "string" && value.trim()) return value;
@@ -301,6 +303,7 @@ export async function GET(req: MedusaRequest, res: MedusaResponse<DesignerFormTy
         cushion_color_option: cushionColorOption,
         designer_shape: firstString(variantMeta.designer_shape) ?? firstString(metadata.designer_shape),
         designer_category: firstString(variantMeta.designer_category) ?? firstString(metadata.designer_category),
+        date_windows: Array.isArray(variantMeta.date_windows) ? variantMeta.date_windows : [],
       });
     }
   }
