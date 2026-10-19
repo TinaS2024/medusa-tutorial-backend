@@ -35,8 +35,8 @@ export const toHandle = (text: string) =>
     .replace(/[^a-z0-9]+/g, "-")
     .replace(/^-+|-+$/g, "");
 
-/** Form aus dem Katalog -> Form im Designer ("rect" oder "circle"). */
-const toDesignerShape = (shape: string) => (shape === "round" ? "circle" : "rect");
+/** Form aus dem Katalog -> Form im Designer ("rect" oder "round"). */
+const toDesignerShape = (shape: string) => (shape === "round" ? "round" : "rect");
 
 /**
  * Legt die Stempel aus dem COLOP-Katalog in Medusa an.

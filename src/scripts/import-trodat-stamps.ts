@@ -15,7 +15,7 @@ type TrodatModel = {
   page: string;
   width: number;
   height: number;
-  shape: "rect" | "circle" | "ellipse";
+  shape: "rect" | "round" | "oval";
   pad: string;
   designerCategory: string;
 };
@@ -30,9 +30,12 @@ const toNumber = (text: string | undefined) => {
 };
 
 
-/** Form aus der Tabelle -> Form im Designer; Unbekanntes wird zum Rechteck. */
-const toShape = (text: string | undefined): TrodatModel["shape"] =>
-  text === "circle" || text === "ellipse" ? text : "rect";
+/** Form aus der Tabelle -> Form im Designer ("rect", "round" oder "oval"); Unbekanntes wird zum Rechteck. */
+const toShape = (text: string | undefined): TrodatModel["shape"] => {
+  if (text === "circle") return "round";
+  if (text === "ellipse") return "oval";
+  return "rect";
+};
 
 
 /**
